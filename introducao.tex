@@ -1,0 +1,55 @@
+% !TEX root = main.tex
+
+\chapter{Introdução}
+
+A Plataforma Lattes, criada e mantida pela CNPq (Conselho Nacional de Desenvolvimento Científico e Tecnológico), é um sistema de informação responsável pela integração da base de dados de currículos, grupos de pesquisa e instituições. O Currículo Lattes se tornou o padrão nacional no registro da vida científica de estudantes e professores e é hoje adotada por institutos e universidades de todo o país. \cite{CNPQ-Sobre}
+
+No Currículo Lattes é possível a inserção de dados gerais do pesquisador, produção bibliográfica, orientações, citações, entre outros dados. No módulo Produção Bibliográfica, por exemplo, é possível a inserção de artigos publicados ou aceitos para publicação em periódicos indexados pelo ISSN. (CNPQ, 2015)
+
+A classificação da qualidade da produção intelectual é realizada pela CAPES (Coordenação de Aperfeiçoamento de Pessoal de Nível Superior) através de um conjunto de procedimentos denominado Qualis. O Qualis afere a qualidade de artigos e outras produções a partir da análise da qualidade dos veículos de divulgação, ou seja, periódicos científicos. Esta classificação é realizada pelas áreas de avaliação em um processo anual de atualização, sendo os veículos enquadrados em estratos indicativos de qualidade (A1 - o mais elevado; A2; A3; B1; B2; B3; B4; B5; C - com peso zero. (CAPES, 2014)
+
+Apesar da Plataforma Lattes possuir um módulo de inclusão de publicações e permitir a definição do veículo onde este foi publicado, não há qualquer tipo de conexão entre os sistemas Lattes e Qualis, ou seja, o processo de avaliação de uma publicação (que é feita através da avaliação do veículo onde este foi publicado) era realizado de forma manual.
+
+O Sistema de Integração Lattes Qualis (SILQ) surgiu no ano de 2015, desenvolvido como Trabalho de Conclusão de Curso dos alunos Felipe Nedel Mendes de Aguiar e Maria Eloísa Costa do curso de Ciência da Computação da Universidade Federal de Santa Catarina (UFSC). Orientados pela Prof. Carina F. Dorneles, da mesma instituição, o objetivo do sistema é a classificação automática de produções científicas do currículo Lattes do pesquisador, no quesito artigos e participações de conferências, através de busca de similaridade de dados extraídos do WebQualis, a partir de uma interface web amigável. (AGUIAR, 2015, p. 26-27)
+
+A primeira versão do sistema foi finalizada no primeiro semestre de 2015 e encontra-se disponível de forma pública e gratuita através do endereço http://silq.inf.ufsc.br/.
+
+A primeira versão do SILQ, no entanto, possui em seu banco de dados de eventos e periódicos extraídos do Qualis apenas dados referentes ao triênio 2010-2012, já que, até metade de 2015, o Qualis realizava classificações de forma trienal. No momento de escrita desta proposta, no entanto, o Qualis alterou seu modus operandi para classificações anuais, já disponibilizando dados referentes aos anos 2013 e 2014, que ainda não estão na base de dados SILQ.
+
+Outra questão relacionada à primeira versão do SILQ é a falta de alguns recursos que poderiam facilitar o processo de avaliação e acompanhamento de currículos, como gráficos de classificações dentro de grupos de pesquisa. Outra característica importante seria a capacidade de integração com outros sistemas, facilitando o reuso do serviço disponibilizado pelo SILQ em trabalhos futuros.
+
+A proposta deste trabalho, portanto, é a criação de uma segunda versão do SILQ, desenvolvida a partir do código existente da primeira, a fim de realizar as mudanças sugeridas acima, junto com a atualização da base de dados e arquitetura do sistema para a inclusão das novas qualificações Qualis em um ritmo anual.
+
+\section{Objetivos}
+
+O objetivo geral deste trabalho é a reestruturação arquitetural do Sistema de Integração Lattes-Qualis (SILQ) de forma a permitir a inclusão de melhorias de usabilidade, API de integração com outros sistemas e atualização da base de dados conforme novas classificações disponibilizadas pelo Qualis, bem como um estudo de impacto do desempenho do sistema após a inclusão destes novos registros.
+
+Como objetivos específicos, é possível citar:
+
+\begin{itemize}
+    \item Reestruturação da arquitetura e banco de dados do SILQ a fim de suportar classificações de eventos e periódicos disponibilizados em um ritmo anual;
+
+    \item Atualização do banco de dados do sistema com as últimas classificações disponibilizadas pelo Qualis (anos 2013 e 2014);
+
+    \item Estudo de impacto de desempenho do sistema após a reestruturação do banco de dados e inclusão das novas classificações Qualis;
+
+    \item Criação de uma API pública de disponibilização dos serviços do SILQ, via camada de aplicação REST para integração com outros sitemas;
+
+    \item Alterações na interface do sistema incluindo migração de framework de interface, novos gráficos de acompanhamento de grupos de pesquisa e pesquisadores;
+
+    \item Melhorias gerais: geração de tabela excel a partir de qualificações, recuperação de senhas para usuários cadastrados, melhorar a precisão da comparação por similaridade, levantamento de produção por veículo de publicação.
+\end{itemize}
+
+\section{Procedimentos Metodológicos}
+
+A primeira etapa do trabalho envolverá a migração tecnológica da camada de interface e desacoplamento entre server e client side. Para isto, serão utilizadas práticas ágeis de desenvolvimento de software  incluindo desenvolvimento orientado a testes e eventuais modelagens lógicas de arquitetura  de sistema usando práticas da Engenharia de Software.
+
+A segunda etapa, a de migração de base de dados e estudo de impacto terá um caráter mais exploratório e quantitativo: pretende-se analisar o desempenho do sistema sob diferentes modelos lógicos de banco de dados e coletar dados pertinentes que levem à escolha de um modelo em detrimento do outro.
+
+Os softwares que serão utilizados em todas as etapas do trabalho são do tipo software livre, incluindo IDE de desenvolvimento, banco de dados e servidor de aplicação. Para a publicação da versão final do sistema continuará a ser utilizado os servidores e domínio da UFSC, onde a primeira versão do SILQ já encontra-se publicado.
+
+Os recursos físicos e ambientes de trabalho utilizados no processo de desenvolvimento deste trabalho serão todos de posse pessoal do autor.
+
+\begin{citacao}
+Este é um exemplo de citação. Só utilize este ambiente se a sua citaç?o tiver mais de 3 linhas.
+\end{citacao}
