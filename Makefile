@@ -11,5 +11,5 @@ $(TARGET).pdf: $(TARGET).tex
 	$(LATEX) $< -o $@
 
 clean:
-	rm -f *.toc *.lof *.lot *.bbl *.blg *.log *.aux *.las *.lsb
+	rm -f *.fls *.fdb* *.synctex.gz *.toc *.lof *.lot *.bbl *.blg *.log *.aux *.las *.lsb
 	rm -f $(TARGET).pdf
