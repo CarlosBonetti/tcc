@@ -4,19 +4,39 @@
 
 Neste capítulo serão feitas uma breve descrição e conceituação básica do processo de produção e avaliação científica no Brasil, com o objetivo de familiarizar o leitor com a problemática envolvida neste processo e o que o SILQ propôs para automatizá-lo. Também serão introduzidos os conceitos tecnológicos e computacionais que de alguma forma foram explorados pelo sistema para chegar a este objetivo.
 
-Esta revisão de literatura, porém, não será exaustiva ao ponto de revisitar os mesmos assuntos abordados no trabalho original de \cite{Silq1} (\citeyear{Silq1}) e focará somente nos pontos onde este novo trabalho divergiu. Alguns assuntos, entretanto, foram expostos novamente com o intuito de facilitar o processo de entendimento deste artigo como um trabalho independente. É o caso, por exemplo, das seções relacionadas aos Qualis, Lattes e das tecnologias base do sistema.
+Esta revisão de literatura, porém, não será exaustiva ao ponto de revisitar os mesmos assuntos abordados no trabalho original de \cite{Silq1} e focará somente nos pontos onde este novo trabalho divergiu. Alguns assuntos fundamentais, entretanto, foram expostos novamente com o intuito de facilitar o processo de entendimento deste artigo como um trabalho independente. É o caso, por exemplo, das seções relacionadas aos Qualis, Lattes e das tecnologias base utilizadas no sistema.
 
 \section{Produção e avaliação científicas no Brasil}
 
-\subsection{CAPES}
+A produção científica é uma das atividades universitárias que cumprem uma função básica dentro das instituições e que merece notável destaque. É através dela que o conhecimento produzido na Universidade é difundido à sociedade, externalizando descobertas para outros pesquisadores e para a própria comunidade. \cite{Crispim}
 
-\afazer{TODO}
+No Brasil, o Ministério de Ciência, Tecnologia e Inovação (MCTI) é o órgão de administração direta que possui, entre sua lista de competências, a política nacional de pesquisa científica, tecnológica e inovação; e o planejamento, coordenação, supervisão e controle das atividades da ciência e tecnologia. \cite{MCTI-Institucional}
+
+Uma das agências subordinadas ao MCTI é o CNPq (Conselho Nacional de Desenvolvimento Científico e Tecnológico), órgão que tem como principais atribuções ``fomentar a pesquisa científica e tecnológica e incentivar a formação de pesquisadores brasileiros'' \cite{CNPq-Institucional}.
+
+Saindo do âmbito somente da produção científica, cabe ao Ministério da Educação (MEC), através de sua fundação subordinada, a CAPES (Coordenação de Aperfeiçoamento de Pessoal de Nível Superior) a avaliação dos programas de pós-graduação das universidades Brasileiras \cite{CAPES-Institucional}. Um dos principais critérios de avaliação se dá pela quantidade e qualidade das produções científicas, através de um conjunto de procedimentos denominado Qualis \cite{CAPES-Classificacao}.
 
 \subsection{Qualis}
 
-\afazer{TODO}
+A classificação da qualidade da produção intelectual é realizada pela CAPES (Coordenação de Aperfeiçoamento de Pessoal de Nível Superior) através de um conjunto de procedimentos denominado Qualis. O Qualis afere a qualidade de artigos e outras produções a partir da análise da qualidade dos veículos de divulgação, ou seja, periódicos científicos. Esta classificação é realizada pelas áreas de avaliação em um processo anual de atualização, sendo os veículos enquadrados em estratos indicativos de qualidade (A1 - o mais elevado; A2; A3; B1; B2; B3; B4; B5; C - com peso zero. \cite{CAPES-Classificacao}
 
-\subsection{Lattes}
+O resultado desta estratificação é uma lista com a classificação dos veículos de publicação utilizados pelos programas de pós-graduação (\textit{journals}, revistas, periódicos etc), separados por área e ano de avaliação (um mesmo veículo tem uma avaliação diferente para cada ano de avaliação e área de conhecimento). Desta forma, a avaliação da qualidade de uma produção de um pesquisador é realizado de forma indireta, atribuindo-se a esta produção o estrato dado àquele veículo onde ela foi publicada.
+
+\begin{citacao}
+Note-se que o mesmo periódico, ao ser classificado em duas ou mais áreas distintas, pode receber diferentes avaliações. Isto não constitui inconsistência, mas expressa o valor atribuído, em cada área, à pertinência do conteúdo veiculado. Por isso, não se pretende com esta classificação que é específica para o processo de avaliação de cada área, definir qualidade de periódicos de forma absoluta.  \cite{CAPES-Classificacao}
+\end{citacao}
+
+Até o final do ano de 2015, como cita o trabalho de \cite[p. 31]{Silq1}, os dados os resultados das avaliações Qualis encontravam-se estruturados em documentos no formado PDF e XLS. Também encontravam-se disponível apenas dados referentes ao triênio de 2010-2012. No início do ano de 2016, porém, a Qualis alterou seu modo de operação e passou a realizar avaliações anuais, já disponibilizando os novos dados de 2013 e 2014, junto com os antigos, em formato CSV\footnote{Comma-separated values} através do WebQualis\footnote{\url{http://qualis.capes.gov.br/webqualis/}} (Hoje plataforma Sucupira).
+
+\begin{figure}[!h]
+   \centering
+   \caption{Exemplo de conjunto de dados do Qualis 2014.}
+   \includegraphics[width=\textwidth]{figuras/qualis_exemplo.png}
+\end{figure}
+
+\afazer{Fazer um gancho para o objetivo aqui?}
+
+\subsection{A Plataforma Lattes}
 
 \afazer{TODO}
 
