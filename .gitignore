@@ -1,3 +1,6 @@
+# Project specific ignores:
+utf8/
+
 *.las
 *.lsb
 
