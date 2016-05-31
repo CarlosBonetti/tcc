@@ -14,7 +14,7 @@ No Brasil, o Ministério de Ciência, Tecnologia e Inovação (MCTI) é o órgão de ad
 
 Uma das agências subordinadas ao MCTI é o CNPq (Conselho Nacional de Desenvolvimento Científico e Tecnológico), órgão que tem como principais atribuções ``fomentar a pesquisa científica e tecnológica e incentivar a formação de pesquisadores brasileiros'' \cite{CNPq-Institucional}.
 
-Saindo do âmbito somente da produção científica, cabe ao Ministério da Educação (MEC), através de sua fundação subordinada, a CAPES (Coordenação de Aperfeiçoamento de Pessoal de Nível Superior) a avaliação dos programas de pós-graduação das universidades Brasileiras \cite{CAPES-Institucional}. Um dos principais critérios de avaliação se dá pela quantidade e qualidade das produções científicas, através de um conjunto de procedimentos denominado Qualis \cite{CAPES-Classificacao}.
+Analisando não só a produção científica, cabe ao Ministério da Educação (MEC), através de sua fundação subordinada, a CAPES (Coordenação de Aperfeiçoamento de Pessoal de Nível Superior) a avaliação dos programas de pós-graduação das universidades Brasileiras \cite{CAPES-Institucional}. Um dos principais critérios de avaliação se dá pela quantidade e qualidade das produções científicas, através de um conjunto de procedimentos denominado Qualis \cite{CAPES-Classificacao}.
 
 \subsection{Qualis}
 
@@ -34,14 +34,20 @@ Até o final do ano de 2015, como cita o trabalho de \cite[p. 31]{Silq1}, os dado
    \includegraphics[width=\textwidth]{figuras/qualis_exemplo.png}
 \end{figure}
 
-\afazer{Fazer um gancho para o objetivo aqui?}
-
 \subsection{A Plataforma Lattes}
 
-\afazer{TODO}
+Desde a década de 80 notava-se a necessidade de um formulário padrão para registro dos currículos de pesquisadores brasileiros que possibilitasse a busca e seleção de especialistas bem como a geração de um mapa sobre a distribuição da pesquisa científica no Brasil. Em 1999, o CNPq lançou a Plataforma Lattes\footnote{\url{http://lattes.cnpq.br/}}, um sistema de informação para registro e consulta de currículos acadêmicos, e padronizou o Currículo Lattes como o formulário de currículo a ser utilizado no âmbito do Ministério da Ciência e Tecnologia e CNPq. \cite{CNPQ-Historico,CNPQ-Sobre}
+
+Entre os dados contidos em um currículo Lattes, estão os dados gerais do pesquisador, produção bibliográfica, orientações, citações, formação acadêmica, etc. No módulo Produção Bibliográfica, por exemplo, é possível a inserção de artigos publicados em periódicos indexados pelo ISSN\footnote{International Standard Serial Number}, livros e capítulos, textos em jornais ou revistas, trabalhos publicados em anais de eventos, entre outras formas de produções \cite{CNPQ-Ajuda}. Estes dados de publicações seriam usados pela primeira versão do SILQ \cite{Silq1} para a avaliação automática de currículos.
+
+A Plataforma Lattes, além de apresentar seus currículos através de uma interface web usando HTML, também disponibiliza os dados em formato XML\footnote{Extensible Markup Language}, uma linguagem de marcação semi-estruturada legível por humanos e máquinas \cite[p. 34]{Silq1}. Foi este o formato utilizado pelo SILQ para a extração dos dados Lattes de um pesquisador, conforme relatado em \cite{Silq1}.
 
 \section{TODO: conceitos computacionais}
 
 \afazer{REST, API de Integração}
 
 \afazer{XML - XPATH - Extração}
+
+Trabalhos correlatos:
+
+http://qualis.renesp.com.br/index.php
