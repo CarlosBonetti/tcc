@@ -4,14 +4,84 @@
 
 \afazer{Texto introdudório explicando do que este capítulo tratará.}
 
-\section{Visão geral da primeira versão do sistema}
+\section{Visão geral da primeira versão do sistema ??}
 
-Falar da arquitetura antiga e porque ela foi alterada.
+\afazer{TODO}
 
-Citar seção ``Trabalhos Futuros" do SILQ original.
+\section{SILQ 2}
+
+Visão geral da nova arquitetura. O que mudou. Por que mudou.
 
 Figurinha da nova Arquitetura. Seção com descrição superficial das tecnologias e ferramentas.
 
 Novo esquema do banco de dados.
 
-Como os novos dados Qualis foram inseridos?
+\subsection{Extração e inserção dos novos dados Qualis}
+
+Processo realizado para normalização e inserção dos novos dados do qualis.
+
+\subsection{?? ``Trabalhos Futuros" do SILQ original}
+
+\subsubsection{Controle de persistência e transações}
+
+\begin{citacao}
+definir um novo container de execução para automatizar o uso de uma API de persistência. No momento, as transações são controladas de forma manual; \cite[p. 79]{Silq1}
+\end{citacao}
+
+\afazer{Obtido com Spring.}
+
+\subsubsection{Automatização da atualização dos dados Qualis}
+
+\begin{citacao}
+as publicações periódicas dos documentos de avaliação do WebQualis levam à necessidade de atualizar o banco de dados periodicamente. A construção de uma funcionalidade automatizada é pertinente; \cite[p. 79]{Silq1}
+\end{citacao}
+
+\afazer{Atualização manual dos dados Qualis. Automatização será realizado até o final do trabalho (?)}
+
+\subsubsection{\textit{Fine-tuning} da função de similaridade}
+
+\begin{citacao}
+desenvolvimento de uma nova função de similaridade ou novos procedimentos de cálculo de similaridades. Foram testadas funções já bem conhecidas pela comunidade científica, com testes concretos para levantar qual delas é a mais indicada no escopo da ferramenta. Porém, é possível que se alcance resultados melhores utilizando uma combinação de funções, ou até mesmo criando uma nova especificamente para o cálculo de similaridade de nomes de periódicos e conferências; \cite[p. 79]{Silq1}
+\end{citacao}
+
+\afazer{Não abordado.}
+
+\subsubsection{Considerar outras informações do pesquisador}
+
+\begin{citacao}
+levantamento das outras informações contidas no currículo, como o desempenho do pesquisador antes de ser incluído em um grupo de pós-graduação ou a quantidade e a qualidade de outras atividade acadêmicas; \cite[p. 79]{Silq1}
+\end{citacao}
+
+\afazer{Não abordado.}
+
+\subsubsection{Relação entre orientações e produções associadas}
+
+\begin{citacao}
+levantamento da relação entre as atividades de orientação,   como bolsas de iniciação científica, e as produções acadêmicas associadas; \cite[p. 80]{Silq1}
+\end{citacao}
+
+\afazer{Não abordado.}
+
+\subsubsection{Busca por informações de eventos}
+
+\begin{citacao}
+expansão do módulo da busca por informações de eventos. A complexidade do tema impediu o desenvolvimento completo desse módulo na ferramenta SILQ. Procedimentos automáticos de busca utilizando-se web crawlers e o tratamento correto dessas informações fornecem muitos temas para desenvolvimento de módulos novos; \cite[p. 80]{Silq1}
+\end{citacao}
+
+\afazer{Não abordado. Qualis Evento 2015 ?}
+
+\subsubsection{Feedback do usuário}
+
+\begin{citacao}
+permitir que o usuário auxilie a ferramenta na qualificação, ou seja, no caso dele observar algum matching errado, ele próprio pode sugerir o matching correto; \cite[p. 80]{Silq1}
+\end{citacao}
+
+\afazer{Será realizado.}
+
+\subsubsection{Período de participação em grupo de pesquisa}
+
+\begin{citacao}
+indicar o período em que o professor está vinculado à um programa de pós-graduação, permitindo que as avaliações dos currículos também possam ser realizadas considerando-se apenas os períodos nos quais o pesqisador estava vinculado à esse programa. \cite[p. 80]{Silq1}
+\end{citacao}
+
+\afazer{Não abordado.}
