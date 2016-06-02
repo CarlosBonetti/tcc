@@ -22,7 +22,7 @@ Na seção de ``Conclusões e Tabalhos Futuros" do artigo original, \cite{Silq1} di
 definir um novo container de execução para automatizar o uso de uma API de persistência. No momento, as transações são controladas de forma manual; \cite[p. 79]{Silq1}
 \end{citacao}
 
-\afazer{Obtido com Spring. Referenciar seção da arquitetura do novo sistema.}
+Esta melhoria trata-se de um detalhe de implementação do SILQ-1 que, devido à sua arquitetura, forçava a criação e gerenciamento manual de transações ao realizar acessos ao banco de dados. A automatização desta tarefa foi rapidamente alcançada no SILQ-2 com a utilização do \textit{Spring Framework}, conforme será relatado na seção \ref{sec:arquitetura-silq-2}.
 
 \subsubsection{Automatização da atualização dos dados Qualis}
 
@@ -85,7 +85,23 @@ indicar o período em que o professor está vinculado à um programa de pós-graduaç
 
 \section{SILQ 2}
 
-\subsection{Visão geral da nova arquitetura}
+É possível aumentar a acurácia de um sistema (de recomendação/avaliação) baseado em algoritmo de similaridade utilizando feedback do usuário?
+
+Qual o Threshold (nível de similaridade) ideal para o SILQ?
+
+Bryan B, Schneider J, Nichol R, Miller C, Genovese C, Wasserman L (2006) Active learning for identi-
+fying function threshold boundaries. Advances in neural information processing systems (NIPS). MIT
+Press
+
+Stasiu RK, Heuser CA, Silva R (2005) Estimating recall and precision for vague queries in databases. In:
+Proceedings of the 17th international conference advanced information systems engineering (CAISE),
+pp 187?200
+
+Zhao H (2008) Instance weighting versus threshold adjusting for cost-sensitive classification. Knowl Inf
+Syst 15(3):321?334
+
+
+\subsection{Visão geral da nova arquitetura} \label{sec:arquitetura-silq-2}
 
 O que mudou. Por que mudou. Figurinha da nova Arquitetura. Seção com descrição superficial das tecnologias e ferramentas.
 
