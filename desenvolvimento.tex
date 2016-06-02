@@ -2,25 +2,19 @@
 
 \chapter{O Sistema de Integração Lattes-Qualis (SILQ)}
 
-\afazer{Texto introdudório explicando do que este capítulo tratará.}
+O presente trabalho é uma continuação dos esforços iniciados por \cite{Silq1}. Neste capítulo, portanto, será apresentado o histórico do trabalho original, os motivos que levaram ao desenvolvimento de um novo trabalho para sua continuação, comparações do que foi de fato alterado no sistema e por que estas alterações foram necessárias.
 
-\section{Visão geral da primeira versão do sistema ??}
+Para mais fácil compreensão e contextualização, durante o texto serão utilizados os termos ``trabalho original", ``artigo original", ``SILQ-1" ou ainda ``primeira versão do sistema" ou sinônimos para referir-se ao trabalho de \cite{Silq1}. Em contrapartida, os termos, ``SILQ-2", ``nova versão do sistema" e derivados referem-se a este trabalho.
 
-\afazer{TODO}
+\section{Histório e Visão Geral do SILQ-1}
 
-\section{SILQ 2}
+Este trabalho é uma continuação de \cite{Silq1}, um Trabalho de Conclusão de Curso de alunos do curso de Ciência da Computação da UFSC, orientados pela Professora Carina F. Dorneles. O objetivo deste trabalho de 2015 era a criação de um sistema que deveria ser capaz de ``qualificar produções científicas, no quesito artigos e participações em conferências, por busca por similaridade de dados com os dados extraídos do WebQualis" \cite[p. 26-27]{Silq1}. Este objetivo foi alcançado com a criação da primeira versão do Sistema de Integração Lattes-Qualis (SILQ), lançado no segundo semestre de 2015 e disponível no sítio \url{http://silq.inf.ufsc.br/}.
 
-Visão geral da nova arquitetura. O que mudou. Por que mudou.
+Apesar de estável e com sua função principal sendo desempenhada de forma satisfatória, o SILQ-1 deixou algumas lacunas e melhorias a serem desenvolvidas por trabalhos futuros. Segundo os próprios autores, ``[...] o SILQ foi concebido para ser uma ferramenta de domínio público e vários projetos devem nascer a partir dele. A continuidade do projeto só tem a acrescentar ao mundo acadêmico [...]" \cite[p. 79]{Silq1}, o que motivou a criação deste trabalho para a continuação do projeto original. O ponto de partida deste trabalho, portanto, foi a seção ``Trabalhos futuros" do artigo original.
 
-Figurinha da nova Arquitetura. Seção com descrição superficial das tecnologias e ferramentas.
+\subsection{``Trabalhos futuros" citados pelo SILQ-1}
 
-Novo esquema do banco de dados.
-
-\subsection{Extração e inserção dos novos dados Qualis}
-
-Processo realizado para normalização e inserção dos novos dados do qualis.
-
-\subsection{?? ``Trabalhos Futuros" do SILQ original}
+Na seção de ``Conclusões e Tabalhos Futuros" do artigo original, \cite{Silq1} dizem que ``Como trabalhos futuros, podem-se visualizar muitos pontos de melhoria", e citam 8 itens de melhoria que poderiam ser revisitados por trabalhos futuros. Cada um destes itens está exposto nas próximas subseções junto uma explicação de quais foram as atitudes tomadas por este trabalho para resolvê-las.
 
 \subsubsection{Controle de persistência e transações}
 
@@ -28,7 +22,7 @@ Processo realizado para normalização e inserção dos novos dados do qualis.
 definir um novo container de execução para automatizar o uso de uma API de persistência. No momento, as transações são controladas de forma manual; \cite[p. 79]{Silq1}
 \end{citacao}
 
-\afazer{Obtido com Spring.}
+\afazer{Obtido com Spring. Referenciar seção da arquitetura do novo sistema.}
 
 \subsubsection{Automatização da atualização dos dados Qualis}
 
@@ -36,7 +30,9 @@ definir um novo container de execução para automatizar o uso de uma API de persi
 as publicações periódicas dos documentos de avaliação do WebQualis levam à necessidade de atualizar o banco de dados periodicamente. A construção de uma funcionalidade automatizada é pertinente; \cite[p. 79]{Silq1}
 \end{citacao}
 
-\afazer{Atualização manual dos dados Qualis. Automatização será realizado até o final do trabalho (?)}
+Os dados Qualis utilizados pelo sistema para realizar a avaliação de currículos são atualmente inseridos de forma manual. Na segunda etapa deste trabalho será incluído um módulo no sistema onde administradores poderão fazer \textit{upload} de novos dados Qualis, conforme eles forem sendo divulgados e assim não necessitando inserí-los de forma manual no banco de dados.
+
+Os dados Qualis 2014 e 2015, divulgados somente no ano de 2016, entretanto, já foram inseridos de forma manual no banco de dados do SILQ-2, passando por um processo de normalização descrito na seção \ref{sec:extracao-qualis-novo}.
 
 \subsubsection{\textit{Fine-tuning} da função de similaridade}
 
@@ -85,3 +81,16 @@ indicar o período em que o professor está vinculado à um programa de pós-graduaç
 \end{citacao}
 
 \afazer{Não abordado.}
+
+
+\section{SILQ 2}
+
+\subsection{Visão geral da nova arquitetura}
+
+O que mudou. Por que mudou. Figurinha da nova Arquitetura. Seção com descrição superficial das tecnologias e ferramentas.
+
+Novo esquema do banco de dados.
+
+\subsection{Extração e inserção dos novos dados Qualis} \label{sec:extracao-qualis-novo}
+
+Processo realizado para normalização e inserção dos novos dados do qualis.
