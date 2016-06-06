@@ -14,7 +14,7 @@ Apesar de estável e com sua função principal sendo desempenhada de forma satisfa
 
 \subsection{``Trabalhos futuros" citados pelo SILQ-1}
 
-Na seção de ``Conclusões e Tabalhos Futuros" do artigo original, \cite{Silq1} dizem que ``Como trabalhos futuros, podem-se visualizar muitos pontos de melhoria", e citam 8 itens de melhoria que poderiam ser revisitados por trabalhos futuros. Cada um destes itens está exposto nas próximas subseções junto uma explicação de quais foram as atitudes tomadas por este trabalho para resolvê-las.
+Na seção de ``Conclusões e Tabalhos Futuros" do artigo original, \cite{Silq1} citam 8 itens de melhoria que poderiam ser revisitados por trabalhos futuros. Cada um destes itens está exposto nas próximas subseções junto uma explicação de quais foram as atitudes tomadas por este trabalho para resolvê-las.
 
 \subsubsection{Controle de persistência e transações}
 
@@ -32,7 +32,7 @@ as publicações periódicas dos documentos de avaliação do WebQualis levam à neces
 
 Os dados Qualis utilizados pelo sistema para realizar a avaliação de currículos são atualmente inseridos de forma manual. Na segunda etapa deste trabalho será incluído um módulo no sistema onde administradores poderão fazer \textit{upload} de novos dados Qualis, conforme eles forem sendo divulgados e assim não necessitando inserí-los de forma manual no banco de dados.
 
-Os dados Qualis 2014 e 2015, divulgados somente no ano de 2016, entretanto, já foram inseridos de forma manual no banco de dados do SILQ-2, passando por um processo de normalização descrito na seção \ref{sec:extracao-qualis-novo}.
+Os dados Qualis 2014 e 2015, divulgados somente no ano de 2016, entretanto, já foram inseridos de forma manual no banco de dados do SILQ-2, passando por um processo de limpeza de dados descrito na seção \ref{sec:extracao-qualis-novo}.
 
 \subsubsection{\textit{Fine-tuning} da função de similaridade}
 
@@ -40,7 +40,7 @@ Os dados Qualis 2014 e 2015, divulgados somente no ano de 2016, entretanto, já f
 desenvolvimento de uma nova função de similaridade ou novos procedimentos de cálculo de similaridades. Foram testadas funções já bem conhecidas pela comunidade científica, com testes concretos para levantar qual delas é a mais indicada no escopo da ferramenta. Porém, é possível que se alcance resultados melhores utilizando uma combinação de funções, ou até mesmo criando uma nova especificamente para o cálculo de similaridade de nomes de periódicos e conferências; \cite[p. 79]{Silq1}
 \end{citacao}
 
-\afazer{Não abordado.}
+\afazer{Será realizado (?) - Hipótese}
 
 \subsubsection{Considerar outras informações do pesquisador}
 
@@ -48,7 +48,9 @@ desenvolvimento de uma nova função de similaridade ou novos procedimentos de cál
 levantamento das outras informações contidas no currículo, como o desempenho do pesquisador antes de ser incluído em um grupo de pós-graduação ou a quantidade e a qualidade de outras atividade acadêmicas; \cite[p. 79]{Silq1}
 \end{citacao}
 
-\afazer{Não abordado.}
+Este item envolve o processamento de outras informações contidas no currículo Lattes de um pesquisador e, em um primeiro momento, foge do escopo original do SILQ que é a integração entre o Lattes e o Qualis, utilizando as publicações e informações de onde foram publicadas/apresentadas como item de avaliação.
+
+Por este motivo, este item não foi abordado neste trabalho. Todavia, outros trabalhos de pesquisa relacionados estão paralelamente em desenvolvimento: \afazer{pegar informações dos trabalhos em desenvolvimento aqui.}
 
 \subsubsection{Relação entre orientações e produções associadas}
 
@@ -56,7 +58,7 @@ levantamento das outras informações contidas no currículo, como o desempenho do 
 levantamento da relação entre as atividades de orientação,   como bolsas de iniciação científica, e as produções acadêmicas associadas; \cite[p. 80]{Silq1}
 \end{citacao}
 
-\afazer{Não abordado.}
+Não foi abordado neste trabalho, pelos mesmos motivos do item anterior. Os trabalhos citados acima também relacionam-se com este item.
 
 \subsubsection{Busca por informações de eventos}
 
@@ -64,7 +66,7 @@ levantamento da relação entre as atividades de orientação,   como bolsas de inic
 expansão do módulo da busca por informações de eventos. A complexidade do tema impediu o desenvolvimento completo desse módulo na ferramenta SILQ. Procedimentos automáticos de busca utilizando-se web crawlers e o tratamento correto dessas informações fornecem muitos temas para desenvolvimento de módulos novos; \cite[p. 80]{Silq1}
 \end{citacao}
 
-\afazer{Não abordado. Qualis Evento 2015 ?}
+A inserção de dados do Qualis Eventos\footnote{dados e conceitos relacionados a eventos científicos disponibilizados pela CAPES para algumas áreas específicas} no sistema se dá de forma manual, à medida em que novas informações são disponibilizadas pela CAPES. O objetivo deste item seria a criação de um \textit{web crawler} para captura automática de dados de eventos científicos na web. Devido à complexidade deste tema e por se tratar de um assunto independente, não relacionado com o foco deste trabalho, este item não foi abordado.
 
 \subsubsection{Feedback do usuário}
 
@@ -72,7 +74,7 @@ expansão do módulo da busca por informações de eventos. A complexidade do tema i
 permitir que o usuário auxilie a ferramenta na qualificação, ou seja, no caso dele observar algum matching errado, ele próprio pode sugerir o matching correto; \cite[p. 80]{Silq1}
 \end{citacao}
 
-\afazer{Será realizado.}
+\afazer{Será realizado (?) - Hipótese}
 
 \subsubsection{Período de participação em grupo de pesquisa}
 
@@ -80,33 +82,58 @@ permitir que o usuário auxilie a ferramenta na qualificação, ou seja, no caso de
 indicar o período em que o professor está vinculado à um programa de pós-graduação, permitindo que as avaliações dos currículos também possam ser realizadas considerando-se apenas os períodos nos quais o pesqisador estava vinculado à esse programa. \cite[p. 80]{Silq1}
 \end{citacao}
 
-\afazer{Não abordado.}
-
+\afazer{Será realizado (?). Inclusão do campo período ao incluir pesquisador em um grupo.}
 
 \section{SILQ 2}
 
-É possível aumentar a acurácia de um sistema (de recomendação/avaliação) baseado em algoritmo de similaridade utilizando feedback do usuário?
+\afazer{É possível aumentar a acurácia de um sistema (de recomendação/avaliação) baseado em algoritmo de similaridade utilizando feedback do usuário?}
 
-Qual o Threshold (nível de similaridade) ideal para o SILQ?
+\afazer{Qual o Threshold (nível de similaridade) ideal para o SILQ?}
 
-Bryan B, Schneider J, Nichol R, Miller C, Genovese C, Wasserman L (2006) Active learning for identi-
-fying function threshold boundaries. Advances in neural information processing systems (NIPS). MIT
-Press
+\subsection{Extração e inserção dos novos dados Qualis} \label{sec:extracao-qualis-novo}
 
-Stasiu RK, Heuser CA, Silva R (2005) Estimating recall and precision for vague queries in databases. In:
-Proceedings of the 17th international conference advanced information systems engineering (CAISE),
-pp 187?200
+Os dados Qualis de eventos e periódicos foram extraídos pelo trabalho original a partir de documentos em PDF e planilhas. Como relatado em \cite[p. 50-52]{Silq1}, os dados foram extraídos dos PDFs utilizando bibliotecas para manipulação deste formato e passaram por um processo de limpeza. A partir deste processo, aproximadamente 107 mil tuplas foram criadas representando os períodicos do triênio 2010-2012.
 
-Zhao H (2008) Instance weighting versus threshold adjusting for cost-sensitive classification. Knowl Inf
-Syst 15(3):321?334
+No primeiro semestre do ano de 2016, porém, a CAPES disponibilizou novos dados Qualis referentes ao ano de 2013 e 2014, alterando sua periodicidade de avaliação de trimestral para anual. Estes novos dados foram divulgados em formado CSV, junto com os antigos dados do triênio 2010-2012, mas desta vez separados por ano. Estes dados foram obtidos pela plataforma Sucupira (antigo WebQualis): \url{http://qualis.capes.gov.br/webqualis/}.
 
+Como o conjunto de dados do SILQ-1 contava apenas com dados trimestrais, as tuplas originais não possuíam informação de ano (só podia-se deduzir que os dados faziam parte do triênio, mas não sabia-se qual ano). Desta forma, todos as planilhas divulgadas passaram por um novo processo de extração, incluindo os dados já inseridos no SILQ-1, mas agora considerando a nova informação de ano.
+
+As cinco novas planilhas passaram por um processo de \textit{data cleaning} manual:
+
+\begin{enumerate}
+
+\item Substituição de entidades HTML especiais por seu caractere correspondente. Ex.: ``\texttt{\&amp;}" por ``\texttt{\&}";
+
+\item Normalização do campo ISSN para o formato ``9999-9999": alguns registros não possuíam o dígito separador ou omitiam os zeros à esquerda;
+
+\item Correção de ISSNs errôneos: alguns registros possuíam o campo ISSN com dígitos faltando. Ex.: 0034-167 (Revista Brasileira de Enfermagem), cujo número correto seria 0034-\textbf{7}167. Estes casos foram tratados um a um e os números corretos identificados através de pesquisas na web.
+
+\end{enumerate}
+
+As planilhas CSV foram então dadas como \textit{input} à base de dados resultando na criação de 339204 tuplas, referentes a cada um dos anos do período divulgado 2012-2015. A Tabela \ref{tab:n-registros-extraidos} mostra o número de períodicos extraídos para cada ano de avaliação Qualis.
+
+\begin{table}[!h]
+\begin{center}
+\caption{Número de períodicos extraídos dos dados Qualis}\label{tab:n-registros-extraidos}
+\begin{tabular}{ c | c }
+\hline
+\textbf{Ano} & \textbf{N° de periódicos extraídos} \\ \hline
+2010 & 75786 \\ \hline
+2011 & 66171 \\ \hline
+2012 & 108272 \\ \hline
+2013 & 44437 \\ \hline
+2014 & 44538 \\ \hline
+\textbf{Total} & \textbf{339204} \\ \hline
+\end{tabular}
+\end{center}
+\end{table}
+
+Após esta etapa, verificou-se que cada registro da base de dados antiga do SILQ-1 estava contida nesta nova base de dados. Desta forma, cada registro de periódico agora contém os dados do veículo, incluindo nome e ISSN, conceito atribuído pela CAPES, área de avaliação e ano de avaliação.
+
+A inclusão dos novos registros aumentou o número de publicações passíveis de serem avaliadas pelo sistema. Os dados Qualis de 2015 e 2016 ainda não foram divulgados no momento de escrita deste artigo, mas podem ser incluídos facilmente na base de dados assim que forem disponibilizados pela CAPES.
 
 \subsection{Visão geral da nova arquitetura} \label{sec:arquitetura-silq-2}
 
 O que mudou. Por que mudou. Figurinha da nova Arquitetura. Seção com descrição superficial das tecnologias e ferramentas.
 
 Novo esquema do banco de dados.
-
-\subsection{Extração e inserção dos novos dados Qualis} \label{sec:extracao-qualis-novo}
-
-Processo realizado para normalização e inserção dos novos dados do qualis.
