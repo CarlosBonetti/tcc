@@ -40,7 +40,7 @@ Os dados Qualis 2014 e 2015, divulgados somente no ano de 2016, entretanto, já f
 desenvolvimento de uma nova função de similaridade ou novos procedimentos de cálculo de similaridades. Foram testadas funções já bem conhecidas pela comunidade científica, com testes concretos para levantar qual delas é a mais indicada no escopo da ferramenta. Porém, é possível que se alcance resultados melhores utilizando uma combinação de funções, ou até mesmo criando uma nova especificamente para o cálculo de similaridade de nomes de periódicos e conferências; \cite[p. 79]{Silq1}
 \end{citacao}
 
-\afazer{Será realizado (?) - Hipótese}
+\afazer{Será realizado (?)}
 
 \subsubsection{Considerar outras informações do pesquisador}
 
@@ -74,7 +74,7 @@ A inserção de dados do Qualis Eventos\footnote{dados e conceitos relacionados a 
 permitir que o usuário auxilie a ferramenta na qualificação, ou seja, no caso dele observar algum matching errado, ele próprio pode sugerir o matching correto; \cite[p. 80]{Silq1}
 \end{citacao}
 
-\afazer{Será realizado (?) - Hipótese}
+\afazer{Será realizado (?)}
 
 \subsubsection{Período de participação em grupo de pesquisa}
 
@@ -86,9 +86,11 @@ indicar o período em que o professor está vinculado à um programa de pós-graduaç
 
 \section{SILQ 2}
 
-\afazer{É possível aumentar a acurácia de um sistema (de recomendação/avaliação) baseado em algoritmo de similaridade utilizando feedback do usuário?}
+\afazer{É possível aumentar a acurácia de um sistema (de recomendação/avaliação) baseado em algoritmo de similaridade textual utilizando feedback do usuário?}
 
 \afazer{Qual o Threshold (nível de similaridade) ideal para o SILQ?}
+
+\afazer{Qual a função de similaridade ideal para o SILQ?}
 
 \subsection{Extração e inserção dos novos dados Qualis} \label{sec:extracao-qualis-novo}
 
@@ -134,6 +136,21 @@ A inclusão dos novos registros aumentou o número de publicações passíveis de ser
 
 \subsection{Visão geral da nova arquitetura} \label{sec:arquitetura-silq-2}
 
-O que mudou. Por que mudou. Figurinha da nova Arquitetura. Seção com descrição superficial das tecnologias e ferramentas.
+A primeira versão do SILQ foi desenvolvida com base no \textit{Play\footnote{\url{https://www.playframework.com/}
+} Framework}, um \textit{web application framework} escrito em Java e Scala que simplifica o processo de construção de uma aplicação web. Este mesmo framework provê APIs e bibliotecas para o desenvolvimento tanto do \textit{back-end} quando do \textit{front-end} de uma aplicação web.
 
-Novo esquema do banco de dados.
+Para esta nova versão do SILQ, porém, um dos objetivos seria a criação de uma API de integração programática, tornando o SILQ não só um sistema para uso de usuários finais, mas também para integração com outras ferramentas, como um \textit{web service}. Para tanto, uma alteração significativa na arquitetura da aplicação foi feita, separando o sistema em um \textit{server-side} rodando Spring e servindo seu conteúdo através de uma API REST; e um \textit{client-side} remodelado utilizando AngularJS e consumindo o serviço através de requisições HTTP.
+
+Vale citar que, neste primeiro momento, o ``núcleo" do SILQ, que inclui os algoritmos de avaliação e processamento dos currículos, não foi alterado, apenas a forma com que este serviço é disponibilizado e consumido.
+
+\subsubsection{Spring Framework e criação do Web Service}
+
+\subsubsection{Alterações no \textit{front-end}}
+
+\subsubsection{Alterações no modelo lógico}
+
+\subsubsection{Garantia da qualidade}
+
+\afazer{O que mudou. Por que mudou. Figurinha da nova Arquitetura. Seção com descrição superficial das tecnologias e ferramentas.}
+
+\afazer{Novo esquema do banco de dados.}

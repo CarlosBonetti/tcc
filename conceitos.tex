@@ -42,12 +42,49 @@ Entre os dados contidos em um currículo Lattes, estão os dados gerais do pesquis
 
 A Plataforma Lattes, além de apresentar seus currículos através de uma interface web usando HTML, também disponibiliza os dados em formato XML\footnote{Extensible Markup Language}, uma linguagem de marcação semi-estruturada legível por humanos e máquinas \cite[p. 34]{Silq1}. Foi este o formato utilizado pelo SILQ para a extração dos dados Lattes de um pesquisador, conforme relatado em \cite{Silq1}.
 
-\section{TODO: conceitos computacionais}
+\section{Conceitos computacionais}
 
-\afazer{REST, API de Integração}
+Nesta seção serão introduzidos conceitos e fundamentos relacionados à Ciência da Computação e áreas afins que se mostraram importantes para o desenvolvimento deste trabalho. Ideias que motivaram as alterações arquiteturais do sistema, bem como a base teórica para certos aspectos serão abordados. \afazer{Fazer uma introdução melhorzinha para a seção. E um título.}
 
-\afazer{XML - XPATH - Extração}
+\subsection{\textit{Web Services} e a arquitetura \textit{REST}}
 
-Trabalhos correlatos:
+Segundo a W3C, Web Services são serviços que provém meios de interoperabilidade padronizados entre diferentes aplicações de software rodando em ambientes e/ou plataformas heterogêneas. Um Web Service, portanto, oferece tal serviço de interoperabilidade através da \textit{World Wide Web}, expondo uma interface descrita em um formato legível por máquinas. Diferentes entidades consomem tal serviço através de trocas de mensagem utilizando o formato especificado \cite{W3C-Web-Services}.
 
-http://qualis.renesp.com.br/index.php
+\textit{Representational state transfer} (REST) é um estilo arquitetural utilizado para a implementação de um Web Service, baseado no protocolo HTTP\footnote{Hypertext Transfer Protocol} \cite{Fielding02}. Serviços web que implementam uma API\footnote{Application Program Interface} no estilo REST também são chamadas de \textit{RESTful APIs} e comumente utilizam JSON\footnote{JavaScript Object Notation} como formato de intercomunicação, podendo utilizar também XML, Atom, texto, entre outros \cite{richardson2013restful}.
+
+Um exemplo de comunicação entre um servidor web rodando um serviço de consulta de uma biblioteca e um cliente (outra aplicação) que desejasse saber a coleção de livros de seu acervo seria o seguinte:
+
+\begin{enumerate}
+\item O cliente envia um requisição HTTP do tipo GET para a URI \url{http://api.biblioteca.exemplo.com/acervo};
+
+\item O servidor da biblioteca responde ao pedido com a coleção de livros de seu acervo em formato JSON. Um exemplo de resposta poderia ser:
+
+\begin{lstlisting}[language=json, caption=Exemplo de uma resposta JSON dada por um serviço RESTful]
+{
+  acervo: [
+    {
+      titulo: "Uma breve história do tempo",
+      autor: "Stephen W. Hawking"
+    },
+    {
+      titulo: "Metodologia de Pesquisa para Ciência da Computação",
+      autor: "Raul Sidnei Wazlawick"
+    },
+    ...
+  ]
+}
+\end{lstlisting}
+
+\item A resposta em JSON é recebebida pelo cliente, interpretada e o conteúdo processado (consumido) da maneira que a aplicação necessitar.
+
+\end{enumerate}
+
+Desta forma, clientes que necessitem da informação de acervo da biblioteca do exemplo acima não precisam se preocupar com os detalhes tecnológicos necessários para realizar essa consulta (se os dados estão em um banco de dados local ou distribuído, relacional ou não, qual linguagem é utilizada para consulta, etc), eles apenas fazem uma requisição HTTP de um certo tipo e em uma URI pré-estipulada (normalmente definidas na documentação do \textit{web service}) e são servidos com a informação desejada.
+
+Uma interpretação moderna de tal arquitetura é denominada \textit{microserviço}, que compartilha das características de um \textit{web service} clássico, mas cuja maior diferença seria que os \textit{microservices} tem como objetivo prover um serviço específico, desempenhando uma única função minimalista, porém completa \cite{Fowler-microservices}. Deste ponto de vista, um \textit{web service} clássico monolítico\footnote{Dentro do conceito da arquitetura de microserviços, monolítica é uma aplicação construída como uma unidade única e indivisível, em oposição ao conceito composto e distribuído dos microserviços \cite{Fowler-microservices}} poderia, na maior parte das vezes, ser decomposto em vários microserviços, cada um especializado em uma função e podendo ter características tecnológicas completamente distintas.
+
+Tais conceitos estimularam a criação de uma API REST para o SILQ, com o objetivo de tornar disponível, de forma programática, os dados Qualis inseridos em sua base de dados e o serviço de avaliação de currículos. Desta forma, outras aplicações podem consumir os serviços oferecidos pelo sistema sem se preocupar com os detalhes tecnológicos utilizados pelo SILQ para implementar tais funcionalidades, aumentando a facilidade de integração com outros sistemas.
+
+\subsection{Similaridade}
+
+\afazer{Falar sobre similaridade, caso o trabalho aborde o assunto. Fazer um título melhorzinho.}
