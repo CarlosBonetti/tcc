@@ -14,9 +14,11 @@ Apesar de estável e com sua função principal sendo desempenhada de forma satisfa
 
 \subsection{``Trabalhos futuros" citados pelo SILQ-1}
 
-Na seção de ``Conclusões e Tabalhos Futuros" do artigo original, \cite{Silq1} citam 8 itens de melhoria que poderiam ser revisitados por trabalhos futuros. Cada um destes itens está exposto nas próximas subseções junto uma explicação de quais foram as atitudes tomadas por este trabalho para resolvê-las.
+Na seção de ``Conclusões e Tabalhos Futuros" do artigo original, \cite{Silq1} citam 8 itens de melhoria que poderiam ser revisitados por trabalhos futuros. Cada um destes itens está exposto abaixo junto uma explicação de quais foram as atitudes tomadas por este trabalho para resolvê-las.
 
-\subsubsection{Controle de persistência e transações}
+\begin{enumerate}
+
+\item \textbf{Controle de persistência e transações}
 
 \begin{citacao}
 definir um novo container de execução para automatizar o uso de uma API de persistência. No momento, as transações são controladas de forma manual; \cite[p. 79]{Silq1}
@@ -24,7 +26,7 @@ definir um novo container de execução para automatizar o uso de uma API de persi
 
 Esta melhoria trata-se de um detalhe de implementação do SILQ-1 que, devido à sua arquitetura, forçava a criação e gerenciamento manual de transações ao realizar acessos ao banco de dados. A automatização desta tarefa foi rapidamente alcançada no SILQ-2 com a utilização do \textit{Spring Framework}, conforme será relatado na seção \ref{sec:arquitetura-silq-2}.
 
-\subsubsection{Automatização da atualização dos dados Qualis}
+\item \textbf{Automatização da atualização dos dados Qualis}
 
 \begin{citacao}
 as publicações periódicas dos documentos de avaliação do WebQualis levam à necessidade de atualizar o banco de dados periodicamente. A construção de uma funcionalidade automatizada é pertinente; \cite[p. 79]{Silq1}
@@ -34,7 +36,7 @@ Os dados Qualis utilizados pelo sistema para realizar a avaliação de currículos 
 
 Os dados Qualis 2014 e 2015, divulgados somente no ano de 2016, entretanto, já foram inseridos de forma manual no banco de dados do SILQ-2, passando por um processo de limpeza de dados descrito na seção \ref{sec:extracao-qualis-novo}.
 
-\subsubsection{\textit{Fine-tuning} da função de similaridade}
+\item \textbf{\textit{Fine-tuning} da função de similaridade}
 
 \begin{citacao}
 desenvolvimento de uma nova função de similaridade ou novos procedimentos de cálculo de similaridades. Foram testadas funções já bem conhecidas pela comunidade científica, com testes concretos para levantar qual delas é a mais indicada no escopo da ferramenta. Porém, é possível que se alcance resultados melhores utilizando uma combinação de funções, ou até mesmo criando uma nova especificamente para o cálculo de similaridade de nomes de periódicos e conferências; \cite[p. 79]{Silq1}
@@ -42,7 +44,7 @@ desenvolvimento de uma nova função de similaridade ou novos procedimentos de cál
 
 \afazer{Será realizado (?)}
 
-\subsubsection{Considerar outras informações do pesquisador}
+\item \textbf{Considerar outras informações do pesquisador}
 
 \begin{citacao}
 levantamento das outras informações contidas no currículo, como o desempenho do pesquisador antes de ser incluído em um grupo de pós-graduação ou a quantidade e a qualidade de outras atividade acadêmicas; \cite[p. 79]{Silq1}
@@ -52,7 +54,7 @@ Este item envolve o processamento de outras informações contidas no currículo La
 
 Por este motivo, este item não foi abordado neste trabalho. Todavia, outros trabalhos de pesquisa relacionados estão paralelamente em desenvolvimento: \afazer{pegar informações dos trabalhos em desenvolvimento aqui.}
 
-\subsubsection{Relação entre orientações e produções associadas}
+\item \textbf{Relação entre orientações e produções associadas}
 
 \begin{citacao}
 levantamento da relação entre as atividades de orientação,   como bolsas de iniciação científica, e as produções acadêmicas associadas; \cite[p. 80]{Silq1}
@@ -60,7 +62,7 @@ levantamento da relação entre as atividades de orientação,   como bolsas de inic
 
 Não foi abordado neste trabalho, pelos mesmos motivos do item anterior. Os trabalhos citados acima também relacionam-se com este item.
 
-\subsubsection{Busca por informações de eventos}
+\item \textbf{Busca por informações de eventos}
 
 \begin{citacao}
 expansão do módulo da busca por informações de eventos. A complexidade do tema impediu o desenvolvimento completo desse módulo na ferramenta SILQ. Procedimentos automáticos de busca utilizando-se web crawlers e o tratamento correto dessas informações fornecem muitos temas para desenvolvimento de módulos novos; \cite[p. 80]{Silq1}
@@ -68,7 +70,7 @@ expansão do módulo da busca por informações de eventos. A complexidade do tema i
 
 A inserção de dados do Qualis Eventos\footnote{dados e conceitos relacionados a eventos científicos disponibilizados pela CAPES para algumas áreas específicas} no sistema se dá de forma manual, à medida em que novas informações são disponibilizadas pela CAPES. O objetivo deste item seria a criação de um \textit{web crawler} para captura automática de dados de eventos científicos na web. Devido à complexidade deste tema e por se tratar de um assunto independente, não relacionado com o foco deste trabalho, este item não foi abordado.
 
-\subsubsection{Feedback do usuário}
+\item \textbf{Feedback do usuário}
 
 \begin{citacao}
 permitir que o usuário auxilie a ferramenta na qualificação, ou seja, no caso dele observar algum matching errado, ele próprio pode sugerir o matching correto; \cite[p. 80]{Silq1}
@@ -76,13 +78,15 @@ permitir que o usuário auxilie a ferramenta na qualificação, ou seja, no caso de
 
 \afazer{Será realizado (?)}
 
-\subsubsection{Período de participação em grupo de pesquisa}
+\item \textbf{Período de participação em grupo de pesquisa}
 
 \begin{citacao}
 indicar o período em que o professor está vinculado à um programa de pós-graduação, permitindo que as avaliações dos currículos também possam ser realizadas considerando-se apenas os períodos nos quais o pesqisador estava vinculado à esse programa. \cite[p. 80]{Silq1}
 \end{citacao}
 
 \afazer{Será realizado (?). Inclusão do campo período ao incluir pesquisador em um grupo.}
+
+\end{enumerate}
 
 \section{SILQ 2}
 
