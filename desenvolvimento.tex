@@ -149,12 +149,28 @@ Vale citar que, neste primeiro momento, o ``núcleo" do SILQ, que inclui os algor
 
 \subsubsection{Spring Framework e criação do Web Service}
 
+Criação da camada REST. Mantive a camada de serviço, só incluí controladores.
+
 \subsubsection{Alterações no \textit{front-end}}
+
+AngularJS e stateless requests.
 
 \subsubsection{Alterações no modelo lógico}
 
+Figurinha da alteração das tabelas.
+
 \subsubsection{Garantia da qualidade}
+
+Para a garantia da qualidade desta nova versão do SILQ, foram introduzidas duas camadas de testes automatizados: a primeira, envolvendo \textit{testes unitários} e \textit{testes de integração} escritos em Java e com o objetivo de garantir a corretude do server-side da aplicação; e a segunda, basicamente um \textit{teste de sistema} escrito em Javascript e simulando os casos de uso reais do sistema, garantindo a corretudo do client-side e de sua integração com o servidor.
+
+Segundo \cite{martyn-tests} e \cite[cap. 5]{SWEBOK2014}, diferentes tipos de testes podem ser agrupados em níveis de acordo com o grau de especifidade do módulo ou do requerimento sendo testado. Testes unitários têm como objetivo verificar o funcionamento de unidades indivisíveis e isoladas de um software, garantindo que cada uma delas funcione conforme especficado. Testes de integração, por sua vez, tem por objetivo encontrar falhas na integração entre as unidades de um sistema. Testes de sistema, ou testes \textit{end-to-end} (fim a fim), executam a validação do sistema final como um todo, simulando as ações que um usuário real realizaria ao utilizar a aplicação.
+
+No SILQ, os testes de unitários e de integração foram escritos em Java utilizando o framework de testes \textit{jUnit}\footnote{\url{http://junit.org/}}. Eles testam cada função da camada de serviço da aplicação, por exemplo simulando o upload de um currículo qualquer e verificando se os dados extraídos e retornados são de fato aqueles contidos no currículo. Foram criados testes, inclusive, para as funcionalidades já existentes desde o SILQ-1, mas que ainda não eram cobertos com casos de teste automatizados, para assim aumentar a confiabilidade do sistema e garantir que mudanças futuras não ocasionem \textit{bugs} nestes módulos antigos.
+
+Este nível de teste, porém, não valida a interface de usuário e sua integração com a camada de serviço. Ou seja, todo o client-side da aplicação ainda está ``descoberto" de casos de testes. Para tanto, foram incluídos no SILQ casos de teste de sistema escritos em Javascript e utilizando o framework de testes \textit{Protractor}\footnote{\url{http://www.protractortest.org/}}, criado especificamente para testes \textit{end-to-end} de aplicações feitas com AngularJS. O Protractor simula o uso de um usuário real realizando cliques em botões, preenchendo formulários e navegando através de links da aplicação. Desta forma, são garantidos algum nível de corretude da interface do sistema e da integração entre o client e server side.
 
 \afazer{O que mudou. Por que mudou. Figurinha da nova Arquitetura. Seção com descrição superficial das tecnologias e ferramentas.}
 
 \afazer{Novo esquema do banco de dados.}
+
+\afazer{Evitar subsubsub ! 4 níveis de seções ??!!}
