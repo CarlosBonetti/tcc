@@ -156,8 +156,6 @@ A figura \ref{fig:arquitetura} mostra um esquema da nova arquitetura do SILQ. As
    \includegraphics[width=\textwidth]{figuras/arquitetura-silq.png}
 \end{figure}
 
-\afazer{Detalhar um pouco mais a figura.}
-
 \subsubsection{Spring Framework e criação do Web Service}
 
 Criação da camada REST. Mantive a camada de serviço, só incluí controladores.
@@ -166,11 +164,11 @@ Criação da camada REST. Mantive a camada de serviço, só incluí controladores.
 
 Na primeira versão do SILQ, as páginas HTML do sistema eram dinamicamente renderizadas no server-side pelo \textit{Play!} Framework e servidas conforme as requisições dos clientes. Desta forma, além de executar toda a lógica de aplicação, o servidor também fica responsável pela lógica de apresentação do conteúdo.
 
-Em arquiteturas REST, a lógica de apresentação de dados (ou visão), fica completamente separada do servidor, executando no \textit{web browser} do cliente. Ou seja, o servidor só recebe requisições HTTP, as processa e retorna uma resposta em formato JSON. Esta resposta é recebida pelo cliente que então apresenta este conteúdo através da interface gráfica do cliente. Desta forma, a carga no servidor é de certa forma diminuída, já que está mais incumbido da tarefa de apresentação.
+Em arquiteturas REST, a lógica de apresentação de dados (ou visão), fica completamente separada do servidor, executando no \textit{web browser} do cliente. Ou seja, o servidor só recebe requisições HTTP, as processa e retorna uma resposta em formato JSON. Esta resposta é recebida pelo cliente que então apresenta o conteúdo através da interface gráfica do cliente. Desta forma, a carga no servidor é diminuída, já que ele não está mais incumbido da tarefa de renderização das páginas HTML que serão servidas.
 
-De forma semelhante, no SILQ-2, a camada de visão foi totalmente reescrita em \textit{Javascript}, utilizando o framework \textit{AngularJS}\footnote{\url{https://angularjs.org/}}. Trata-se de um framework desenvolvido pela Google que auxilia na tarefa de criação de interfaces web dinâmicas e integração com serviços web via REST.
+Utilizando esta ideia, no SILQ-2, a camada de visão foi totalmente reescrita em \textit{Javascript}, utilizando o framework \textit{AngularJS}\footnote{\url{https://angularjs.org/}}. Trata-se de um framework desenvolvido pela Google que auxilia na criação de interfaces web dinâmicas e integração com \textit{webservices} via REST.
 
-\afazer{AngularJS e stateless requests.}
+Desta forma, ao realizar a primeira requisição à URL do SILQ, o servidor serve uma página HTML (geralmente denominada de \textit{index}) junto com os \textit{assets} necessários para a construção de conteúdo dinâmico e estilização da página (imagens, arquivos CSS e Javascript). As requisições subsequentes, entretanto, utilizam somente requisições assíncronas ao servidor, utilizando Javascript: uma requisição conhecida por \textit{Ajax} (Asynchronous JavaScript and XML). Estas requisições utilizam a camada REST do servidor que retornará respostas em JSON e cujo conteúdo será processado no cliente e montará as páginas de forma dinâmica. Desta forma, parte da lógica da aplicação como um todo é transferida para o cliente, reduzindo a carga no servidor.
 
 \subsubsection{Alterações no modelo lógico}
 
