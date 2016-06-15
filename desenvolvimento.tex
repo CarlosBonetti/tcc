@@ -116,7 +116,7 @@ As cinco novas planilhas passaram por um processo de \textit{data cleaning} manu
 
 \end{enumerate}
 
-As planilhas CSV foram então dadas como \textit{input} à base de dados resultando na criação de 339204 tuplas, referentes a cada um dos anos do período divulgado 2012-2015. A Tabela \ref{tab:n-registros-extraidos} mostra o número de períodicos extraídos para cada ano de avaliação Qualis.
+As planilhas CSV foram então dadas como \textit{input} à base de dados resultando na criação de 339204 tuplas, referentes a cada um dos anos do período divulgado 2012-2015. A Tabela \ref{tab:n-registros-extraidos} mostra o número de períodicos extraídos para cada ano de avaliação do Qualis.
 
 \begin{table}[!h]
 \begin{center}
@@ -134,7 +134,7 @@ As planilhas CSV foram então dadas como \textit{input} à base de dados resultand
 \end{center}
 \end{table}
 
-Após esta etapa, verificou-se que cada registro da base de dados antiga do SILQ-1 estava contida nesta nova base de dados. Desta forma, cada registro de periódico agora contém os dados do veículo, incluindo nome e ISSN, conceito atribuído pela CAPES, área de avaliação e ano de avaliação.
+Após esta etapa, verificou-se que todos os registros da base de dados antiga do SILQ-1 estavam contidos nesta nova versão. Desta forma, os dados do SILQ-1 foram mantidos, porém agora incluindo o ano de avaliação, além do nome do periódico, ISSN, conceito atribuído pela CAPES e área de avaliação.
 
 A inclusão dos novos registros aumentou o número de publicações passíveis de serem avaliadas pelo sistema. Os dados Qualis de 2015 e 2016 ainda não foram divulgados no momento de escrita deste artigo, mas podem ser incluídos facilmente na base de dados assim que forem disponibilizados pela CAPES.
 
@@ -143,9 +143,20 @@ A inclusão dos novos registros aumentou o número de publicações passíveis de ser
 A primeira versão do SILQ foi desenvolvida com base no \textit{Play\footnote{\url{https://www.playframework.com/}
 } Framework}, um \textit{web application framework} escrito em Java e Scala que simplifica o processo de construção de uma aplicação web. Este mesmo framework provê APIs e bibliotecas para o desenvolvimento tanto do \textit{back-end} quando do \textit{front-end} de uma aplicação web.
 
-Para esta nova versão do SILQ, porém, um dos objetivos seria a criação de uma API de integração programática, tornando o SILQ não só um sistema para uso de usuários finais, mas também para integração com outras ferramentas, como um \textit{web service}. Para tanto, uma alteração significativa na arquitetura da aplicação foi feita, separando o sistema em um \textit{server-side} rodando Spring e servindo seu conteúdo através de uma API REST; e um \textit{client-side} remodelado utilizando AngularJS e consumindo o serviço através de requisições HTTP.
+Para esta nova versão do SILQ, porém, um dos objetivos seria a criação de uma API de integração programática, tornando o SILQ não só um sistema para uso de usuários finais, mas também para integração com outras ferramentas, como um \textit{web service}. Para tanto, uma alteração significativa na arquitetura da aplicação foi feita, separando o sistema em um \textit{server-side} rodando Spring e servindo seu conteúdo através de uma API REST; e um \textit{client-side} remodelado utilizando AngularJS e consumindo o serviço através de requisições HTTP. O detalhamento destas alterações e justificativas da escolha das ferramentas estão descritas nas próximas seções.
 
 Vale citar que, neste primeiro momento, o ``núcleo" do SILQ, que inclui os algoritmos de avaliação e processamento dos currículos, não foi alterado, apenas a forma com que este serviço é disponibilizado e consumido.
+
+A figura \ref{fig:arquitetura} mostra um esquema da nova arquitetura do SILQ. As próximas seções trazem uma explicação das alterações realizadas e algumas justificativas para as tecnologias escolhidas.
+
+\begin{figure}[!h]
+   \centering
+   \caption{Nova arquitetura do SILQ.}
+   \label{fig:arquitetura}
+   \includegraphics[width=\textwidth]{figuras/arquitetura-silq.png}
+\end{figure}
+
+\afazer{Detalhar um pouco mais a figura.}
 
 \subsubsection{Spring Framework e criação do Web Service}
 
@@ -153,24 +164,33 @@ Criação da camada REST. Mantive a camada de serviço, só incluí controladores.
 
 \subsubsection{Alterações no \textit{front-end}}
 
-AngularJS e stateless requests.
+Na primeira versão do SILQ, as páginas HTML do sistema eram dinamicamente renderizadas no server-side pelo \textit{Play!} Framework e servidas conforme as requisições dos clientes. Desta forma, além de executar toda a lógica de aplicação, o servidor também fica responsável pela lógica de apresentação do conteúdo.
+
+Em arquiteturas REST, a lógica de apresentação de dados (ou visão), fica completamente separada do servidor, executando no \textit{web browser} do cliente. Ou seja, o servidor só recebe requisições HTTP, as processa e retorna uma resposta em formato JSON. Esta resposta é recebida pelo cliente que então apresenta este conteúdo através da interface gráfica do cliente. Desta forma, a carga no servidor é de certa forma diminuída, já que está mais incumbido da tarefa de apresentação.
+
+De forma semelhante, no SILQ-2, a camada de visão foi totalmente reescrita em \textit{Javascript}, utilizando o framework \textit{AngularJS}\footnote{\url{https://angularjs.org/}}. Trata-se de um framework desenvolvido pela Google que auxilia na tarefa de criação de interfaces web dinâmicas e integração com serviços web via REST.
+
+\afazer{AngularJS e stateless requests.}
 
 \subsubsection{Alterações no modelo lógico}
 
-Figurinha da alteração das tabelas.
+O banco de dados relacional implementado em \textit{PostgreSQL} sofreu algumas modificações do trabalho anterior a este. A figura \ref{fig:modelo-logico} mostra o esquema lógico do banco de dados da versão atual do SILQ.
+
+Algumas mudanças pequenas de nomenclatura foram realizadas. Uma mudança significativa, porém, foi a unificação das tabelas \textit{tb\_dado\_geral} e \textit{tb\_profissional} para a nova tabela \textit{tb\_curriculum\_lattes}. A função destas duas tabelas antigas era guardar os currículos enviados de usuários e de pesquisadores de grupos, respectivamente. Nesta nova versão do SILQ, porém, em ambos os casos os currículos Lattes enviados pelo sistema são salvos na mesma tabela de currículos (\textit{tb\_curriculum\_lattes}), inclusive tendo seus registros reutilizados em caso de, por exemplo, dois usuários enviarem o mesmo currículo. Neste caso, o sistema armazena somente uma vez o currículo e cria duas referências diferentes a ele, poupando-o do trabalho de duplicar os dados do currículo Lattes, cuja representação em XML contém em média algumas dezenas de \textit{kilobytes}.
+
+\begin{figure}[!h]
+   \centering
+   \caption{Novo esquema do modelo lógico do SILQ.}
+   \label{fig:modelo-logico}
+   \includegraphics[width=\textwidth]{figuras/modelo-logico.png}
+\end{figure}
 
 \subsubsection{Garantia da qualidade}
 
-Para a garantia da qualidade desta nova versão do SILQ, foram introduzidas duas camadas de testes automatizados: a primeira, envolvendo \textit{testes unitários} e \textit{testes de integração} escritos em Java e com o objetivo de garantir a corretude do server-side da aplicação; e a segunda, basicamente um \textit{teste de sistema} escrito em Javascript e simulando os casos de uso reais do sistema, garantindo a corretudo do client-side e de sua integração com o servidor.
+Para a garantia da qualidade desta nova versão do SILQ, foram introduzidas duas camadas de testes automatizados: a primeira, envolvendo \textit{testes unitários} e \textit{testes de integração} escritos em Java e com o objetivo de garantir a corretude do server-side da aplicação; e a segunda, basicamente um \textit{teste de sistema} escrito em Javascript e simulando os casos de uso reais do sistema, garantindo a corretude do client-side e de sua integração com o servidor.
 
 Segundo \cite{martyn-tests} e \cite[cap. 5]{SWEBOK2014}, diferentes tipos de testes podem ser agrupados em níveis de acordo com o grau de especifidade do módulo ou do requerimento sendo testado. Testes unitários têm como objetivo verificar o funcionamento de unidades indivisíveis e isoladas de um software, garantindo que cada uma delas funcione conforme especficado. Testes de integração, por sua vez, tem por objetivo encontrar falhas na integração entre as unidades de um sistema. Testes de sistema, ou testes \textit{end-to-end} (fim a fim), executam a validação do sistema final como um todo, simulando as ações que um usuário real realizaria ao utilizar a aplicação.
 
 No SILQ, os testes de unitários e de integração foram escritos em Java utilizando o framework de testes \textit{jUnit}\footnote{\url{http://junit.org/}}. Eles testam cada função da camada de serviço da aplicação, por exemplo simulando o upload de um currículo qualquer e verificando se os dados extraídos e retornados são de fato aqueles contidos no currículo. Foram criados testes, inclusive, para as funcionalidades já existentes desde o SILQ-1, mas que ainda não eram cobertos com casos de teste automatizados, para assim aumentar a confiabilidade do sistema e garantir que mudanças futuras não ocasionem \textit{bugs} nestes módulos antigos.
 
 Este nível de teste, porém, não valida a interface de usuário e sua integração com a camada de serviço. Ou seja, todo o client-side da aplicação ainda está ``descoberto" de casos de testes. Para tanto, foram incluídos no SILQ casos de teste de sistema escritos em Javascript e utilizando o framework de testes \textit{Protractor}\footnote{\url{http://www.protractortest.org/}}, criado especificamente para testes \textit{end-to-end} de aplicações feitas com AngularJS. O Protractor simula o uso de um usuário real realizando cliques em botões, preenchendo formulários e navegando através de links da aplicação. Desta forma, são garantidos algum nível de corretude da interface do sistema e da integração entre o client e server side.
-
-\afazer{O que mudou. Por que mudou. Figurinha da nova Arquitetura. Seção com descrição superficial das tecnologias e ferramentas.}
-
-\afazer{Novo esquema do banco de dados.}
-
-\afazer{Evitar subsubsub ! 4 níveis de seções ??!!}
