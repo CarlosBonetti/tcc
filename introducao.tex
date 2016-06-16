@@ -4,7 +4,7 @@
 
 A Plataforma Lattes, criada e mantida pela CNPq (Conselho Nacional de Desenvolvimento Científico e Tecnológico), é um sistema de informação responsável pela integração da base de dados de currículos, grupos de pesquisa e instituições. O Currículo Lattes se tornou o padrão nacional no registro da vida científica de estudantes e professores e é hoje adotada por institutos e universidades de todo o país. \cite{CNPQ-Sobre}
 
-No Currículo Lattes pode-se inserir dados gerais do pesquisador, produção bibliográfica, orientações, citações, participações em eventos científicosentre outros dados. No módulo Produção Bibliográfica, por exemplo, é possível a inserção de artigos publicados ou aceitos para publicação em periódicos indexados pelo ISSN. \cite{CNPQ-Ajuda}
+No Currículo Lattes pode-se inserir dados gerais do pesquisador, produção bibliográfica, orientações, citações, participações em eventos científicos entre outros dados. No módulo Produção Bibliográfica, por exemplo, é possível a inserção de artigos publicados ou aceitos para publicação em periódicos indexados pelo ISSN. \cite{CNPQ-Ajuda}
 
 A classificação da qualidade da produção intelectual é realizada pela CAPES (Coordenação de Aperfeiçoamento de Pessoal de Nível Superior) através de um conjunto de procedimentos denominado Qualis. O Qualis afere a qualidade de artigos e outras produções a partir da análise da qualidade dos veículos de divulgação, ou seja, periódicos científicos. Esta classificação é realizada pelas áreas de avaliação em um processo anual de atualização, sendo os veículos enquadrados em estratos indicativos de qualidade (A1 - o mais elevado; A2; B1; B2; B3; B4; B5; C - com peso zero. \cite{CAPES-Classificacao}
 
@@ -22,30 +22,32 @@ A proposta deste trabalho, portanto, é a criação de uma segunda versão do SILQ, 
 
 \section{Objetivos}
 
-O objetivo geral deste trabalho é a reestruturação arquitetural do Sistema de Integração Lattes-Qualis (SILQ) de forma a permitir a inclusão de melhorias de usabilidade, API de integração com outros sistemas e atualização da base de dados conforme novas classificações disponibilizadas pelo Qualis, bem como um estudo de impacto do desempenho do sistema após a inclusão destes novos registros.
+O objetivo geral deste trabalho é a reestruturação arquitetural do Sistema de Integração Lattes-Qualis (SILQ), incluindo a criação de API de integração com outros sistemas e atualização da base de dados conforme novas classificações Qualis, junto com uma análise do uso de feedback explícito de usuários ao realizar avaliações de publicações, baseadas em similaridade textual, e seu impacto na precisão dos resultados.
 
-Como objetivos específicos, é possível citar:
+Os objetivos específicos são os seguintes:
 
 \begin{itemize}
     \item Reestruturação da arquitetura e banco de dados do SILQ a fim de suportar classificações de eventos e periódicos disponibilizados em um ritmo anual;
 
     \item Atualização do banco de dados do sistema com as últimas classificações disponibilizadas pelo Qualis (anos 2013 e 2014);
 
-    \item Estudo de impacto de desempenho do sistema após a reestruturação do banco de dados e inclusão das novas classificações Qualis;
-
     \item Criação de uma API pública de disponibilização dos serviços do SILQ, via camada de aplicação REST para integração com outros sitemas;
 
-    \item Alterações na interface do sistema incluindo migração de framework de interface, novos gráficos de acompanhamento de grupos de pesquisa e pesquisadores;
+    \item Criação de uma documentação da nova API REST criada, com o objetivo de auxiliar outros serviços a se integrarem com o SILQ;
 
-    \item Melhorias gerais: geração de tabela excel a partir de qualificações, recuperação de senhas para usuários cadastrados, melhorar a precisão da comparação por similaridade, levantamento de produção por veículo de publicação.
+    \item Alterações na interface do sistema incluindo migração de framework de interface, novos gráficos de acompanhamento de grupos de pesquisa e melhorias gerais de usabilidade;
+
+    \item Verificar se a precisão da avaliação de currículos, baseada em algoritmos de similaridade textual, pode ser melhorada utilizando-se feedback explícito de usuários.
 \end{itemize}
 
 \section{Procedimentos Metodológicos}
 
-A primeira etapa do trabalho envolverá a migração tecnológica da camada de interface e desacoplamento entre server e client side. Para isto, serão utilizadas práticas ágeis de desenvolvimento de software  incluindo desenvolvimento orientado a testes e eventuais modelagens lógicas de arquitetura  de sistema usando práticas da Engenharia de Software.
+A primeira etapa do trabalho envolveu a migração tecnológica da camada de interface e desacoplamento entre \textit{server} e \textit{client side}, originando uma camada RESTful de integração. Para isto, foram utilizadas práticas ágeis de desenvolvimento de software incluindo desenvolvimento orientado a testes e eventuais modelagens lógicas de arquitetura de sistema usando práticas da Engenharia de Software.
 
-A segunda etapa, a de migração de base de dados e estudo de impacto terá um caráter mais exploratório e quantitativo: pretende-se analisar o desempenho do sistema sob diferentes modelos lógicos de banco de dados e coletar dados pertinentes que levem à escolha de um modelo em detrimento do outro.
+Concomitantemente, ocorreu a alteração da base de dados para suporte aos novos registros disponibilizados pelo Qualis. Certos aspectos do banco foram alterados para suportar tais registros novos. Os dados também passaram por um processo de \textit{data-cleaning} manual antes de serem inseridos no banco.
 
-Os softwares que serão utilizados em todas as etapas do trabalho são do tipo software livre, incluindo IDE de desenvolvimento, banco de dados e servidor de aplicação. Para a publicação da versão final do sistema continuará a ser utilizado os servidores e domínio da UFSC, onde a primeira versão do SILQ já encontra-se publicado.
+A segunda etapa do trabalho, ainda a ser desenvolvida, envolverá a medição da acurácia das avaliações realizadas pelo SILQ utilizando métricas de \textit{precision} e \textit{recall}. Para isso, um subconjunto de dados será analisado, utilizando o algoritmo atual de avaliação. Após estabelecida a métrica da acurácia atual, será levado em conta feedbacks explícitos de usuários, e uma nova medição de acurácia será realizada e comparada com os resultados anteriores.
 
-Os recursos físicos e ambientes de trabalho utilizados no processo de desenvolvimento deste trabalho serão todos de posse pessoal do autor.
+%Os softwares que serão utilizados em todas as etapas do trabalho são do tipo software livre, incluindo IDE de desenvolvimento, banco de dados e servidor de aplicação. Para a publicação da versão final do sistema continuará a ser utilizado os servidores e domínio da UFSC, onde a primeira versão do SILQ já encontra-se publicado.
+
+%Os recursos físicos e ambientes de trabalho utilizados no processo de desenvolvimento deste trabalho serão todos de posse pessoal do autor.
