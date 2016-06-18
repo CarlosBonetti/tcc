@@ -97,7 +97,18 @@ Segundo \cite{Pressman2001} e \cite[cap. 5]{SWEBOK2014}, diferentes tipos de tes
 
 \section{Information Retrieval e Similaridade Textual}
 
-\afazer{Introdução sobre busca por similaridade e information retrieval. Como o SILQ realiza suas buscas.}
+
+Recuperação de Informação, ou \textit{Information Retrieval} (IR), é a obtenção de informações relevantes, dados certos critérios de busca, de uma coleção maior de informações \cite{BaezaYates99}. Os maiores exemplos atuais de sistemas de IR são os buscadores web, baseados em busca textual.
+
+Áreas tipicamente relacionadas com IR e cujas técnicas e definições muita vezes se intersectam são as de \textit{Data Mining}, Sistemas de Recomendação e \textit{Data-Matching}. Data matching é o processo de comparação entre informações de diferentes fontes com o objetivo de descobrir se de fato representam o mesmo objeto do mundo real \cite{Dorneles2011}. Desta forma o algoritmo de avaliação de currículos do SILQ baseado em similaridade textual pode ser classificado como um sistema automatizado de \textit{data matching} aproximado.
+
+Um processo de \textit{data mathing} aproximado emprega funções de similaridade (ou de distância) para comparar informações, atribuindo um valor, geralmente pertencente ao intervalo real $[0, 1]$, ao quão parecidos (similares) são os dados comparados. Dois objetos são considerados similares se o valor atribuído pela função de similaridade for maior do que um \textit{threshold} especificado \cite{Dorneles2011}.
+
+A função de similaridade utilizada pelo algoritmo de avaliação de currículos do SILQ é a \textit{ngram}, com valor de \textit{n} igual a 3 (sendo chamado, neste caso, de \textit{trigram}) \cite{Silq1}.
+
+Desta forma, ao avaliar uma publicação qualquer, o SILQ compara, através da função \textit{trigram}, o nome do veículo onde esta publicação foi submetida com cada um dos registros Qualis presentes na base de dados. Se a similaridade for 60\% ou maior\footnote{Este valor é o \textit{threshold} padrão para avaliações, mas pode ser configurado pelo sistema}, o veículo é considerado como um \textit{matching} positivo. O evento com maior similaridade, caso exista, é considerado e seu estrato Qualis é atribuído à publicação que está sendo avaliada.
+
+Algumas questões relacionadas a este processo são a definição do valor de \textit{threshold} ideal para maximizar a precisão do algoritmo \cite{Dorneles2011} e a própria função de similaridade mais indicada para o conjunto de dados em questão \cite{Silva07}. Para ambas as questões, entretando, é preciso estipular métricas para a medição de quão preciso é o algoritmo de similaridade, para só então testar diferentes técnicas e variáveis até chegar a uma configuração ideal para o conjunto de dados trabalhos. Duas medidas clássicas de IR que podem ser utilizadas neste caso são a precisão (\textit{precision}) e a revocação (\textit{recall}).
 
 \subsection{Precision}
 
