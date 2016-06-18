@@ -34,7 +34,7 @@ Até o final do ano de 2015, como cita o trabalho de \cite[p. 31]{Silq1}, os dado
    \includegraphics[width=\textwidth]{figuras/qualis_exemplo.png}
 \end{figure}
 
-\subsection{A Plataforma Lattes}
+\subsection{Lattes}
 
 Desde a década de 80 notava-se a necessidade de um formulário padrão para registro dos currículos de pesquisadores brasileiros que possibilitasse a busca e seleção de especialistas bem como a geração de um mapa sobre a distribuição da pesquisa científica no Brasil. Em 1999, o CNPq lançou a Plataforma Lattes\footnote{\url{http://lattes.cnpq.br/}}, um sistema de informação para registro e consulta de currículos acadêmicos, e padronizou o Currículo Lattes como o formulário de currículo a ser utilizado no âmbito do Ministério da Ciência e Tecnologia e CNPq. \cite{CNPQ-Historico,CNPQ-Sobre}
 
@@ -95,8 +95,7 @@ Três das técnicas utilizadas para a garantia da qualidade de teste são a Verific
 
 Segundo \cite{Pressman2001} e \cite[cap. 5]{SWEBOK2014}, diferentes tipos de testes podem ser agrupados em níveis de acordo com o grau de especifidade do módulo ou do requerimento sendo testado. Testes unitários têm como objetivo verificar o funcionamento de unidades indivisíveis e isoladas de um software, garantindo que cada uma delas funcione conforme especficado. Testes de integração, por sua vez, tem por objetivo encontrar falhas na integração entre as unidades de um sistema. Testes de sistema, ou testes \textit{end-to-end} (fim a fim), executam a validação do sistema final como um todo, simulando as ações que um usuário real realizaria ao utilizar a aplicação.
 
-\section{Information Retrieval e Similaridade Textual}
-
+\section{\textit{Data-Matching} e Métricas de Similaridade}
 
 Recuperação de Informação, ou \textit{Information Retrieval} (IR), é a obtenção de informações relevantes, dados certos critérios de busca, de uma coleção maior de informações \cite{BaezaYates99}. Os maiores exemplos atuais de sistemas de IR são os buscadores web, baseados em busca textual.
 
@@ -110,10 +109,8 @@ Desta forma, ao avaliar uma publicação qualquer, o SILQ compara, através da funç
 
 Algumas questões relacionadas a este processo são a definição do valor de \textit{threshold} ideal para maximizar a precisão do algoritmo \cite{Dorneles2011} e a própria função de similaridade mais indicada para o conjunto de dados em questão \cite{Silva07}. Para ambas as questões, entretando, é preciso estipular métricas para a medição de quão preciso é o algoritmo de similaridade, para só então testar diferentes técnicas e variáveis até chegar a uma configuração ideal para o conjunto de dados trabalhos. Duas medidas clássicas de IR que podem ser utilizadas neste caso são a precisão (\textit{precision}) e a revocação (\textit{recall}).
 
-\subsection{Precision}
+\subsection{Precision e Recall}
 
-\afazer{Conceituação.}
+Em sistemas de reconhecimento de padrões e/ou informações baseados em classificações binárias\footnote{que só fazem distinção entre dois possíveis resultados para uma busca: ou o elemento faz parte do grupo desejado ou não faz parte}, precisão (ou valor preditivo positivo) é a fração dos objetos retornados que são relevantes, enquanto a revocação (ou sensibilidade) é a fração de todos os objetos relevantes que foram retornados \cite{Sammut2001}. Desta forma, precision e recall podem ser consideradas medidas de correção e completude \cite{Euzenat07} e são medidas base para o entendimento da relevância dos resultados retornados.
 
-\subsection{Recall}
-
-\afazer{Conceituação.}
+De maneira semelhante, em \textit{Data-matching}, estas medidas são interessantes para medir a habilidade de algoritmos de similaridade em rankear os resultados de uma consulta, embora não sejam indicados como medidas absolutas para expressar o quão eficientemente uma certa função de similaridade separa os resultados relevantes dos irrelevantes, conforme cita o trabalho de \cite{Silva07} que também propõe o uso de uma função de \textit{discernability}, utilizando métricas de \textit{precision} e \textit{recall}, além de outras, para medir a qualidade uma função de similaridade.
