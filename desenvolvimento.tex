@@ -34,7 +34,7 @@ as publicações periódicas dos documentos de avaliação do WebQualis levam à neces
 
 Os dados Qualis utilizados pelo sistema para realizar a avaliação de currículos são atualmente inseridos de forma manual. Na segunda etapa deste trabalho será incluído um módulo no sistema onde administradores poderão fazer \textit{upload} de novos dados Qualis, conforme eles forem sendo divulgados e assim não necessitando inserí-los de forma manual no banco de dados.
 
-Os dados Qualis 2014 e 2015, divulgados somente no ano de 2016, entretanto, já foram inseridos manualmente na base de dados do SILQ-2, passando por um processo de limpeza de dados descrito na seção \ref{sec:extracao-qualis-novo}.
+Os dados Qualis 2013 e 2014, divulgados somente no ano de 2016, entretanto, já foram inseridos manualmente na base de dados do SILQ-2, passando por um processo de limpeza de dados descrito na seção \ref{sec:extracao-qualis-novo}.
 
 \item \textbf{\textit{Fine-tuning} da função de similaridade}
 
@@ -70,7 +70,7 @@ Não foi abordado neste trabalho, pelos mesmos motivos do item anterior.
 expansão do módulo da busca por informações de eventos. A complexidade do tema impediu o desenvolvimento completo desse módulo na ferramenta SILQ. Procedimentos automáticos de busca utilizando-se web crawlers e o tratamento correto dessas informações fornecem muitos temas para desenvolvimento de módulos novos; \cite[p. 80]{Silq1}
 \end{citacao}
 
-A inserção de dados do Qualis Eventos\footnote{dados e conceitos relacionados a eventos científicos disponibilizados pela CAPES para algumas áreas específicas} no sistema se dá de forma manual, à medida em que novas informações são disponibilizadas pela CAPES. O objetivo deste item seria a criação de um \textit{web crawler} para captura automática de dados de eventos científicos na web. Devido à complexidade deste tema e por se tratar de um assunto independente, não relacionado com o foco deste trabalho, este item não foi abordado.
+A inserção de dados do Qualis Conferência\footnote{dados e conceitos relacionados a eventos científicos disponibilizados pela CAPES para algumas áreas específicas} no sistema se dá de forma manual, à medida em que novas informações são disponibilizadas pela CAPES. O objetivo deste item seria a criação de um \textit{web crawler} para captura automática de dados de eventos científicos na web. Devido à complexidade deste tema e por se tratar de um assunto independente, não relacionado com o foco deste trabalho, este item não foi abordado.
 
 \item \textbf{Feedback do usuário}
 
@@ -98,7 +98,7 @@ Os dados Qualis de eventos e periódicos foram extraídos pelo trabalho original a
 
 No primeiro semestre do ano de 2016, porém, a CAPES disponibilizou novos dados Qualis referentes ao ano de 2013 e 2014, alterando sua periodicidade de avaliação de trimestral para anual. Estes novos dados foram divulgados em formado CSV, junto com os antigos dados do triênio 2010-2012, mas desta vez separados por ano. Estes dados foram obtidos pela plataforma Sucupira (antigo WebQualis): \url{http://qualis.capes.gov.br/webqualis/}.
 
-Como o conjunto de dados do SILQ-1 contava apenas com dados trimestrais, as tuplas originais não possuíam informação de ano (só podia-se deduzir que os dados faziam parte do triênio, mas não sabia-se qual ano). Desta forma, todos as planilhas divulgadas passaram por um novo processo de extração, incluindo os dados já inseridos no SILQ-1, mas agora considerando a nova informação de ano.
+Como o conjunto de dados do SILQ-1 contava apenas com dados trimestrais, as tuplas originais não possuíam informação de ano (só podia-se deduzir que os dados faziam parte do triênio, mas não de qual ano). Desta forma, todos as planilhas divulgadas passaram por um novo processo de extração, incluindo os dados já inseridos no SILQ-1, mas agora considerando a nova informação de ano.
 
 As cinco novas planilhas passaram por um processo de \textit{data cleaning} manual:
 
@@ -181,4 +181,4 @@ Para a garantia da qualidade desta nova versão do SILQ, foram introduzidas duas 
 
 No SILQ, os testes unitários e de integração foram escritos em Java utilizando o framework de testes \textit{jUnit}\footnote{\url{http://junit.org/}}. Eles testam cada função da camada de serviço da aplicação, por exemplo simulando o upload de um currículo qualquer e verificando se os dados extraídos e retornados são de fato aqueles contidos no currículo. Foram criados testes, inclusive, para as funcionalidades já existentes desde o SILQ-1, mas que ainda não eram cobertos com casos de teste automatizados, para assim aumentar a confiabilidade do sistema e garantir que mudanças futuras não ocasionem \textit{bugs} nestes módulos antigos.
 
-Este nível de teste, porém, não valida a interface de usuário e sua integração com a camada de serviço. Ou seja, todo o client-side da aplicação ainda está ``descoberto" de casos de testes. Para tanto, foram incluídos no SILQ casos de teste de sistema escritos em Javascript e utilizando o framework de testes \textit{Protractor}\footnote{\url{http://www.protractortest.org/}}, criado especificamente para testes \textit{end-to-end} de aplicações feitas com AngularJS. O Protractor simula o uso de um usuário real realizando cliques em botões, preenchendo formulários e navegando através de links da aplicação. Desta forma, são garantidos algum nível de corretude da interface do sistema e da integração entre o client e server side.
+Este nível de teste, porém, não valida a interface de usuário e sua integração com a camada de serviço. Ou seja, todo o client-side da aplicação ainda está ``descoberto" de casos de testes. Para tanto, foram incluídos no SILQ casos de teste de sistema escritos em Javascript e utilizando o framework de testes \textit{Protractor}\footnote{\url{http://www.protractortest.org/}}, criado especificamente para testes \textit{end-to-end} de aplicações feitas com AngularJS. O Protractor simula as ações de um usuário real realizando cliques em botões, preenchendo formulários e navegando através de links da aplicação. Desta forma, são garantidos algum nível de corretude da interface do sistema e da integração entre o client e server side.
