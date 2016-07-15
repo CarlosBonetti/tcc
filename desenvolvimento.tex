@@ -70,7 +70,7 @@ Não foi abordado neste trabalho, pelos mesmos motivos do item anterior.
 expansão do módulo da busca por informações de eventos. A complexidade do tema impediu o desenvolvimento completo desse módulo na ferramenta SILQ. Procedimentos automáticos de busca utilizando-se web crawlers e o tratamento correto dessas informações fornecem muitos temas para desenvolvimento de módulos novos; \cite[p. 80]{Silq1}
 \end{citacao}
 
-A inserção de dados do Qualis Conferência\footnote{dados e conceitos relacionados a eventos científicos disponibilizados pela CAPES para algumas áreas específicas} no sistema se dá de forma manual, à medida em que novas informações são disponibilizadas pela CAPES. O objetivo deste item seria a criação de um \textit{web crawler} para captura automática de dados de eventos científicos na web. Devido à complexidade deste tema e por se tratar de um assunto independente, não relacionado com o foco deste trabalho, este item não foi abordado.
+A inserção de dados do Qualis Conferência\footnote{Dados e conceitos relacionados a eventos científicos disponibilizados pela CAPES para algumas áreas específicas} no sistema se dá de forma manual, à medida em que novas informações são disponibilizadas pela CAPES. O objetivo deste item seria a criação de um \textit{web crawler} para captura automática de dados de eventos científicos na web. Devido à complexidade deste tema e por se tratar de um assunto independente, não relacionado com o foco deste trabalho, este item não foi abordado.
 
 \item \textbf{Feedback do usuário}
 
@@ -120,19 +120,19 @@ As planilhas CSV foram então dadas como \textit{input} à base de dados resultand
 \begin{tabular}{ c | c }
 \hline
 \textbf{Ano} & \textbf{N° de periódicos extraídos} \\ \hline
-2010 & 75786 \\ \hline
-2011 & 66171 \\ \hline
-2012 & 108272 \\ \hline
-2013 & 44437 \\ \hline
-2014 & 44538 \\ \hline
-\textbf{Total} & \textbf{339204} \\ \hline
+2010 & 75.786 \\ \hline
+2011 & 66.171 \\ \hline
+2012 & 108.272 \\ \hline
+2013 & 44.437 \\ \hline
+2014 & 44.538 \\ \hline
+\textbf{Total} & \textbf{339.204} \\ \hline
 \end{tabular}
 \end{center}
 \end{table}
 
 Após esta etapa, verificou-se que todos os registros da base de dados antiga do SILQ-1 estavam contidos nesta nova versão. Desta forma, os dados do SILQ-1 foram mantidos, porém agora incluindo o ano de avaliação, além do nome do periódico, ISSN, conceito atribuído pela CAPES e área de avaliação.
 
-A inclusão dos novos registros aumentou o número de publicações passíveis de serem avaliadas pelo sistema. Os dados Qualis de 2015 e 2016 ainda não foram divulgados no momento de escrita deste artigo, mas podem ser incluídos facilmente na base de dados assim que forem disponibilizados pela CAPES.
+A inclusão dos novos registros aumentou o número de publicações passíveis de serem avaliadas pelo sistema. Os dados Qualis de 2015 e 2016 ainda não foram divulgados no momento de escrita deste trabalho, mas podem ser incluídos facilmente na base de dados assim que forem disponibilizados pela CAPES.
 
 \subsection{Criação do \textit{Web Service}} \label{sec:arquitetura-silq-2}
 
@@ -141,9 +141,9 @@ A primeira versão do SILQ foi desenvolvida com base no \textit{Play\footnote{\ur
 
 Para esta nova versão do SILQ, porém, um dos objetivos seria a criação de uma API de integração programática, tornando o SILQ não só um sistema para uso de usuários finais, mas também para integração com outras ferramentas, como um \textit{web service}. Para tanto, uma alteração significativa na arquitetura da aplicação foi feita, separando o sistema em um \textit{server-side} rodando Spring\footnote{\url{http://projects.spring.io/spring-framework/}} e servindo seu conteúdo através de uma API REST; e um \textit{client-side} remodelado utilizando AngularJS\footnote{\url{https://angularjs.org/}} e consumindo o serviço através de requisições HTTP.
 
-Em um primeiro momento, o ``núcleo" do SILQ, que inclui os algoritmos de avaliação e processamento dos currículos, não foi alterado, apenas a forma com que este serviço é disponibilizado e consumido. Desta forma, a linguagem utilizada no sistema, o Java, foi mantido. A escolha da alteração do framework back-end, de \textit{Play!} para \textit{Spring}, se deu ao fato da mudança no paradigma arquitetural da aplicação, com a introdução da camada REST. O Spring se trata de um framework Java \textit{open-source} largamente utilizado pela comunidade que oferece suporte a vários aspectos de uma aplicação web, incluindo a construção de interfaces RESTful.
+Em um primeiro momento, o ``núcleo" do SILQ, que inclui os algoritmos de avaliação e processamento dos currículos, não foi alterado, apenas a forma com que este serviço é disponibilizado e consumido. Desta forma, a linguagem utilizada no sistema, o Java, foi mantida. A escolha da alteração do framework back-end, de \textit{Play!} para \textit{Spring}, se deu ao fato da mudança no paradigma arquitetural da aplicação, com a introdução da camada REST. O Spring se trata de um framework Java \textit{open-source} largamente utilizado pela comunidade que oferece suporte a vários aspectos de uma aplicação web, incluindo a construção de interfaces RESTful.
 
-A figura \ref{fig:arquitetura} mostra um esquema da nova arquitetura do SILQ. Na figura, a caixa ``SILQ Core" representa a camada de serviço da aplicação, responsável pelo acesso ao banco de dados, avaliação de currículos e gerenciamento dos dados Qualis, cuja implementação foi realizada no trabalho passado (apesar de também sofrer algumas mudanças tecnológicas no trabalho atual).
+A Figura \ref{fig:arquitetura} mostra um esquema da nova arquitetura do SILQ. A caixa ``SILQ Core" representa a camada de serviço da aplicação, responsável pelo acesso ao banco de dados, avaliação de currículos e gerenciamento dos dados Qualis, cuja implementação foi realizada no trabalho passado (apesar de também sofrer algumas mudanças tecnológicas no trabalho atual).
 
 \begin{figure}[!h]
    \centering
@@ -164,7 +164,7 @@ Desta forma, quando um cliente realiza a primeira requisição à URL do SILQ, o se
 
 \subsection{Alterações no modelo lógico}
 
-O banco de dados relacional implementado em \textit{PostgreSQL} também sofreu algumas modificações em relação ao trabalho anterior. A figura \ref{fig:modelo-logico} mostra o esquema lógico do banco de dados da versão atual do SILQ.
+O banco de dados relacional implementado em \textit{PostgreSQL} também sofreu algumas modificações em relação ao trabalho anterior. A Figura \ref{fig:modelo-logico} mostra o esquema lógico do banco de dados da versão atual do SILQ.
 
 Algumas mudanças pequenas de nomenclatura foram realizadas. Uma mudança significativa, porém, foi a unificação das tabelas \textit{tb\_dado\_geral} e \textit{tb\_profissional} para a nova tabela \textit{tb\_curriculum\_lattes}. A função destas duas tabelas antigas era guardar os currículos enviados de usuários e de pesquisadores de grupos, respectivamente. Nesta nova versão do SILQ, porém, em ambos os casos os currículos Lattes enviados pelo sistema são salvos na mesma tabela de currículos (\textit{tb\_curriculum\_lattes}), inclusive tendo seus registros reutilizados em caso de, por exemplo, dois usuários enviarem o mesmo currículo. Neste caso, o sistema armazena somente uma vez o currículo e cria duas referências diferentes a ele, poupando-o do trabalho de duplicar os dados do currículo Lattes, cuja representação em XML contém em média algumas dezenas de \textit{kilobytes}.
 
