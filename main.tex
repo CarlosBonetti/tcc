@@ -62,7 +62,7 @@
 \autor{Carlos Bonetti}
 \grau{Bacharel}
 \local{Florianópolis}
-\data{15}{maio}{2016}
+\data{01}{outubro}{2016}
 \orientador[Orientador]{Prof. Dr. Carina F. Dorneles}
 % \coorientador[Coorientador]{Prof. Dr.}
 \coordenador[Coordenador de Projetos]{Prof.\ Dr.\ Renato Cislaghi}
@@ -71,8 +71,8 @@
 \orientadornabanca{nao} % Se faz parte da banca definir como sim
 \coorientadornabanca{nao} % Se faz parte da banca definir como sim
 % \bancaMembroA{Prof.}
-\bancaMembroB{Prof. Dr. Raul Sidnei Wazlawick}
-\bancaMembroC{Prof. Ronaldo dos Santos Mello}
+\bancaMembroB{Prof. Dr. Maurício Floriano Galimberti}
+\bancaMembroC{Prof. Dr. Márcio Bastos Castro}
 % \bancaMembroD{Quarto membro}
 %\bancaMembroE{Prof. quinto membro}
 %\bancaMembroF{Prof. sexto membro}
@@ -87,10 +87,10 @@
 
 \textoResumo {
 Os indicadores da qualidade de produções científicas vinculadas a grupos de pesquisa são gerados através da qualificação dos veículos onde eles foram publicados. O Sistema de Integração Lattes-Qualis surgiu em 2015 com o objetivo de integrar o Lattes, um sistema de cadastro de publicações e dados de pesquisadores, com o Qualis, uma plataforma de qualificação de veículos, a fim de automatizar o processo de geração de indicadores das produções contidas no currículo de um pesquisador. Tal ferramenta foi disponibilizada pública e gratuitamente, porém carece de atualizações dos dados Qualis mais recentes e de mudanças de arquitetura e de usabilidade interessantes para seus usuários. Outro ponto de melhoria é a análise do desempenho e precisão da ferramenta de avaliação de currículos, baseado em busca por similaridade textual, e como o próprio usuário poderia contribuir com sugestões de \textit{matchings} entre publicações e veículos para melhorar a acurácia geral do Sistema. O presente trabalho se propõe a realizar tais modificações no SILQ, dando origem a uma nova versão desenvolvida a partir do código existente da primera, juntamente com uma análise do algoritmo de avaliação e o impacto que \textit{feedbacks} explícitos de usuários podem ter na precisão geral do sistema.}
-\palavrasChave {Similaridade. Lattes. Qualis. Feedback. SILQ.}
+\palavrasChave {Similaridade. Lattes. Qualis. Feedback de Relevância. SILQ.}
 
 \textAbstract {The quality indicators of scientific publications linked to research groups are measured through the qualification of the vehicles where they were published. The Lattes-Qualis Integration System emerged in 2015 having the objective of integrating the Lattes platform, a register system for publications and other information about researchers, with Qualis, a platform for qualification of research vehicles, in order to automate the process of generating indicators of productions contained in the curriculum of the researcher. Such tool was provided publicly and for free but lacks of the most recent Qualis data update and architectural and usability changes that could be interesting for its users. Another improvement point is the analysis of performance and accuracy of the rating system, based on textual similarity, and how the user could contribute with matchings suggestions among publications and vehicles to improve the overall system accuracy. The present work proposes to develop these improvements in SILQ, creating a new version based on the source code of the existent one, alongside with an analysis of the rating algorithm and the impact that explicit user feedback could have in the overall system accuracy.}
-\keywords {Similarity. Lattes. Qualis. Feedback. SILQ.}
+\keywords {Similarity. Lattes. Qualis. Relevance Feedback. SILQ.}
 
 %----------------------------------------------------------------------
 % Início do documento
@@ -122,7 +122,8 @@ Os indicadores da qualidade de produções científicas vinculadas a grupos de pesq
 \input{introducao}
 \input{conceitos}
 \input{trabalhos-relacionados}
-\input{desenvolvimento}
+\input{desenvolvimento-arq}
+\input{desenvolvimento-ir}
 \input{conclusao}
 
 \bibliographystyle{ufscThesis/ufsc-alf}

@@ -2,11 +2,9 @@
 
 \chapter{Conceitos e fundamentação teórica}
 
-Neste capítulo serão feitas uma breve descrição e conceituação básica do processo de produção e avaliação científica no Brasil, com o objetivo de familiarizar o leitor com a problemática envolvida neste processo e o que o SILQ propôs para automatizá-lo. Também serão introduzidos os conceitos tecnológicos e computacionais que de alguma forma foram explorados pelo sistema para chegar a este objetivo.
+Esta revisão de literatura não será exaustiva ao ponto de revisitar os mesmos assuntos abordados no trabalho original de \cite{Silq1} e focará somente nos pontos onde este novo trabalho divergiu. Alguns assuntos fundamentais, entretanto, foram expostos novamente com o intuito de facilitar o processo de entendimento deste artigo como um trabalho independente. É o caso, por exemplo, das seções relacionadas aos Qualis, Lattes e das tecnologias base utilizadas no sistema.
 
-Esta revisão de literatura, porém, não será exaustiva ao ponto de revisitar os mesmos assuntos abordados no trabalho original de \cite{Silq1} e focará somente nos pontos onde este novo trabalho divergiu. Alguns assuntos fundamentais, entretanto, foram expostos novamente com o intuito de facilitar o processo de entendimento deste artigo como um trabalho independente. É o caso, por exemplo, das seções relacionadas aos Qualis, Lattes e das tecnologias base utilizadas no sistema.
-
-Em um segundo momento, serão expostos temas relacionados à \textit{data-matching} e métricas utilizadas para a medição da qualidade de algoritmos de similaridade.
+Em um primeiro momento será apresentada a problemática envolvida no processo de avaliação da produção científica no Brasil e a motivação para a criação do SILQ. Após esta seção serão introduzidos conceitos relacionados a sistemas de Recuperação de Informação e Feedback de Relevância, tópicos explorados por este trabalho para a tentativa de aumento da exatidão e avaliação da eficácia do sistema. Por último, serão apresentados conceitos e padrões arquiteturais e tecnológicos que foram explorados para o desenvolvimento da segunda versão do SILQ.
 
 \section{Produção e avaliação científicas no Brasil}
 
@@ -43,6 +41,48 @@ Desde a década de 80 notava-se a necessidade de um formulário padrão para regist
 Entre os dados contidos em um currículo Lattes, estão os dados gerais do pesquisador, produção bibliográfica, orientações, citações, formação acadêmica, etc. No módulo Produção Bibliográfica, por exemplo, é possível a inserção de artigos publicados em periódicos indexados pelo ISSN, livros e capítulos, textos em jornais ou revistas, trabalhos publicados em anais de eventos, entre outras formas de produções \cite{CNPQ-Ajuda}. Estes dados de publicações seriam usados pela primeira versão do SILQ \cite{Silq1} para a avaliação automática de currículos.
 
 A Plataforma Lattes, além de apresentar seus currículos através de uma interface web usando HTML, também disponibiliza os dados em formato XML, uma linguagem de marcação semi-estruturada legível por humanos e máquinas \cite[p. 34]{Silq1}. Foi este o formato utilizado pelo SILQ para a extração dos dados Lattes de um pesquisador, conforme relatado em \cite{Silq1}.
+
+\section{Recuperação de Informação e métricas de avaliação}
+
+Recuperação de Informação, ou \textit{Information Retrieval} (IR), é a obtenção de informações relevantes, dados certos critérios de busca, de uma coleção maior de informações \cite{BaezaYates99}. Os maiores exemplos atuais de sistemas de IR são os buscadores web, baseados em busca textual.
+
+Áreas tipicamente relacionadas com IR e cujas técnicas e definições muita vezes se intersectam são as de \textit{Data Mining}, Sistemas de Recomendação e \textit{Data-Matching}. Data matching é o processo de comparação entre informações de diferentes fontes com o objetivo de descobrir se de fato representam o mesmo objeto do mundo real \cite{Dorneles2011}. Neste contexto, é denominada de \textit{query} toda consulta submetida ao sistema de IR e de \textit{documentos} o conjunto de dados sobre o qual ocorrerá a pesquisa e do qual, possivelmente, resultará um subconjunto contendo os resultados para a \textit{query}. Desta forma o algoritmo de avaliação de currículos do SILQ pode ser classificado como um sistema de IR baseado em \textit{data matching} aproximado, utilizando uma função de similaridade textual para classificação dos resultados.
+
+Um processo de \textit{data mathing} aproximado emprega funções de similaridade (ou de distância) para comparar informações, atribuindo um valor, geralmente pertencente ao intervalo real $[0, 1]$, ao quão parecidos (similares) são os dados comparados. Dois objetos são considerados similares se o valor atribuído pela função de similaridade for maior do que um \textit{threshold} especificado \cite{Dorneles2011}.
+
+A função de similaridade utilizada pelo algoritmo de avaliação de currículos do SILQ é a \textit{ngram}, com valor de \textit{n} igual a 3 (sendo chamado, neste caso, de \textit{trigram}) \cite{Silq1}.
+
+Desta forma, ao avaliar uma publicação qualquer, o SILQ compara, através da função \textit{trigram}, o nome do veículo onde esta publicação foi submetida com cada um dos registros Qualis presentes na base de dados. Se a similaridade for 60\% ou maior\footnote{Este valor é o \textit{threshold} padrão para avaliações, mas pode ser configurado pelo sistema.}, o veículo é considerado como um \textit{matching} positivo. O evento com maior similaridade, caso exista, é considerado e seu estrato Qualis é atribuído à publicação que está sendo avaliada.
+
+Algumas questões relacionadas a este processo são a definição do valor de \textit{threshold} ideal para maximizar a precisão do algoritmo \cite{Dorneles2011} e a própria função de similaridade mais indicada para o conjunto de dados em questão \cite{Silva07}. Para ambas as questões, entretando, é preciso estipular métricas para a medição de quão preciso é o algoritmo de similaridade, para só então testar diferentes técnicas e variáveis até chegar a uma configuração ideal para o conjunto de dados trabalhados. Duas medidas clássicas de IR que podem ser utilizadas neste caso são a precisão (\textit{precision}) e a revocação (\textit{recall}).
+
+\subsection{Precisão e Revocação}
+
+Em sistemas de reconhecimento de padrões e/ou informações baseados em classificações binárias\footnote{Que só fazem distinção entre dois possíveis resultados para uma busca: ou o elemento faz parte do grupo desejado ou não faz parte.}, precisão (ou valor preditivo positivo) é a fração dos objetos retornados que são relevantes, enquanto a revocação (ou sensibilidade) é a fração de todos os objetos relevantes que foram retornados \cite{Sammut2001}. Desta forma, \textit{precision} e \textit{recall} podem ser consideradas medidas de correção e completude e são métricas base para o entendimento da relevância dos resultados retornados \cite{Euzenat07}.
+
+De maneira semelhante, em \textit{Data-matching}, estas medidas são interessantes para medir a habilidade de algoritmos de similaridade em ordenar os resultados de uma consulta, embora não sejam indicados como medidas absolutas para expressar o quão eficientemente uma certa função de similaridade separa os resultados relevantes dos irrelevantes, conforme cita o trabalho de \cite{Silva07} que também propõe o uso de uma função de \textit{discernability}, utilizando métricas de \textit{precision} e \textit{recall}, além de outras, para medir a qualidade de uma função de similaridade.
+
+\subsection{Feedback de Relevância}
+
+Feedback de relevância (ou \textit{Relevance Feedback}) é uma característica de alguns sistemas de recuperação de informação que utilizam dados providos pelo usuário para aumentar a exatidão de suas respostas. De maneira particular, o usuário dá \textit{feedback} sobre um conjunto inicial de valores retornados pelo sistema, que então passa a considerar as informações de resultados relevantes ou não relevantes para processar novas \textit{queries} \cite[p. 178]{Manning2008}.
+
+Tradicionalmente, sistemas que utilizam esta técnica dão a possibilidade para o usuário informar palavras-chave, selecionar ou marcar resultados relevantes ou não relevantes ou responder questões sobre seus interesses \cite{Kelly2003}. Pode-se distinguir dois tipos de \textit{feedback} de usuário: explícito e implícito. No primeiro, o usuário interage com o sistema alimentando-o com informações de julgamento (marcando resultados relevantes, selecionando melhores resultados etc); no segundo, o sistema infere que alguns resultados foram melhores que outros por métricas derivadas, como itens selecionados para visualização, tempo de permanência na página ou ações de \textit{scroll} do navegador \cite{White2001}. \textit{Feedback} implícito, de maneira geral, é menos confiável do que explícito por utilizar fontes indiretas de evidência \cite{Manning2008}.
+
+Segundo \cite{Manning2008}, feedback de relevância pode proporcionar ganhos substanciais na performance de sistemas de recuperação de informação, porém a avaliação de sua eficácia em um sistema de IR pode não ser trivial. Um dos métodos para tal mensuração é traçar gráficos de precisão-revocação antes e depois de uma rodada de \textit{feedback} do usuário e comparar os resultados. Esta técnica, porém, é trapaceira pois os documentos julgados pelo usuário com certeza serão melhor rankeados. Para uma avaliação justa devem ser levados em conta somente documentos que não foram vistos pelo usuário. Um outro método de avaliação requere dois conjuntos, o primeiro utilizado para a \textit{query} inicial e para receber \textit{feedback} do usuário, e o segundo para avaliação via comparação, que contém os resultados desejados previamente estabelecidos por um especialista. A performance do sistema pode ser medido através da comparação dos dois conjuntos, antes e após a inclusão dos dados de \textit{feedback} do usuário.
+
+\afazer{Algoritmo de \textit{Rocchio}}
+
+\subsection{Métricas de avaliação de sistemas de IR}
+
+\afazer{Precision at k}
+
+\afazer{Average Precision}
+
+\afazer{Mean Average Precision}
+
+\afazer{R-Precision}
+
+\afazer{Mean Reciprocral Rank}
 
 \section{Arquitetura de sistemas baseados na \textit{Web}}
 
@@ -96,23 +136,3 @@ O processo de desenvolvimento de software é uma ativade em que comumente ocorrem
 Três das técnicas utilizadas para a garantia da qualidade de teste são a Verificação, Validação e Teste \cite{Barbosa2000}. A verificação avalia se o produto está sendo desenvolvido corretamente, enquanto a validação avalia se o produto correto está sendo desenvolvido \cite{Boehm1981}. Já o teste, no contexto de software, geralmente implica na execução do próprio produto, considerando-se valores de entrada pertinentes para teste, para verificação de certas funcionalidades do sistema \cite{Barbosa2000}.
 
 Segundo \cite{Pressman2001} e \cite[cap. 5]{SWEBOK2014}, diferentes tipos de testes podem ser agrupados em níveis de acordo com o grau de especifidade do módulo ou do requerimento sendo testado. Testes unitários têm como objetivo verificar o funcionamento de unidades indivisíveis e isoladas de um software, garantindo que cada uma delas funcione conforme especficado. Testes de integração, por sua vez, tem por objetivo encontrar falhas na integração entre as unidades de um sistema. Testes de sistema, ou testes \textit{end-to-end} (fim a fim), executam a validação do sistema final como um todo, simulando as ações que um usuário real realizaria ao utilizar a aplicação.
-
-\section{\textit{Data-Matching} e Métricas de Similaridade}
-
-Recuperação de Informação, ou \textit{Information Retrieval} (IR), é a obtenção de informações relevantes, dados certos critérios de busca, de uma coleção maior de informações \cite{BaezaYates99}. Os maiores exemplos atuais de sistemas de IR são os buscadores web, baseados em busca textual.
-
-Áreas tipicamente relacionadas com IR e cujas técnicas e definições muita vezes se intersectam são as de \textit{Data Mining}, Sistemas de Recomendação e \textit{Data-Matching}. Data matching é o processo de comparação entre informações de diferentes fontes com o objetivo de descobrir se de fato representam o mesmo objeto do mundo real \cite{Dorneles2011}. Desta forma o algoritmo de avaliação de currículos do SILQ baseado em similaridade textual pode ser classificado como um sistema automatizado de \textit{data matching} aproximado.
-
-Um processo de \textit{data mathing} aproximado emprega funções de similaridade (ou de distância) para comparar informações, atribuindo um valor, geralmente pertencente ao intervalo real $[0, 1]$, ao quão parecidos (similares) são os dados comparados. Dois objetos são considerados similares se o valor atribuído pela função de similaridade for maior do que um \textit{threshold} especificado \cite{Dorneles2011}.
-
-A função de similaridade utilizada pelo algoritmo de avaliação de currículos do SILQ é a \textit{ngram}, com valor de \textit{n} igual a 3 (sendo chamado, neste caso, de \textit{trigram}) \cite{Silq1}.
-
-Desta forma, ao avaliar uma publicação qualquer, o SILQ compara, através da função \textit{trigram}, o nome do veículo onde esta publicação foi submetida com cada um dos registros Qualis presentes na base de dados. Se a similaridade for 60\% ou maior\footnote{Este valor é o \textit{threshold} padrão para avaliações, mas pode ser configurado pelo sistema.}, o veículo é considerado como um \textit{matching} positivo. O evento com maior similaridade, caso exista, é considerado e seu estrato Qualis é atribuído à publicação que está sendo avaliada.
-
-Algumas questões relacionadas a este processo são a definição do valor de \textit{threshold} ideal para maximizar a precisão do algoritmo \cite{Dorneles2011} e a própria função de similaridade mais indicada para o conjunto de dados em questão \cite{Silva07}. Para ambas as questões, entretando, é preciso estipular métricas para a medição de quão preciso é o algoritmo de similaridade, para só então testar diferentes técnicas e variáveis até chegar a uma configuração ideal para o conjunto de dados trabalhados. Duas medidas clássicas de IR que podem ser utilizadas neste caso são a precisão (\textit{precision}) e a revocação (\textit{recall}).
-
-\subsection{Precision e Recall}
-
-Em sistemas de reconhecimento de padrões e/ou informações baseados em classificações binárias\footnote{Que só fazem distinção entre dois possíveis resultados para uma busca: ou o elemento faz parte do grupo desejado ou não faz parte.}, precisão (ou valor preditivo positivo) é a fração dos objetos retornados que são relevantes, enquanto a revocação (ou sensibilidade) é a fração de todos os objetos relevantes que foram retornados \cite{Sammut2001}. Desta forma, \textit{precision} e \textit{recall} podem ser consideradas medidas de correção e completude e são métricas base para o entendimento da relevância dos resultados retornados \cite{Euzenat07}.
-
-De maneira semelhante, em \textit{Data-matching}, estas medidas são interessantes para medir a habilidade de algoritmos de similaridade em ordenar os resultados de uma consulta, embora não sejam indicados como medidas absolutas para expressar o quão eficientemente uma certa função de similaridade separa os resultados relevantes dos irrelevantes, conforme cita o trabalho de \cite{Silva07} que também propõe o uso de uma função de \textit{discernability}, utilizando métricas de \textit{precision} e \textit{recall}, além de outras, para medir a qualidade uma função de similaridade.
