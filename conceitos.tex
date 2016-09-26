@@ -74,15 +74,37 @@ Segundo \cite{Manning2008}, feedback de relevância pode proporcionar ganhos subs
 
 \subsection{Métricas de avaliação de sistemas de IR}
 
-\afazer{Precision at k}
+\afazer{Introduzir?}
+
+\subsection{\textit{Precision at $k$ (P@k)} e \textit{R-Precision}}
+
+Para alguns sistemas de IR, não são relevantes todas as respostas a uma \textit{query}, mas somente os primeiros $k$ resultados. Neste caso, podem ser realizadas mensurações da precisão considerando somente um certo limite de resultados, por exemplo, 10 ou 20 documentos. Este valor é conhecido como \textit{precision at $k$}, por exemplo, \textit{precision at 10}, sendo 10 o número de resultados considerados  \cite{Manning2008}.
+
+Uma das desvantagens desta medida é sua instabilidade em comparação com outras, principalmente de sua média já que o número total de documentos relevantes para uma \textit{query} tem uma forte influência no valor. Um exemplo é uma \textit{query} que só possua 1 item relevante e que ele seja o primeiro resultado retornado, mas ainda  assim o valor de \textit{precision at 10} é $0.1$, já que outros 9 itens não relevantes foram retornados.
+
+Uma alternativa que alivia este problema é chamado de \textit{R-Precision}. Esta medida requere que o conjunto $R$ de todos os documentos relevantes para certa \textit{query} seja conhecido. A partir deste conjunto calcula-se a precisão de uma query que retornou $r$ resultados relevantes como sendo $r/|R|$, ou seja, a fração dos itens relevantes que foram de fato retornados. Neste caso, ao analisar os primeiros $|R|$ resultados de uma \textit{query}, por definição, não apenas o valor da precisão é $r/|R|$ como o próprio valor de revocação também é $r/|R|$. Ou seja, os valores de precisão e revocação são idênticos ao utilizar tal métrica \cite{Manning2008}.
+
+\afazer{Citar o SILQ onde $|R| = 1$, sempre?}
 
 \afazer{Average Precision}
 
 \afazer{Mean Average Precision}
 
-\afazer{R-Precision}
+\subsection{Média de Rank Recíproco}
 
-\afazer{Mean Reciprocral Rank}
+A média de rank recíprocro (\textit{MRR - Mean Reciprocral Rank}), é uma medida estatística utilizada na avaliação de processos que produzem uma lista de resultados a uma \textit{query} ordenados por probabilidade de corretude \cite{Liu2009}.
+
+A média é dada por:
+
+$$
+MRR = {1 \over |Q|} \sum_{i=1}^{|Q|} {1 \over rank(i)}
+$$
+
+Sendo $Q$ o conjunto de \textit{queries} sobre a qual a média é calculada e $rank(i)$ a posição do primeiro item relevante para a $i$-ésima \textit{query}.
+
+Ou seja, se um item relevante é o primeiro resultado retornado, então o rank recíprocro (RR) é 1. Se o item relevante foi retornado na segunda posição, $RR = 1/2 = 0.5$ e assim por diante. Em outras palavras, MRR é o inverso da posição do primeiro item relevante de uma \textit{query} e uma medida particularmente intessante para sistemas em que somente o primeiro resultado importa \cite{Mcfee2010}, como no SILQ.
+
+A métrica não define, porém, o que fazer quando mais de um resultado correto foi retornado. Se nenhum resultado correto foi retornado, entretanto, comumente utiliza-se valor de rank recíprocro igual a $0$.
 
 \section{Arquitetura de sistemas baseados na \textit{Web}}
 
