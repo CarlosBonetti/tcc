@@ -54,7 +54,7 @@ A função de similaridade utilizada pelo algoritmo de avaliação de currículos do 
 
 Desta forma, ao avaliar uma publicação qualquer, o SILQ compara, através da função \textit{trigram}, o nome do veículo onde esta publicação foi submetida com cada um dos registros Qualis presentes na base de dados. Se a similaridade for 60\% ou maior\footnote{Este valor é o \textit{threshold} padrão para avaliações, mas pode ser configurado pelo sistema.}, o veículo é considerado como um \textit{matching} positivo. O evento com maior similaridade, caso exista, é considerado e seu estrato Qualis é atribuído à publicação que está sendo avaliada.
 
-Algumas questões relacionadas a este processo são a definição do valor de \textit{threshold} ideal para maximizar a precisão do algoritmo \cite{Dorneles2011} e a própria função de similaridade mais indicada para o conjunto de dados em questão \cite{Silva07}. Para ambas as questões, entretando, é preciso estipular métricas para a medição de quão preciso é o algoritmo de similaridade, para só então testar diferentes técnicas e variáveis até chegar a uma configuração ideal para o conjunto de dados trabalhados. Duas medidas clássicas de IR que podem ser utilizadas neste caso são a precisão (\textit{precision}) e a revocação (\textit{recall}).
+Algumas questões relacionadas a este processo são a definição do valor de \textit{threshold} ideal para maximizar a precisão do algoritmo \cite{Dorneles2011} e a própria função de similaridade mais indicada para o conjunto de dados em questão \cite{Silva07}. Para ambas as questões, entretando, é preciso estipular métricas para a medição de quão preciso é o algoritmo de similaridade, para só então testar diferentes técnicas e variáveis até chegar a uma configuração ideal para o conjunto de dados trabalhados. Duas medidas clássicas de IR que podem ser utilizadas neste caso são a precisão (\textit{precision}) e a revocação (\textit{recall}), além de outras derivadas mais indicadas para sistemas que utilizam \textit{ranking}, conforme descritas nas próximas subseções. \afazer{Referências}.
 
 \subsection{Precisão e Revocação}
 
@@ -62,21 +62,9 @@ Em sistemas de reconhecimento de padrões e/ou informações baseados em classifica
 
 De maneira semelhante, em \textit{Data-matching}, estas medidas são interessantes para medir a habilidade de algoritmos de similaridade em ordenar os resultados de uma consulta, embora não sejam indicados como medidas absolutas para expressar o quão eficientemente uma certa função de similaridade separa os resultados relevantes dos irrelevantes, conforme cita o trabalho de \cite{Silva07} que também propõe o uso de uma função de \textit{discernability}, utilizando métricas de \textit{precision} e \textit{recall}, além de outras, para medir a qualidade de uma função de similaridade.
 
-\subsection{Feedback de Relevância}
-
-Feedback de relevância (ou \textit{Relevance Feedback}) é uma característica de alguns sistemas de recuperação de informação que utilizam dados providos pelo usuário para aumentar a exatidão de suas respostas. De maneira particular, o usuário dá \textit{feedback} sobre um conjunto inicial de valores retornados pelo sistema, que então passa a considerar as informações de resultados relevantes ou não relevantes para processar novas \textit{queries} \cite[p. 178]{Manning2008}.
-
-Tradicionalmente, sistemas que utilizam esta técnica dão a possibilidade para o usuário informar palavras-chave, selecionar ou marcar resultados relevantes ou não relevantes ou responder questões sobre seus interesses \cite{Kelly2003}. Pode-se distinguir dois tipos de \textit{feedback} de usuário: explícito e implícito. No primeiro, o usuário interage com o sistema alimentando-o com informações de julgamento (marcando resultados relevantes, selecionando melhores resultados etc); no segundo, o sistema infere que alguns resultados foram melhores que outros por métricas derivadas, como itens selecionados para visualização, tempo de permanência na página ou ações de \textit{scroll} do navegador \cite{White2001}. \textit{Feedback} implícito, de maneira geral, é menos confiável do que explícito por utilizar fontes indiretas de evidência \cite{Manning2008}.
-
-Segundo \cite{Manning2008}, feedback de relevância pode proporcionar ganhos substanciais na performance de sistemas de recuperação de informação, porém a avaliação de sua eficácia em um sistema de IR pode não ser trivial. Um dos métodos para tal mensuração é traçar gráficos de precisão-revocação antes e depois de uma rodada de \textit{feedback} do usuário e comparar os resultados. Esta técnica, porém, é trapaceira pois os documentos julgados pelo usuário com certeza serão melhor rankeados. Para uma avaliação justa devem ser levados em conta somente documentos que não foram vistos pelo usuário. Um outro método de avaliação requere dois conjuntos, o primeiro utilizado para a \textit{query} inicial e para receber \textit{feedback} do usuário, e o segundo para avaliação via comparação, que contém os resultados desejados previamente estabelecidos por um especialista. A performance do sistema pode ser medido através da comparação dos dois conjuntos, antes e após a inclusão dos dados de \textit{feedback} do usuário.
-
-\afazer{Algoritmo de \textit{Rocchio}}
-
-\subsection{Métricas de avaliação de sistemas de IR}
-
-\afazer{Introduzir?}
-
 \subsection{\textit{Precision at $k$ (P@k)} e \textit{R-Precision}}
+
+\afazer{Referências}
 
 Para alguns sistemas de IR, não são relevantes todas as respostas a uma \textit{query}, mas somente os primeiros $k$ resultados. Neste caso, podem ser realizadas mensurações da precisão considerando somente um certo limite de resultados, por exemplo, 10 ou 20 documentos. Este valor é conhecido como \textit{precision at $k$}, por exemplo, \textit{precision at 10}, sendo 10 o número de resultados considerados  \cite{Manning2008}.
 
@@ -105,6 +93,16 @@ Sendo $Q$ o conjunto de \textit{queries} sobre a qual a média é calculada e $ran
 Ou seja, se um item relevante é o primeiro resultado retornado, então o rank recíprocro (RR) é 1. Se o item relevante foi retornado na segunda posição, $RR = 1/2 = 0.5$ e assim por diante. Em outras palavras, MRR é o inverso da posição do primeiro item relevante de uma \textit{query} e uma medida particularmente intessante para sistemas em que somente o primeiro resultado importa \cite{Mcfee2010}, como no SILQ.
 
 A métrica não define, porém, o que fazer quando mais de um resultado correto foi retornado. Se nenhum resultado correto foi retornado, entretanto, comumente utiliza-se valor de rank recíprocro igual a $0$.
+
+\subsection{Feedback de Relevância}
+
+Feedback de relevância (ou \textit{Relevance Feedback}) é uma característica de alguns sistemas de recuperação de informação que utilizam dados providos pelo usuário para aumentar a exatidão de suas respostas. De maneira particular, o usuário dá \textit{feedback} sobre um conjunto inicial de valores retornados pelo sistema, que então passa a considerar as informações de resultados relevantes ou não relevantes para processar novas \textit{queries} \cite[p. 178]{Manning2008}.
+
+Tradicionalmente, sistemas que utilizam esta técnica dão a possibilidade para o usuário informar palavras-chave, selecionar ou marcar resultados relevantes ou não relevantes ou responder questões sobre seus interesses \cite{Kelly2003}. Pode-se distinguir dois tipos de \textit{feedback} de usuário: explícito e implícito. No primeiro, o usuário interage com o sistema alimentando-o com informações de julgamento (marcando resultados relevantes, selecionando melhores resultados etc); no segundo, o sistema infere que alguns resultados foram melhores que outros por métricas derivadas, como itens selecionados para visualização, tempo de permanência na página ou ações de \textit{scroll} do navegador \cite{White2001}. \textit{Feedback} implícito, de maneira geral, é menos confiável do que explícito por utilizar fontes indiretas de evidência \cite{Manning2008}.
+
+Segundo \cite{Manning2008}, feedback de relevância pode proporcionar ganhos substanciais na performance de sistemas de recuperação de informação, porém a avaliação de sua eficácia em um sistema de IR pode não ser trivial. Um dos métodos para tal mensuração é traçar gráficos de precisão-revocação antes e depois de uma rodada de \textit{feedback} do usuário e comparar os resultados. Esta técnica, porém, é trapaceira pois os documentos julgados pelo usuário com certeza serão melhor rankeados. Para uma avaliação justa devem ser levados em conta somente documentos que não foram vistos pelo usuário. Um outro método de avaliação requere dois conjuntos, o primeiro utilizado para a \textit{query} inicial e para receber \textit{feedback} do usuário, e o segundo para avaliação via comparação, que contém os resultados desejados previamente estabelecidos por um especialista. A performance do sistema pode ser medido através da comparação dos dois conjuntos, antes e após a inclusão dos dados de \textit{feedback} do usuário.
+
+\afazer{Algoritmo de \textit{Rocchio}}
 
 \section{Arquitetura de sistemas baseados na \textit{Web}}
 
