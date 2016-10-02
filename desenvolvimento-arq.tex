@@ -114,7 +114,7 @@ As cinco novas planilhas passaram por um processo de \textit{data cleaning} manu
 
 \end{enumerate}
 
-As planilhas CSV foram então dadas como \textit{input} à base de dados resultando na criação de 339204 tuplas, referentes a cada um dos anos do período divulgado 2012-2015. A Tabela \ref{tab:n-registros-extraidos} mostra o número de períodicos extraídos para cada ano de avaliação do Qualis.
+As planilhas CSV foram então dadas como \textit{input} à base de dados resultando na criação de $339.204$ tuplas, referentes a cada um dos anos do período divulgado 2012-2015. A Tabela \ref{tab:n-registros-extraidos} mostra o número de períodicos extraídos para cada ano de avaliação do Qualis.
 
 \begin{table}[!h]
 \begin{center}
@@ -143,13 +143,13 @@ A primeira versão do SILQ foi desenvolvida com base no \textit{Play\footnote{\ur
 
 Para esta nova versão do SILQ, porém, um dos objetivos seria a criação de uma API de integração programática, tornando o SILQ não só um sistema para uso de usuários finais, mas também para integração com outras ferramentas, como um \textit{web service}. Para tanto, uma alteração significativa na arquitetura da aplicação foi feita, separando o sistema em um \textit{server-side} rodando Spring\footnote{\url{http://projects.spring.io/spring-framework/}} e servindo seu conteúdo através de uma API REST; e um \textit{client-side} remodelado utilizando AngularJS\footnote{\url{https://angularjs.org/}} e consumindo o serviço através de requisições HTTP.
 
-Em um primeiro momento, o ``núcleo" do SILQ, que inclui os algoritmos de avaliação e processamento dos currículos, não foi alterado, apenas a forma com que este serviço é disponibilizado e consumido. Desta forma, a linguagem utilizada no sistema, o Java, foi mantida. A escolha da alteração do framework back-end, de \textit{Play!} para \textit{Spring}, se deu ao fato da mudança no paradigma arquitetural da aplicação, com a introdução da camada REST. O Spring se trata de um framework Java \textit{open-source} largamente utilizado pela comunidade que oferece suporte a vários aspectos de uma aplicação web, incluindo a construção de interfaces RESTful.
+\afazer{Em um primeiro momento, o ``núcleo" do SILQ, que inclui os algoritmos de avaliação e processamento dos currículos, não foi alterado, apenas a forma com que este serviço é disponibilizado e consumido}. Desta forma, a linguagem utilizada no sistema, o Java, foi mantida. A escolha da alteração do framework back-end, de \textit{Play!} para \textit{Spring}, se deu ao fato da mudança no paradigma arquitetural da aplicação, com a introdução da camada REST. O Spring se trata de um framework Java \textit{open-source} largamente utilizado pela comunidade que oferece suporte a vários aspectos de uma aplicação web, incluindo a construção de interfaces RESTful.
 
 A Figura \ref{fig:arquitetura} mostra um esquema da nova arquitetura do SILQ. A caixa ``SILQ Core" representa a camada de serviço da aplicação, responsável pelo acesso ao banco de dados, avaliação de currículos e gerenciamento dos dados Qualis, cuja implementação foi realizada no trabalho passado (apesar de também sofrer algumas mudanças tecnológicas no trabalho atual).
 
 \begin{figure}[!h]
    \centering
-   \caption{Nova arquitetura do SILQ.}
+   \caption{Nova arquitetura do SILQ}
    \label{fig:arquitetura}
    \includegraphics[width=\textwidth]{figuras/arquitetura-silq.png}
 \end{figure}
@@ -164,6 +164,10 @@ Utilizando esta ideia, no SILQ-2, a camada de visão foi totalmente reescrita em 
 
 Desta forma, quando um cliente realiza a primeira requisição à URL do SILQ, o servidor serve uma página HTML (geralmente denominada de \textit{index}) junto com os \textit{assets} necessários para a construção de conteúdo dinâmico e estilização da página (imagens, arquivos CSS e Javascript). As requisições subsequentes, entretanto, utilizam somente requisições assíncronas ao servidor, utilizando Javascript: uma requisição conhecida por \textit{Ajax} (Asynchronous JavaScript and XML). Estas requisições utilizam a camada REST do servidor que retornará respostas em JSON e cujo conteúdo será processado no cliente e montará as páginas de forma dinâmica. Desta forma, parte da lógica da aplicação como um todo é transferida para o cliente, reduzindo a carga no servidor.
 
+\afazer{Outra mudança significativa realizada no \textit{front-end} da aplicação foi a atualização do \textit{framework} CSS utilizado, inserida no processo de reescrita das páginas HTML}. A primeira versão do sistema utilizava a versão 2 do \textit{framework open-source} Bootstrap\footnote{\url{http://getbootstrap.com/}}, que foi atualizada para a versão 3 no SILQ-2. De forma paralela foram realizadas algumas mudanças na interface do sistema, principalmente na página de resultados de avaliação que passou a incluir controles permitindo ao usuário informar \textit{feedback} de relevância sobre os resultados retornados.
+
+\afazer{Inserir imagem do antes e depois, lado a lado, e falar dela!}
+
 \subsection{Alterações no modelo lógico}
 
 O banco de dados relacional implementado em \textit{PostgreSQL} também sofreu algumas modificações em relação ao trabalho anterior. A Figura \ref{fig:modelo-logico} mostra o esquema lógico do banco de dados da versão atual do SILQ.
@@ -172,15 +176,15 @@ Algumas mudanças pequenas de nomenclatura foram realizadas. Uma mudança signific
 
 \begin{figure}[!h]
    \centering
-   \caption{Novo esquema do modelo lógico do SILQ.}
+   \caption{Novo esquema do modelo lógico do SILQ}
    \label{fig:modelo-logico}
    \includegraphics[width=\textwidth]{figuras/modelo-logico.png}
 \end{figure}
 
 \subsection{Garantia da qualidade}
 
-Para a garantia da qualidade desta nova versão do SILQ, foram introduzidas duas camadas de testes automatizados: a primeira, envolvendo \textit{testes unitários} e \textit{testes de integração} escritos em Java e com o objetivo de garantir a corretude do server-side da aplicação; e a segunda, basicamente um \textit{teste de sistema} escrito em Javascript e simulando casos de uso reais, garantindo a corretude do client-side e de sua integração com o servidor.
+Para a garantia da qualidade desta nova versão do SILQ, foram introduzidas duas camadas de testes automatizados: a primeira, envolvendo \textit{testes unitários} e \textit{testes de integração} escritos em Java e com o objetivo de garantir a corretude do server-side da aplicação; e a segunda, \textit{testes de sistema} escritos em Javascript e simulando casos de uso reais, garantindo a corretude do client-side e de sua integração com o servidor.
 
 No SILQ, os testes unitários e de integração foram escritos em Java utilizando o framework de testes \textit{jUnit}\footnote{\url{http://junit.org/}}. Eles testam cada função da camada de serviço da aplicação, por exemplo simulando o upload de um currículo qualquer e verificando se os dados extraídos e retornados são de fato aqueles contidos no currículo. Foram criados testes, inclusive, para as funcionalidades já existentes desde o SILQ-1, mas que ainda não eram cobertos com casos de teste automatizados, para assim aumentar a confiabilidade do sistema e garantir que mudanças futuras não ocasionem \textit{bugs} nestes módulos antigos.
 
-Este nível de teste, porém, não valida a interface de usuário e sua integração com a camada de serviço. Ou seja, todo o client-side da aplicação ainda está ``descoberto" de casos de testes. Para tanto, foram incluídos no SILQ casos de teste de sistema escritos em Javascript e utilizando o framework de testes \textit{Protractor}\footnote{\url{http://www.protractortest.org/}}, criado especificamente para testes \textit{end-to-end} de aplicações feitas com AngularJS. O Protractor simula as ações de um usuário real realizando cliques em botões, preenchendo formulários e navegando através de links da aplicação. Desta forma, são garantidos algum nível de corretude da interface do sistema e da integração entre o client e server side.
+Este nível de teste, porém, não valida a interface de usuário e sua integração com a camada de serviço. Ou seja, todo o client-side da aplicação ainda estaria ``descoberto" de casos de testes. Para sanar este problema, foram incluídos no SILQ casos de teste de sistema escritos em Javascript e utilizando o framework de testes \textit{Protractor}\footnote{\url{http://www.protractortest.org/}}, criado especificamente para testes \textit{end-to-end} de aplicações feitas com AngularJS. O Protractor simula as ações de um usuário real realizando cliques em botões, preenchendo formulários e navegando através de links da aplicação. Desta forma, são garantidos algum nível de corretude da interface do sistema e da integração entre o \textit{client} e \textit{server-side}.

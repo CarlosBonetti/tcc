@@ -23,17 +23,33 @@ Pode-se tomar o exemplo real de um trabalho qualquer extraído de um currículo La
 \begin{tabular}{ p{6cm} | c | c }
 \hline
 \textbf{Evento} & \textbf{Estrato} & \textbf{Similaridade} \\ \hline
-IEEE Latin American Symposium on Circuits and Systems (LASCAS) & B5 & 87\% \\ \hline
-IEEE International Symposium on Circuits and Systems (ISCAS) & A1 & 48\% \\ \hline
-IEEE Latin American Robotics Symposium (LARS) & B4 & 45\% \\ \hline
-IEEE International Midwest Symposium on Circuits and Systems (MWSCAS) & B1 & 43\% \\ \hline
-Symposium on Asynchronous Circuits and Systems (ASYNC) & A2 & 40\% \\ \hline
+IEEE Latin American Symposium on Circuits and Systems (LASCAS) & B5 & 0.87 \\ \hline
+IEEE International Symposium on Circuits and Systems (ISCAS) & A1 & 0.48 \\ \hline
+IEEE Latin American Robotics Symposium (LARS) & B4 & 0.45 \\ \hline
+IEEE International Midwest Symposium on Circuits and Systems (MWSCAS) & B1 & 0.43 \\ \hline
+Symposium on Asynchronous Circuits and Systems (ASYNC) & A2 & 0.40 \\ \hline
 \end{tabular}
 \end{center}
 \end{table}
 
 O primeiro resultado retornado é o escolhido, por possuir a maior similaridade em relação à \textit{query}. Neste caso, o trabalho é avaliado com o conceito B5, já que este é conceito Qualis atribuído ao evento.
 
+A algoritmo de avaliação da primeira versão do SILQ retornaria apenas o primeiro resultado da Tabela \ref{tab:exemplo-classificacao} em sua configuração padrão, que estabelece um ``nível de confiança" de 60\%. Esse nível de confiança é o \textit{threshold} utilizado pelo algoritmo de classificação. Qualquer resultado cujo nível de similaridade em relação à \textit{query} seja inferior ao nível de confiança utilizado não é retornado.
+
+\begin{figure}[!h]
+   \centering
+   \caption{Diálogo de configurações de avaliação}
+   \includegraphics[width=\textwidth]{figuras/config-avaliacao.png}
+   \label{fig:config-avaliacao}
+\end{figure}
+
+O nível de confiança pode ser ajustado através das opções de avaliação, apresentadas quando o usuário requisita uma avaliação de currículo Lattes (Figura \ref{fig:config-avaliacao}). Diminuir o nível de confiança (e em consequência o \textit{threshold} do algoritmo de classificação) implica em obter mais resultados e classificar mais trabalhos, porém diminuir a precisão do algoritmo, já que resultados não relevantes serão retornados para as \textit{queries} que não obteram bons resultados (resultados com nível de similaridade alto). A seção \ref{sec:validation} apresenta testes de validação do algoritmo que indicam o nível de precisão obtidos para cada valor de \textit{threshold} utilizado, além de sugerir um nível de confiança ideal a ser utilizado para maximizar o número de trabalhos corretamente avaliados pelo sistema.
+
+***
+
+Em sistemas de IR que implementam \textit{feedback} de relevância, tipicamente é permitido ao usuário julgar como relevante ou não relevante cada item retornado pelo sistema. Isso é natural pois o objetivo deste tipo de sistema é retornar a totalidade do conjunto de itens relevantes, cujo tamanho é variável dependendo da \textit{query}. O SILQ, porém, é um caso específico em que existem somente 0 ou 1 item relevante para toda \textit{query}. Isso acontece pois cada trabalho indicado no currículo Lattes de um pesquisador é marcado como publicado ou apresentado em somente um evento. O objetivo do algoritmo de avaliação do SILQ é deduzir que evento é este, caso exista na base de dados Qualis.
+
+Para a implementação de \textit{feedback} de relevância no SILQ, portanto, não é necessário o julgamento de cada item retornado pelo sistema em uma avaliação, mas apenas marcar \textit{qual} dos itens da base de dados Qualis é um \textit{match} correto para a \textit{query} vigente. Desta forma, o usuário deve ser capaz de indicar o registro Qualis que deve ser considerado para cada trabalho avaliado. Também existe o caso especial em que não existe um registro Qualis correspondente ao trabalho, neste caso o usuário deve ser capaz de indicar que não existem \textit{matches} corretos para o trabalho.
 
 \afazer{Falar que só existe um item relevante. Basta escolher qual ele é.}
 
@@ -41,11 +57,11 @@ O primeiro resultado retornado é o escolhido, por possuir a maior similaridade e
 
 Como armazenamos no banco
 
-\subsection{Processando resultados com com feedback}
+\subsection{Algoritmo de avaliação com feedback}
 
 Colocar o algoritmo utilizado levando em conta feedback
 
-\section{Validação}
+\section{Validação} \label{sec:validation}
 
 Mensurações realizadas.
 
