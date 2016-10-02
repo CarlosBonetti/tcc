@@ -8,10 +8,7 @@ A ideia por trás desta técnica é permitir que o usuário julgue resultados inicia
 
 O capítulo atual apresenta como esta técnica foi aplicada no SILQ, qual modelo lógico foi utilizado para o armazenamento dos \textit{feedbacks} e qual técnica utilizada para sua obtenção. Por fim, são apresentadas medições realizadas no sistema que validam se a técnica foi relevante para o aumento de performance.
 
-\section{Obtenção do feedback}
-
-
-
+\section{Como o SILQ realiza um avaliação}
 
 A avaliação de um currículo Lattes pelo SILQ é realizada com base na similaridade textual entre o título do evento de cada trabalho presente no currículo e o título do evento Qualis. Ou seja, o título do trabalho, juntamente com seu ano e área de avaliação são dadas como \textit{query} para o sistema. O sistema busca sobre todo o conjunto de dados Qualis presentes na base de dados aquele com maior similaridade textual em relação à \textit{query}. Se esta similaridade for maior do que um \textit{threshold} pré-estabelecido, então o resultado é considerado um \textit{match} válido e o estrato atribuído pelo Qualis a este evento é também atribuído ao trabalho do pesquisador.
 
@@ -45,23 +42,40 @@ A algoritmo de avaliação da primeira versão do SILQ retornaria apenas o primeiro
 
 O nível de confiança pode ser ajustado através das opções de avaliação, apresentadas quando o usuário requisita uma avaliação de currículo Lattes (Figura \ref{fig:config-avaliacao}). Diminuir o nível de confiança (e em consequência o \textit{threshold} do algoritmo de classificação) implica em obter mais resultados e classificar mais trabalhos, porém diminuir a precisão do algoritmo, já que resultados não relevantes serão retornados para as \textit{queries} que não obteram bons resultados (resultados com nível de similaridade alto). A seção \ref{sec:validation} apresenta testes de validação do algoritmo que indicam o nível de precisão obtidos para cada valor de \textit{threshold} utilizado, além de sugerir um nível de confiança ideal a ser utilizado para maximizar o número de trabalhos corretamente avaliados pelo sistema.
 
-***
+\section{Obtenção do feedback} \label{sec:feedback}
 
 Em sistemas de IR que implementam \textit{feedback} de relevância, tipicamente é permitido ao usuário julgar como relevante ou não relevante cada item retornado pelo sistema. Isso é natural pois o objetivo deste tipo de sistema é retornar a totalidade do conjunto de itens relevantes, cujo tamanho é variável dependendo da \textit{query}. O SILQ, porém, é um caso específico em que existem somente 0 ou 1 item relevante para toda \textit{query}. Isso acontece pois cada trabalho indicado no currículo Lattes de um pesquisador é marcado como publicado ou apresentado em somente um evento. O objetivo do algoritmo de avaliação do SILQ é deduzir que evento é este, caso exista na base de dados Qualis.
 
 Para a implementação de \textit{feedback} de relevância no SILQ, portanto, não é necessário o julgamento de cada item retornado pelo sistema em uma avaliação, mas apenas marcar \textit{qual} dos itens da base de dados Qualis é um \textit{match} correto para a \textit{query} vigente. Desta forma, o usuário deve ser capaz de indicar o registro Qualis que deve ser considerado para cada trabalho avaliado. Também existe o caso especial em que não existe um registro Qualis correspondente ao trabalho, neste caso o usuário deve ser capaz de indicar que não existem \textit{matches} corretos para o trabalho.
 
-\afazer{Falar que só existe um item relevante. Basta escolher qual ele é.}
+A Figura \ref{fig:feedbacks} mostra o exemplo de três trabalhos conceituados, em uma avaliação de currículo Lattes, e que receberam \textit{feedback} do usuário. O botão de ``joinha" é utilizado para marcar o resultado que o usuário considera relevante para cada trabalho (os botões grifados marcam aqueles que já foram marcados). Neste caso, o registro Qualis marcado como relevante é associado à \textit{query} atual, que engloba o título, ano e área do trabalho avaliado, juntamente com o usuário que está realizando o julgamento. Também é possível marcar a opção ``Nenhum registro Qualis correspondente" ou sugerir algum resultado não retornado previamente pelo sistema em ``Sugerir matching".
 
-\subsection{Modelagem lógica}
+\begin{figure}[!h]
+   \centering
+   \caption{Detalhe dos controles de feedback de relevância na página de avaliação de currículo Lattes}
+   \includegraphics[width=\textwidth]{figuras/feedbacks.png}
+   \label{fig:feedbacks}
+\end{figure}
 
-Como armazenamos no banco
+Os \textit{feedbacks} de relevância dados pelos usuários são salvos na base de dados SILQ na tabela \textit{tb\_feedback} (Figura \ref{fig:modelo-logico}) para uso posterior pelo algoritmo de classificação, conforme descrito na seção \ref{sec:algoritmo}. Já que um trabalho qualquer pode ter no máximo um registro Qualis associado, são salvas somente um \textit{feedback} por \textit{query} por usuário. Desta forma, uma chave única é utilizada na tabela de \textit{feedbacks}, dada pela dupla (título do trabalho, usuário).
 
-\subsection{Algoritmo de avaliação com feedback}
+\subsection{Algoritmo de avaliação com feedback} \label{sec:algoritmo}
+
+Falar dos algoritmos utilizados ?
+
+Learning to rank, Rocchio.
 
 Colocar o algoritmo utilizado levando em conta feedback
 
-\section{Validação} \label{sec:validation}
+\section{Avaliação} \label{sec:validation}
+
+Esta \afazer{seção} apresenta os procedimentos realizados para avaliar as alterações promovidas no algoritmo de avaliação da nova versão do SILQ e se elas contribuíram para o aumento da precisão do sistema.
+
+\subsection{Conjunto de testes}
+
+\subsection{Avaliação de \textit{threshold} ideal}
+
+\subsection{Avaliação de desempenho do algoritmo utilizando feedback}
 
 Mensurações realizadas.
 

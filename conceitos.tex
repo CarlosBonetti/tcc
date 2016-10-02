@@ -42,7 +42,7 @@ Entre os dados contidos em um currículo Lattes, estão os dados gerais do pesquis
 
 A Plataforma Lattes, além de apresentar seus currículos através de uma interface web usando HTML, também disponibiliza os dados em formato XML, uma linguagem de marcação semi-estruturada legível por humanos e máquinas \cite[p. 34]{Silq1}. Foi este o formato utilizado pelo SILQ para a extração dos dados Lattes de um pesquisador, conforme relatado em \cite{Silq1}.
 
-\section{Recuperação de Informação e métricas de avaliação}
+\section{Sistemas de Recuperação de Informação e métricas de avaliação}
 
 Recuperação de Informação, ou \textit{Information Retrieval} (IR), é a obtenção de informações relevantes, dados certos critérios de busca, de uma coleção maior de informações \cite{BaezaYates99}. Os maiores exemplos atuais de sistemas de IR são os buscadores web, baseados em busca textual.
 
@@ -103,6 +103,14 @@ Tradicionalmente, sistemas que utilizam esta técnica dão a possibilidade para o 
 Segundo \cite{Manning2008}, feedback de relevância pode proporcionar ganhos substanciais na performance de sistemas de recuperação de informação, porém a avaliação de sua eficácia em um sistema de IR pode não ser trivial. Um dos métodos para tal mensuração é traçar gráficos de precisão-revocação antes e depois de uma rodada de \textit{feedback} do usuário e comparar os resultados. Esta técnica, porém, é trapaceira pois os documentos julgados pelo usuário com certeza serão melhor rankeados. Para uma avaliação justa devem ser levados em conta somente documentos que não foram vistos pelo usuário. Um outro método de avaliação requere dois conjuntos, o primeiro utilizado para a \textit{query} inicial e para receber \textit{feedback} do usuário, e o segundo para avaliação via comparação, que contém os resultados desejados previamente estabelecidos por um especialista. A performance do sistema pode ser medido através da comparação dos dois conjuntos, antes e após a inclusão dos dados de \textit{feedback} do usuário.
 
 \afazer{Algoritmo de \textit{Rocchio}}
+
+\subsection{Avaliação de sistemas IR}
+
+Um dos desafios em projetar sistemas de IR está em escolher técnicas que sejam efetivas para a aplicação. Um processo importante no desenvolvimento de tais aplicações, portanto, é o de avaliação, que envolve a medição de certos aspectos do sistema baseados em métricas \cite{Manning2008}, como as descritas nas seções anteriores.
+
+A forma padrão de realizar tais medições envolve o uso de um \textit{conjunto de testes}. Este conjunto é uma coleção de exemplos contendo \textit{queries} e seus respectivos resultados corretos, geralmente avaliados por um especialista, e usados apenas para realizar a avaliação do sistema. Ou seja, em sistemas que dependem de um conjunto de treino para alimentar o algoritmo, como os baseados em \textit{machine learning}, o conjunto de testes não é previamente conhecido pelo sistema \cite{Ripley1995}.
+
+As \textit{queries} do conjunto de testes são dadas ao sistema e os resultado retornados comparados com aqueles informados pelo especialista, produzindo uma série de medidas que podem ser utilizadas para a avaliação do sistema \cite{Witten2005}.
 
 \section{Arquitetura de sistemas baseados na \textit{Web}}
 
