@@ -198,9 +198,22 @@ Utilizando esta ideia, no SILQ-2, a camada de visão foi totalmente reescrita em 
 
 Desta forma, quando um cliente realiza a primeira requisição à URL do SILQ, o servidor serve uma página HTML (geralmente denominada de \textit{index}) junto com os \textit{assets} necessários para a construção de conteúdo dinâmico e estilização da página (imagens, arquivos CSS e Javascript). As requisições subsequentes, entretanto, utilizam somente requisições assíncronas ao servidor, utilizando Javascript: uma requisição conhecida por \textit{Ajax} (Asynchronous JavaScript and XML). Estas requisições utilizam a camada REST do servidor que retornará respostas em JSON e cujo conteúdo será processado no cliente e montará as páginas de forma dinâmica. Desta forma, parte da lógica da aplicação como um todo é transferida para o cliente, reduzindo a carga no servidor.
 
-\afazer{Outra mudança significativa realizada no \textit{front-end} da aplicação foi a atualização do \textit{framework} CSS utilizado, inserida no processo de reescrita das páginas HTML}. A primeira versão do sistema utilizava a versão 2 do \textit{framework open-source} Bootstrap\footnote{\url{http://getbootstrap.com/}}, que foi atualizada para a versão 3 no SILQ-2. De forma paralela foram realizadas algumas mudanças na interface do sistema, principalmente na página de resultados de avaliação que passou a incluir controles permitindo ao usuário informar \textit{feedback} de relevância sobre os resultados retornados.
+\begin{figure}[!h]
+   \centering
+   \caption{Página de resultados de avaliação do SILQ 1}
+   \includegraphics[width=\textwidth]{figuras/avaliacao-silq1.png}
+   \label{fig:avaliacao-silq1}
+\end{figure}
 
-\afazer{Inserir imagem do antes e depois, lado a lado, e falar dela!}
+\begin{figure}[!h]
+   \centering
+   \caption{Página de resultados de avaliação do SILQ 2}
+   \includegraphics[width=\textwidth]{figuras/avaliacao-silq2.png}
+   \label{fig:avaliacao-silq2}
+\end{figure}
+
+
+Outra mudança significativa realizada no \textit{front-end} da aplicação foi a atualização do \textit{framework} CSS utilizado, inserida no processo de reescrita das páginas HTML. A primeira versão do sistema utilizava a versão 2 do \textit{framework open-source} Bootstrap\footnote{\url{http://getbootstrap.com/}}, que foi atualizada para a versão 3 no SILQ-2. De forma paralela foram realizadas algumas mudanças na interface do sistema, principalmente na página de resultados de avaliação que passou a incluir controles permitindo ao usuário informar \textit{feedback} de relevância sobre os resultados retornados. A Figura \ref{fig:avaliacao-silq1} mostra um exemplo da página de resultados de uma avaliação realizada pelo SILQ 1. A página foi remodelada para permitir a inclusão de controles de \textit{feedback} e para apresentar múltiplos resultados candidatos para um mesmo artigo ou trabalho, conforme mostra a Figura \ref{fig:avaliacao-silq2}.
 
 \subsection{Alterações no modelo lógico}
 
