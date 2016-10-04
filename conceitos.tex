@@ -78,9 +78,9 @@ Uma alternativa que alivia este problema é chamado de \textit{R-Precision}. Esta
 
 \afazer{Mean Average Precision}
 
-\subsection{Média de Rank Recíproco}
+\subsection{Média de Rank Recíproco} \label{sec:mrr}
 
-A média de rank recíprocro (\textit{MRR - Mean Reciprocral Rank}), é uma medida estatística utilizada na avaliação de processos que produzem uma lista de resultados a uma \textit{query} ordenados por probabilidade de corretude \cite{Liu2009}.
+A média de rank recíproco (\textit{MRR - Mean Reciprocral Rank}), é uma medida estatística utilizada na avaliação de processos que produzem uma lista de resultados a uma \textit{query} ordenados por probabilidade de corretude \cite{Liu2009}.
 
 A média é dada por:
 
@@ -90,9 +90,9 @@ $$
 
 Sendo $Q$ o conjunto de \textit{queries} sobre a qual a média é calculada e $rank(i)$ a posição do primeiro item relevante para a $i$-ésima \textit{query}.
 
-Ou seja, se um item relevante é o primeiro resultado retornado, então o rank recíprocro (RR) é 1. Se o item relevante foi retornado na segunda posição, $RR = 1/2 = 0.5$ e assim por diante. Em outras palavras, MRR é o inverso da posição do primeiro item relevante de uma \textit{query} e uma medida particularmente intessante para sistemas em que somente o primeiro resultado importa \cite{Mcfee2010}, como no SILQ.
+Ou seja, se um item relevante é o primeiro resultado retornado, então o rank recíproco (RR) é 1. Se o item relevante foi retornado na segunda posição, $RR = 1/2 = 0.5$ e assim por diante. Em outras palavras, MRR é o inverso da posição do primeiro item relevante de uma \textit{query} e uma medida particularmente intessante para sistemas em que somente o primeiro resultado importa \cite{Mcfee2010}, como no SILQ.
 
-A métrica não define, porém, o que fazer quando mais de um resultado correto foi retornado. Se nenhum resultado correto foi retornado, entretanto, comumente utiliza-se valor de rank recíprocro igual a $0$.
+A métrica não define, porém, o que fazer quando mais de um resultado correto foi retornado. Se nenhum resultado correto foi retornado, entretanto, comumente utiliza-se valor de rank recíproco igual a $0$.
 
 \subsection{Feedback de Relevância}
 

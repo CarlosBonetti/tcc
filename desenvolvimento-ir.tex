@@ -39,7 +39,30 @@ Esta \afazer{seção} apresenta os procedimentos realizados para avaliar as altera
 
 \subsection{Conjunto de testes}
 
+O conjunto de testes utilizado para a avaliação do sistema foi criado a partir dos currículos Lattes de 33 pesquisadores do programa de pós-graduação em Ciência da Computação da Universidade Federal de Santa Catarina (UFSC).
+
+Destes 33 currículos, \afazer{23434234} publicações foram manualmente avaliadas: caso possuíssem um registro Qualis equivalente então a publicação juntamente com o Qualis associado eram salvos no conjunto de testes; caso não possuíssem registro Qualis equivalente, então eram marcados como tal e também adicionados ao conjunto de testes.
+
+Nas avaliações descritas a seguir, foram dados como \textit{query} ao sistema cada um dos \afazer{23434234} trabalhos, porém sem expor os resultados manualmente avaliados. Cada resposta retornada pelo sistema foi comparada com a respectiva resposta manualmente selecionada. Em caso das respostas serem idênticas, então o sistema avaliou corretamente a publicação; em caso de não serem idênticas, avaliou incorretamente. O caso de não haver registro Qualis equivalente à publicação foi considerada uma resposta correta quando o sistema não retornou nenhum resultado, e uma resposta incorreta caso contrário.
+
 \subsection{Avaliação de \textit{threshold} ideal}
+
+ Um dos questionamentos levantados no início deste trabalho e que geralmente ocorre ao projetar sistemas de \textit{data matching} baseados em similaridade, é o de qual \textit{threshold} utilizar. Na primeira versão do sistema foi introduzido um controle de ``nível de confiança" que permitia ao usuário controlar o \textit{threshold} utilizado pelo algoritmo, conforme detalhado na seção \ref{sec:algoritmo-silq1}. O nível de confiança padrão, porém, foi fixado em 60\% (equivalente ao \textit{threshold} de valor $0.6$). Este valor foi provavelmente escolhido de forma empírica pois observou-se que maximizava o número de resultados corretos, porém não foram realizados experimentos comprovando esta teoria.
+
+ Desta forma, para encontrar o valor de \textit{threshold} ideal utilizamos nosso conjunto de testes avaliando o algoritmo inicial do SILQ 1, em um primeiro momento. O método utilizado foi o de avaliar via sistema cada uma das publicações do conjunto de testes e comparar com o resultado real, e repetir o processo variando o \textit{threshold} a fim de observar o número de resultados corretamente avaliados. Os resultados foram agrupados no gráfico da Figura \ref{fig:avaliacao-threshold}. A linha em azul claro representa a exatidão, ou seja, a taxa de trabalhos corretamente avaliados pelo sistema. A linha em cinza representa a média de rank recíproco (MRR), calculada conforme discutido na seção \ref{sec:mrr}.
+
+ \begin{figure}[!h]
+    \centering
+    \caption{Taxa de trabalhos corretamente avaliados e Média de Rank Recíproco (MRR) para diferentes \textit{thresholds}}
+    \includegraphics[width=\textwidth]{figuras/avaliacao-threshold.png}
+    \label{fig:avaliacao-threshold}
+ \end{figure}
+
+O primeiro fenômeno que observamos ao avaliar o gráfico é o ponto de máximo por volta do valor $0.55$ de \textit{threshold}, que totaliza uma exatidão aproximada de 88\%, e a tendência da exatidão baixar ao se afastar deste pico, para ambas as direções. Esse é um comportamento esperado pois valores de \textit{threhold} baixos tendem a diminuir a precisão do sistema por retornar resultados não relevantes para as \textit{queries}, enquanto valores altos tendem a dimuir a precisão por deixar de retornar resultados relevantes. Este ponto máximo trata-se, portanto, do \textit{threshold} ideal para o caso de testes em questão.
+
+Outra característica observada é a tendência do valor de MRR acompanhar o da exatidão, sendo sempre igual ou apenas um pouco superior em magnetude. Isso acontece pela forma com que o MRR é calculado, atribuindo valor de $1/r$ a cada avaliação, sendo $r$ a posição em que o resultado real foi avaliado pelo sistema. Se o resultado foi corretamente avaliado, portanto, o valor de $1/1 = 1$ é atribuído ao resultado, o mesmo valor que seria atribuído à exatidão (cuja imagem é somente $\{0, 1\}$ para cada resultado). A semelhança dos valores, portanto, indica que houveram poucos casos em que o algoritmo retornou o resultado real em posições inferiores à primeira no \textit{rank} de avaliação. Esta característica do valor de MRR permaneceu constante nos demais testes realizados neste trabalho, portanto omitiu-se o valor de MRR nas demais avaliações.
+
+\afazer{Tabela?}
 
 \subsection{Avaliação de desempenho do algoritmo utilizando feedback}
 
