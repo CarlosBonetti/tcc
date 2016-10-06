@@ -27,7 +27,6 @@ Os \textit{feedbacks} de relevância dados pelos usuários são salvos na base de d
 
 \subsection{Algoritmo de avaliação com feedback} \label{sec:algoritmo}
 
-
 Uma vez registrados os \textit{feedbacks} dos usuários, passa-se a questionar de que forma utilizá-los para aumentar a performance do sistema. A seção atual apresenta dois algoritmos que foram testados neste trabalho e como foram implementados, enquanto a \afazer{próxima seção} apresenta os resultados e comparações de precisão dos mesmos.
 
 \textbf{Algoritmo \textit{fb(t)}:}
@@ -91,10 +90,12 @@ Outra característica observada é a tendência do valor de MRR acompanhar o da exa
 
 \subsection{Avaliação dos algoritmos} \label{sec:avaliacao-algoritmos}
 
+Os algoritmos descritos na seção \ref{sec:algoritmo} foram avaliados utilizando o mesmo processo descrito na seção anterior. O algoritmo \textit{trgm} trata-se do algoritmo \textit{trigrams} inicial utilizado pelo SILQ 1, e cuja análise de \textit{threhold} ideal foi realizada na seção anterior. O algoritmo \textit{fb(t)} foi testado variando $t$ nos valores que obtiveram melhores resultados. Todas as análise foram realizadas com valor de \textit{treshold} igual a $0.55$. A Tabela \ref{tab:comparacao-algoritmos} apresenta os resultados de cada teste.
+
 \begin{table}[!h]
 \begin{center}
 \caption{Comparação da exatidão dos diferentes algoritmos testados (utilizando \textit{threshold} de $0.55$)}
-\label{tab:lala}
+\label{tab:comparacao-algoritmos}
 \begin{tabular}{ c | c }
 \hline
 \textbf{Algoritmo} & \textbf{Exatidão} \\
@@ -112,13 +113,19 @@ Outra característica observada é a tendência do valor de MRR acompanhar o da exa
 \end{center}
 \end{table}
 
+A primeira tentativa de usar \textit{feedback} de relevância na avaliação foi com o algoritmo \textit{fb(1.00)}, que considera os resultados informados pelo usuário quando a \textit{query} é idêntica a algum \textit{feedback}. Houve uma melhora na taxa de acertos, porém de forma não tão significativa.
+
+As variações que utilizam valores menores de $t$, porém, obtiveram melhores resultados, por serem capazes de identificar \textit{queries} similares aos \textit{feedbacks} já informados pelo usuário, mesmo quando ele não julgou exatamente a \textit{query} em questão. Um exemplo que demonstra este fato são os nomes de eventos \textit{``IEEE International Symposium on Computer-Based Medical Systems"} e \textit{``27th International Symposium on ComputerBased Medical Systems (CBMS)"}, extraídos de um mesmo currículo Lattes. É fácil notar que tratam-se do mesmo evento, porém o usuário informou a sigla e o número da edição no segundo, e nenhuma destas informações no primeiro (além de não utilizar o hífen em um dos casos). Caso o usuário tenha dado \textit{feedback} para somente um dos casos, os algoritmos \textit{fb(t)} com valores de $t$ inferiores a $1.0$ são capazes de utilizar o mesmo \textit{feedback} para ambos, apesar das \textit{queries} não serem idênticas.
+
+Valores de $t$ muito baixos, porém, deterioram rapidamente a taxa de acerto pois consideram \textit{feedbacks} similares entre eventos que não tem relação. Desta forma, existe também um ``valor ideal" de $t$, que gira em torno de $0.7$ a $0.8$ conforme os testes realizados.
+
+O algoritmo \textit{fb(t)}, porém, pode cometer ``injustiças" pois considera os \textit{feedbacks} como resultados corretos, independente dos resultados primários retornados, caso sejam superiores ao \textit{threshold} $t$. O algoritmo de \textit{query\_aliasing} resolve este problema inserindo o \textit{feedback} no \textit{ranking} junto com os demais resultados. O melhor resultado (aquele mais similar à \textit{query}) será utilizado, independente da técnica usada para obtê-lo. Nos testes realizados, o algoritmo de \textit{query\_aliasing} obteve a melhor taxa de acerto, com uma média de 93.3\% de trabalhos corretamente avaliados.
+
+Foi realizada uma última avaliação comparativa entre o algoritmo \textit{trgm} inicial e o novo que utiliza \textit{query\_aliasing}. A Figura \ref{fig:avaliacao-algoritmos} mostra a taxa de acerto média para ambos os algoritmos variando o \textit{threshold} utilizado. Nota-se que o algoritmo que utiliza \textit{feedback} de relevância obteve melhores resultados, para qualquer \textit{threshold} utilizado, aumentando em aproximadamente 6\% a taxa de acerto. O \textit{threshold} ideal, porém, se manteve constante em $0.55$.
+
 \begin{figure}[!h]
    \centering
-   \caption{Comparação do algoritmo inicial do SILQ 1 (\textit{trgm}) e do novo \textit{trgm + query\_aliasing} baseado em \textit{feedback} de relevância}
+   \caption{Comparação da taxa de acerto do algoritmo \textit{trgm} e do \textit{trgm + query\_aliasing} para diferentes \textit{thresholds}}
    \includegraphics[width=\textwidth]{figuras/avaliacao-algoritmos.png}
    \label{fig:avaliacao-algoritmos}
 \end{figure}
-
-Mensurações realizadas.
-
-Threshold ideal.
