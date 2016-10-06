@@ -27,11 +27,38 @@ Os \textit{feedbacks} de relevância dados pelos usuários são salvos na base de d
 
 \subsection{Algoritmo de avaliação com feedback} \label{sec:algoritmo}
 
-Falar dos algoritmos utilizados ?
 
-Learning to rank, Rocchio.
+Uma vez registrados os \textit{feedbacks} dos usuários, passa-se a questionar de que forma utilizá-los para aumentar a performance do sistema. A seção atual apresenta dois algoritmos que foram testados neste trabalho e como foram implementados, enquanto a \afazer{próxima seção} apresenta os resultados e comparações de precisão dos mesmos.
 
-Colocar o algoritmo utilizado levando em conta feedback
+\textbf{Algoritmo \textit{fb(t)}:}
+
+Umas das abordagens mais simples que podem ser usadas neste caso é utilizar o resultado marcado pelo usuário sempre que uma \textit{query} idêntica ao do \textit{feedback} seja submetida ao sistema. O algoritmo \textit{fb(1.0)}, portanto, foi desenvolvido com base nesta ideia. O valor ``$1.0$" presente no nome do algoritmo apenas indica que o \textit{feedback} é considerado em detrimento de qualquer outro resultado dado pelo sistema quando a \textit{query} submetida for 100\% similar (ou seja, idêntica) à \textit{query} do \textit{feedback}.
+
+\begin{lstlisting}[language=java, caption=Algoritmo \textit{fb(1.0)}]
+public List<Conceito> avaliar(String query, Usuario usuarioLogado) {
+   List<Conceito> conceitos = getConceitosTrigrams(query);
+
+   Feedback feedback = getConceitoFeedback(query, usuarioLogado);
+   Conceito feedbackConceito = feedbackToConceito(feedback);
+   conceitos.add(feedbackConceito);
+
+   return conceitos;
+}
+\end{lstlisting}
+
+Uma modificação que pode ser feita no mesmo algoritmo é utilizar \textit{thresholds de feedback} mais baixos. O \textit{fb(1.0)} considera apenas \textit{feedbacks} que sejam idênticos à \textit{query} submetida, porém pode ser que sejam obtidos resultados melhores ao considerar \textit{feedbacks} textualmente similares à \textit{query} atual, considerando certo \textit{threhold}. O algoritmo \textit{fb(t)} (para $0.0 \le t \le 1.0$) é uma generalização de \textit{fb(1.0)} que considera \textit{feedbacks} cuja similaridade textual em relação à \textit{query} seja maior que o \textit{treshold} $t$. Por exemplo, \textit{fb(0.75)} irá considerar \textit{feedbacks} cujo valor de similaridade textual em relação à \textit{query} seja $0.75$ ou superior. Neste caso o \textit{feedback} é retornado em detrimento dos demais resultado encontrados pelo sistema.
+
+O algoritmo \textit{fb(t)}, entretanto, leva a outros questionamentos, já que utiliza a mesma técnica de \textit{data matching} que foi proposta a melhorar. Qual o valor de $t$ (\textit{trehshold de feedback}) ideal? Qual o algoritmo de similaridade textual ideal para este caso? A seção \ref{sec:avaliacao-algoritmos} apresenta testes de validação do algoritmo \textit{fb(t)} para diferentes valores de $t$.
+
+\textbf{Algoritmo \textit{query\_aliasing}:}
+
+Outra estratégia que mostrou-se de mais fácil implementação e melhor desempenho foi considerar os \textit{feedbacks} do usuário e inserí-los no \textit{rank} de resultados do sistema com base em seu valor de similaridade textual em relação à \textit{query} submetida.
+
+Ou seja, ao processar uma \textit{query} $q$ qualquer, o sistema processa um \textit{rank} de resultados primários com base no algoritmo \textit{trigrams} inicial. O \textit{rank} é ordenado do resultado mais similar à $q$ ao menos similar. Após esta etapa, ele também compara $q$ com cada uma das \textit{queries} atreladas aos \textit{feedbacks} de relevância dados pelo usuário utilizando o mesmo algoritmo de similaridade textual (\textit{trigrams} neste caso). O resultado mais similar, digamos $f$, é inserido no \textit{ranking} de resultados.
+
+Desta forma, se $q$ é idêntico a um \textit{feedback} já submetido pelo usuário, $f$ será retornado e inserido no topo do \textit{ranking} de resultados, por ser 100\% similar à \textit{query}. Outros resultados similares, porém não idênticos, serão inseridos no \textit{ranking} conforme seu valor de similaridade e só serão escolhidos em detrimento de outros resultados primários se seus valores de similaridade forem superiores a eles.
+
+É como se, ao dar um \textit{feedback} de relevância qualquer, o usuário criasse um \textit{alias} (um apelido) ao resultado que está sugerindo. Assim, o sistema deve avaliar novas \textit{queries} não só comparando-as com o nome real dos documentos, mas também com os apelidos dados a eles pelo usuário. Por este motivo o algoritmo foi chamado de \textit{query\_aliasing}. A avaliação deste algoritmo foi realizada e comparada com os demais na seção \ref{sec:avaliacao-algoritmos}.
 
 \section{Avaliação} \label{sec:validation}
 
@@ -62,9 +89,35 @@ O primeiro fenômeno que observamos ao avaliar o gráfico é o ponto de máximo por 
 
 Outra característica observada é a tendência do valor de MRR acompanhar o da exatidão, sendo sempre igual ou apenas um pouco superior em magnetude. Isso acontece pela forma com que o MRR é calculado, atribuindo valor de $1/r$ a cada avaliação, sendo $r$ a posição em que o resultado real foi avaliado pelo sistema. Se o resultado foi corretamente avaliado, portanto, o valor de $1/1 = 1$ é atribuído ao resultado, o mesmo valor que seria atribuído à exatidão (cuja imagem é somente $\{0, 1\}$ para cada resultado). A semelhança dos valores, portanto, indica que houveram poucos casos em que o algoritmo retornou o resultado real em posições inferiores à primeira no \textit{rank} de avaliação. Esta característica do valor de MRR permaneceu constante nos demais testes realizados neste trabalho, portanto omitiu-se o valor de MRR nas demais avaliações.
 
-\afazer{Tabela?}
+\subsection{Avaliação dos algoritmos} \label{sec:avaliacao-algoritmos}
 
-\subsection{Avaliação de desempenho do algoritmo utilizando feedback}
+\begin{table}[!h]
+\begin{center}
+\caption{Comparação da exatidão dos diferentes algoritmos testados (utilizando \textit{threshold} de $0.55$)}
+\label{tab:lala}
+\begin{tabular}{ c | c }
+\hline
+\textbf{Algoritmo} & \textbf{Exatidão} \\
+\hline
+
+\textit{trgm} & 88.667\% \\
+\textit{trgm + fb(1.00)} & 89.667\% \\
+\textit{trgm + fb(0.90)} & 90.667\% \\
+\textit{trgm + fb(0.80)} & 92.667\% \\
+\textit{trgm + fb(0.70)} & 92.667\% \\
+\textit{trgm + fb(0.60)} & 91.000\% \\
+\textit{trgm + query\_aliasing} & \textbf{93.333}\% \\
+
+\end{tabular}
+\end{center}
+\end{table}
+
+\begin{figure}[!h]
+   \centering
+   \caption{Comparação do algoritmo inicial do SILQ 1 (\textit{trgm}) e do novo \textit{trgm + query\_aliasing} baseado em \textit{feedback} de relevância}
+   \includegraphics[width=\textwidth]{figuras/avaliacao-algoritmos.png}
+   \label{fig:avaliacao-algoritmos}
+\end{figure}
 
 Mensurações realizadas.
 
