@@ -59,7 +59,7 @@ Desta forma, se $q$ é idêntico a um \textit{feedback} já submetido pelo usuário,
 
 É como se, ao dar um \textit{feedback} de relevância qualquer, o usuário criasse um \textit{alias} (um apelido) ao resultado que está sugerindo. Assim, o sistema deve avaliar novas \textit{queries} não só comparando-as com o nome real dos documentos, mas também com os apelidos dados a eles pelo usuário. Por este motivo o algoritmo foi chamado de \textit{query\_aliasing}. A avaliação deste algoritmo foi realizada e comparada com os demais na seção \ref{sec:avaliacao-algoritmos}.
 
-\section{Avaliação} \label{sec:validation}
+\section{Avaliação experimental} \label{sec:validation}
 
 Esta \afazer{seção} apresenta os procedimentos realizados para avaliar as alterações promovidas no algoritmo de avaliação da nova versão do SILQ e se elas contribuíram para o aumento da precisão do sistema.
 
@@ -90,7 +90,7 @@ Outra característica observada é a tendência do valor de MRR acompanhar o da exa
 
 \subsection{Avaliação dos algoritmos} \label{sec:avaliacao-algoritmos}
 
-Os algoritmos descritos na seção \ref{sec:algoritmo} foram avaliados utilizando o mesmo processo descrito na seção anterior. O algoritmo \textit{trgm} trata-se do algoritmo \textit{trigrams} inicial utilizado pelo SILQ 1, e cuja análise de \textit{threhold} ideal foi realizada na seção anterior. O algoritmo \textit{fb(t)} foi testado variando $t$ nos valores que obtiveram melhores resultados. Todas as análise foram realizadas com valor de \textit{treshold} igual a $0.55$. A Tabela \ref{tab:comparacao-algoritmos} apresenta os resultados de cada teste.
+Os algoritmos descritos na seção \ref{sec:algoritmo} foram avaliados utilizando o mesmo processo descrito na seção anterior. O algoritmo \textit{trgm} trata-se do algoritmo \textit{trigrams} inicial utilizado pelo SILQ 1 e cuja análise de \textit{threhold} ideal foi realizada na seção anterior. O algoritmo \textit{fb(t)} foi testado variando $t$ nos valores que obtiveram melhores resultados. Todas as análise foram realizadas com valor de \textit{treshold} igual a $0.55$. A Tabela \ref{tab:comparacao-algoritmos} apresenta os resultados de cada teste.
 
 \begin{table}[!h]
 \begin{center}
@@ -115,7 +115,7 @@ Os algoritmos descritos na seção \ref{sec:algoritmo} foram avaliados utilizando 
 
 A primeira tentativa de usar \textit{feedback} de relevância na avaliação foi com o algoritmo \textit{fb(1.00)}, que considera os resultados informados pelo usuário quando a \textit{query} é idêntica a algum \textit{feedback}. Houve uma melhora na taxa de acertos, porém de forma não tão significativa.
 
-As variações que utilizam valores menores de $t$, porém, obtiveram melhores resultados, por serem capazes de identificar \textit{queries} similares aos \textit{feedbacks} já informados pelo usuário, mesmo quando ele não julgou exatamente a \textit{query} em questão. Um exemplo que demonstra este fato são os nomes de eventos \textit{``IEEE International Symposium on Computer-Based Medical Systems"} e \textit{``27th International Symposium on ComputerBased Medical Systems (CBMS)"}, extraídos de um mesmo currículo Lattes. É fácil notar que tratam-se do mesmo evento, porém o usuário informou a sigla e o número da edição no segundo, e nenhuma destas informações no primeiro (além de não utilizar o hífen em um dos casos). Caso o usuário tenha dado \textit{feedback} para somente um dos casos, os algoritmos \textit{fb(t)} com valores de $t$ inferiores a $1.0$ são capazes de utilizar o mesmo \textit{feedback} para ambos, apesar das \textit{queries} não serem idênticas.
+As variações que utilizam valores menores de $t$, porém, obtiveram melhores resultados, por serem capazes de identificar \textit{queries} similares aos \textit{feedbacks} já informados pelo usuário, mesmo quando este não julgou exatamente a \textit{query} em questão. Um exemplo que demonstra este fato são os nomes de eventos \textit{``IEEE International Symposium on Computer-Based Medical Systems"} e \textit{``27th International Symposium on ComputerBased Medical Systems (CBMS)"}, extraídos de um mesmo currículo Lattes. É fácil notar que tratam-se do mesmo evento, porém o usuário informou a sigla e o número da edição no segundo, e nenhuma destas informações no primeiro (além de não utilizar o hífen em um dos casos). Caso o usuário tenha dado \textit{feedback} para somente um dos casos, os algoritmos \textit{fb(t)} com valores de $t$ inferiores a $1.0$ são capazes de utilizar o mesmo \textit{feedback} para ambos, apesar das \textit{queries} não serem idênticas.
 
 Valores de $t$ muito baixos, porém, deterioram rapidamente a taxa de acerto pois consideram \textit{feedbacks} similares entre eventos que não tem relação. Desta forma, existe também um ``valor ideal" de $t$, que gira em torno de $0.7$ a $0.8$ conforme os testes realizados.
 

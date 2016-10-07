@@ -4,6 +4,16 @@
 
 O SILQ é um esforço coletivo para a automatização e consequente melhoria na qualidade de gestão de grupos de pesquisa. A atualização tecnológica e alimentação da base de dados da ferramenta são processos que devem ser constantemente realizados para mantê-la viável aos seus usuários.
 
-O objetivo inicial de refatoração arquitetural com inclusão de melhorias de interface, novas funcionalidades e criação da camada de integração REST, foi alcançada. Tanto usuários como desenvolvedores de aplicações interessados no sistema se beneficiam dessa alteração. As mudanças já se encontram disponíveis na página oficial do SILQ: \url{http://silq.inf.ufsc.br/}, em constante evolução. A documentação contendo as diretrizes para integração com a camada REST, porém, ainda não foi realizada, mas está programada para a entrega final deste trabalho.
+O objetivo inicial de refatoração arquitetural com inclusão de melhorias de interface, novas funcionalidades e criação da camada de integração REST, foi alcançada. Tanto usuários como desenvolvedores de aplicações interessados no sistema se beneficiam dessa alteração. As mudanças já se encontram disponíveis na página oficial do SILQ: \url{http://silq.inf.ufsc.br/}, na versão 2.3 no momento de escrita deste trabalho, porém em constante evolução. %A documentação contendo as diretrizes para integração com a camada REST, porém, ainda não foi realizada, mas está programada para a entrega final deste trabalho.
 
-A questão da precisão do algoritmo de avaliação e se sua acurácia pode ser aumentada com feedback de usuários permanece. Essa hipótese será trabalhada nas próximas etapas deste projeto, conforme descritas na metodologia do trabalho, e respondida até a entrega final.
+A hipótese de pesquisa levantada se mostrou verdadeira. De fato foi possível aumentar a precisão do sistema utilizando \textit{feedback} de relevância dos usuários. Isso se mostrou verdade através dos experimentos realizados e relatados neste trabalho, com o teste de diferentes algoritmos.
+
+A avaliação de \textit{threshold} ideal mostrou que este valor é de aproximadamente $0.55$, muito próximo do ``nível de confiança normal" estabelecido no trabalho anterior de \cite{Silq1} e que a taxa de acerto para este caso é de 88\%.
+
+Duas estratégias simples de classificação utilizando \textit{feedback} de relevância juntamente com análise de similaridade textual também foram avaliadas. Os algoritmos \textit{fb(t)} e \textit{query\_aliasing} foram propostos e avaliados experimentalmente. Ambos resultaram \afazer{PAREI AQUI}.
+
+ A taxa de acerto média aumentou de 87\% para 93.3\%, através do uso do algoritmo de \textit{query\_aliasing}, baseado em \textit{feedback} de relevância.
+
+Estes resultados são relevantes não só por mostrarem que a taxa de acerto média do sistema aumentou, mas por estabelecerem uma medida base para trabalhos futuros. Os algoritmos utilizados neste trabalho são estratégias muito simples de uso de \textit{feedback} de relevância e que utilizam a mesma função de similaridade textual do SILQ 1 como base, o método de \textit{trigrams}. Outros métodos de similaridade textual poderiam ser testados e comparados com o atual.
+
+Outros algoritmos que partem de ideias diferentes também poderiam ser testados a fim de validar se retornam resultados ainda melhores. Um exemplo é o uso de \textit{machine learning} para treino do algoritmo de classificação, uma estratégia conhecida por \textit{learning to rank}. Outra estratégia muito utilizada em sistemas que implementam \textit{feedback} de relevância é o Algoritmo de \textit{Rocchio}, baseado no modelo de espaço vetorial.
