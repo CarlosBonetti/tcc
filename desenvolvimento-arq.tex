@@ -1,8 +1,6 @@
 % !TEX root = main.tex
 
-\chapter{Alterações estruturais no SILQ}\label{cap:dev1}
-
-\afazer{Título!?}
+\chapter{Alterações estruturais realizadas}\label{cap:dev1}
 
 O presente trabalho é uma continuação dos esforços iniciados por \cite{Silq1} e que deu origem ao Sistema de Integração Lattes-Qualis (SILQ). Neste capítulo será apresentado o histórico do trabalho original, os motivos que levaram ao desenvolvimento de um novo trabalho para sua continuação, comparações do que foi alterado nesta nova versão do sistema e por que estas alterações foram necessárias.
 
@@ -88,7 +86,7 @@ Este é o ponto de análise principal deste trabalho e que deu origem à hipótese d
 indicar o período em que o professor está vinculado à um programa de pós-graduação, permitindo que as avaliações dos currículos também possam ser realizadas considerando-se apenas os períodos nos quais o pesquisador estava vinculado à esse programa. \cite[p. 80]{Silq1}
 \end{citacao}
 
-Este item trata-se de um detalhe de gerenciamento de grupos e de sua avaliação, que considera publicações de um pesquisador mesmo quando este foi membro do grupo em um período que não cobre totalmente o período de avaliação estipulado. Para correção deste comportamento, basta dar ao administrador do grupo a opção de informar o período de ingresso ou de participação de um pesquisador no grupo de pesquisa e atualizar o algoritmo de avaliação para considerar somente publicações neste período. \afazer{Trata-se, também, de uma modificação que será introduzida nas próximas iterações de desenvolvimento deste trabalho}.
+Este item trata-se de um detalhe de gerenciamento de grupos e de sua avaliação, que considera publicações de um pesquisador mesmo quando este foi membro do grupo em um período que não cobre totalmente o período de avaliação estipulado. Para correção deste comportamento, basta dar ao administrador do grupo a opção de informar o período de ingresso ou de participação de um pesquisador no grupo de pesquisa e atualizar o algoritmo de avaliação para considerar somente publicações neste período.
 
 \end{enumerate}
 
@@ -177,7 +175,7 @@ A primeira versão do SILQ foi desenvolvida com base no \textit{Play\footnote{\ur
 
 Para esta nova versão do SILQ, porém, um dos objetivos seria a criação de uma API de integração programática, tornando o SILQ não só um sistema para uso de usuários finais, mas também para integração com outras ferramentas, como um \textit{web service}. Para tanto, uma alteração significativa na arquitetura da aplicação foi feita, separando o sistema em um \textit{server-side} rodando Spring\footnote{\url{http://projects.spring.io/spring-framework/}} e servindo seu conteúdo através de uma API REST; e um \textit{client-side} remodelado utilizando AngularJS\footnote{\url{https://angularjs.org/}} e consumindo o serviço através de requisições HTTP.
 
-\afazer{Em um primeiro momento, o ``núcleo" do SILQ, que inclui os algoritmos de avaliação e processamento dos currículos, não foi alterado, apenas a forma com que este serviço é disponibilizado e consumido}. Desta forma, a linguagem utilizada no sistema, o Java, foi mantida. A escolha da alteração do framework back-end, de \textit{Play!} para \textit{Spring}, se deu ao fato da mudança no paradigma arquitetural da aplicação, com a introdução da camada REST. O Spring se trata de um framework Java \textit{open-source} largamente utilizado pela comunidade que oferece suporte a vários aspectos de uma aplicação web, incluindo a construção de interfaces RESTful.
+Em um primeiro momento, o ``núcleo" do SILQ, que inclui os algoritmos de avaliação e processamento dos currículos, não foi alterado, apenas a forma com que este serviço é disponibilizado e consumido. Desta forma, a linguagem utilizada no sistema, o Java, foi mantida. A escolha da alteração do framework back-end, de \textit{Play!} para \textit{Spring}, se deu ao fato da mudança no paradigma arquitetural da aplicação, com a introdução da camada REST. O Spring se trata de um framework Java \textit{open-source} largamente utilizado pela comunidade que oferece suporte a vários aspectos de uma aplicação web, incluindo a construção de interfaces RESTful.
 
 A Figura \ref{fig:arquitetura} mostra um esquema da nova arquitetura do SILQ. A caixa ``SILQ Core" representa a camada de serviço da aplicação, responsável pelo acesso ao banco de dados, avaliação de currículos e gerenciamento dos dados Qualis, cuja implementação foi realizada no trabalho passado (apesar de também sofrer algumas mudanças tecnológicas no trabalho atual).
 
