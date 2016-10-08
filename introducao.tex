@@ -2,7 +2,7 @@
 
 \chapter{Introdução}
 
-A Plataforma Lattes, criada e mantida pela CNPq (Conselho Nacional de Desenvolvimento Científico e Tecnológico), é um sistema de informação responsável pela integração da base de dados de currículos, grupos de pesquisa e instituições. O Currículo Lattes se tornou o padrão nacional no registro da vida científica de estudantes e professores e é hoje adotada por institutos e universidades de todo o país \cite{CNPQ-Sobre}.
+A Plataforma Lattes, criada e mantida pela CNPq (Conselho Nacional de Desenvolvimento Científico e Tecnológico), é um sistema de informação responsável pela integração da base de dados de currículos, grupos de pesquisa e instituições. O Currículo Lattes se tornou o padrão nacional no registro da vida científica de estudantes, professores e pesquisadores e é hoje adotada por institutos e universidades de todo o país \cite{CNPQ-Sobre}.
 
 No Currículo Lattes pode-se inserir dados gerais do pesquisador, produção bibliográfica, orientações, citações, participações em eventos científicos entre outros dados. No módulo Produção Bibliográfica, por exemplo, é possível a inserção de artigos publicados ou aceitos para publicação em periódicos indexados pelo ISSN \cite{CNPQ-Ajuda}.
 
@@ -48,8 +48,4 @@ A primeira etapa do trabalho envolveu a migração tecnológica da camada de interf
 
 Concomitantemente, ocorreu a alteração da base de dados para suporte aos novos registros disponibilizados pelo Qualis. Certos aspectos do banco foram alterados para suportar tais registros novos. Os dados também passaram por um processo de \textit{data-cleaning} manual antes de serem inseridos no banco, conforme detalhado na seção \ref{sec:extracao-qualis-novo}.
 
-A segunda etapa do trabalho, ainda a ser desenvolvida, envolverá a medição da acurácia das avaliações realizadas pelo SILQ utilizando métricas de \textit{precision} e \textit{recall}. Para isso, um subconjunto de dados será analisado, utilizando o algoritmo atual de avaliação. Após estabelecida a métrica da acurácia atual, será levado em conta feedbacks explícitos de usuários, e uma nova medição de acurácia será realizada e comparada com os resultados anteriores.
-
-%Os softwares que serão utilizados em todas as etapas do trabalho são do tipo software livre, incluindo IDE de desenvolvimento, banco de dados e servidor de aplicação. Para a publicação da versão final do sistema continuará a ser utilizado os servidores e domínio da UFSC, onde a primeira versão do SILQ já encontra-se publicado.
-
-%Os recursos físicos e ambientes de trabalho utilizados no processo de desenvolvimento deste trabalho serão todos de posse pessoal do autor.
+A segunda etapa do trabalho envolveu o processo de construção do módulo de captação de \textit{feedback} de relevância, envolvendo a modelagem lógica, criação da camada de serviço, API e alterações na página de resultados de avaliação do sistema com a inclusão dos controles que permitem aos usuários ``julgar" os resultados retornados. Após esta etapa o algoritmo de classificação baseado em similaridade textual do SILQ foi extendido para levar em conta os \textit{feedbacks} dos usuários. Deste processo surgiram dois algoritmos que passaram por uma avaliação experimental, realizada usando um conjunto de testes contendo trabalhos extraídos de currículos Lattes de pesquisadores e manualmente avaliados por um especialista.
