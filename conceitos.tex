@@ -4,7 +4,7 @@
 
 Esta revisão de literatura não será exaustiva ao ponto de revisitar os mesmos assuntos abordados no trabalho original de \cite{Silq1} e focará somente nos pontos onde este novo trabalho divergiu. Alguns assuntos fundamentais, entretanto, foram expostos novamente com o intuito de facilitar o processo de entendimento deste artigo como um trabalho independente. É o caso, por exemplo, das seções relacionadas aos Qualis, Lattes e das tecnologias base utilizadas no sistema.
 
-Em um primeiro momento será apresentada a problemática envolvida no processo de avaliação da produção científica no Brasil e a motivação para a criação do SILQ. Após esta seção serão introduzidos conceitos relacionados a sistemas de Recuperação de Informação e Feedback de Relevância, tópicos explorados por este trabalho para a tentativa de aumento da exatidão e avaliação da eficácia do sistema. Por último, serão apresentados conceitos e padrões arquiteturais e tecnológicos que foram explorados para o desenvolvimento da segunda versão do SILQ.
+Em um primeiro momento será apresentada a problemática envolvida no processo de avaliação da produção científica no Brasil e a motivação para a criação do SILQ. Após esta seção serão introduzidos conceitos relacionados a sistemas de Recuperação de Informação e Feedback de Relevância, tópicos explorados por este trabalho para a tentativa de aumento da exatidão do algoritmo de classificação e avaliação da eficácia do sistema. Por último, serão apresentados conceitos e padrões arquiteturais e tecnológicos que foram explorados para o desenvolvimento da segunda versão do SILQ.
 
 \section{Produção e avaliação científicas no Brasil}
 
@@ -18,7 +18,7 @@ Analisando não só a produção científica, cabe ao Ministério da Educação (MEC), a
 
 \subsection{Qualis}
 
-A classificação da qualidade da produção intelectual é realizada pela CAPES (Coordenação de Aperfeiçoamento de Pessoal de Nível Superior) através de um conjunto de procedimentos denominado Qualis. O Qualis afere a qualidade de artigos e outras produções a partir da análise da qualidade dos veículos de divulgação, ou seja, periódicos científicos. Esta classificação é realizada pelas áreas de avaliação em um processo anual de atualização, sendo os veículos enquadrados em estratos indicativos de qualidade (A1 - o mais elevado; A2; B1; B2; B3; B4; B5; C - com peso zero \cite{CAPES-Classificacao}.
+A classificação da qualidade da produção intelectual é realizada pela CAPES (Coordenação de Aperfeiçoamento de Pessoal de Nível Superior) através de um conjunto de procedimentos denominado Qualis. O Qualis afere a qualidade de artigos e outras produções a partir da análise da qualidade dos veículos de divulgação, ou seja, periódicos científicos. Esta classificação é realizada pelas áreas de avaliação em um processo anual de atualização, sendo os veículos enquadrados em estratos indicativos de qualidade: A1 - o mais elevado; A2; B1; B2; B3; B4; B5; C - com peso zero \cite{CAPES-Classificacao}.
 
 O resultado desta estratificação é uma lista com a classificação dos veículos de publicação utilizados pelos programas de pós-graduação (\textit{journals}, revistas, periódicos etc), separados por área e ano de avaliação (um mesmo veículo tem uma avaliação diferente para cada ano de avaliação e área de conhecimento). Desta forma, a avaliação da qualidade de uma produção de um pesquisador é realizado de forma indireta, atribuindo-se a esta produção o estrato dado àquele veículo onde ela foi publicada.
 
@@ -28,23 +28,26 @@ Note-se que o mesmo periódico, ao ser classificado em duas ou mais áreas distint
 
 Até o final do ano de 2015, como cita o trabalho de \cite[p. 31]{Silq1}, os dados dos resultados das avaliações Qualis encontravam-se estruturados e disponibilizados em documentos no formado PDF e XLS. Também encontravam-se disponível apenas dados referentes ao triênio de 2010-2012. No início do ano de 2016, porém, a Qualis alterou seu modo de operação e passou a realizar avaliações anuais, já disponibilizando os novos dados de 2013 e 2014, junto com os antigos, em formato CSV através do WebQualis\footnote{\url{http://qualis.capes.gov.br/webqualis/}} (Hoje plataforma Sucupira).
 
+A Figura \ref{fig:qualis} mostra um exemplo de dados extraídos da tabela Qualis de 2014, contendo ISSN, título, área de avaliação e estrato atribuído a cada periódico avaliado.
+
 \begin{figure}[!h]
    \centering
    \caption{Exemplo de conjunto de dados do Qualis 2014}
+   \label{fig:qualis}
    \includegraphics[width=\textwidth]{figuras/qualis_exemplo.png}
 \end{figure}
 
 \subsection{Lattes}
 
-Desde a década de 80 notava-se a necessidade de um formulário padrão para registro dos currículos de pesquisadores brasileiros que possibilitasse a busca e seleção de especialistas bem como a geração de um mapa sobre a distribuição da pesquisa científica no Brasil. Em 1999, o CNPq lançou a Plataforma Lattes\footnote{\url{http://lattes.cnpq.br/}}, um sistema de informação para registro e consulta de currículos acadêmicos, e padronizou o Currículo Lattes como o formulário de currículo a ser utilizado no âmbito do Ministério da Ciência e Tecnologia e CNPq. \cite{CNPQ-Historico,CNPQ-Sobre}
+Desde a década de 80 notava-se a necessidade de um formulário padrão para registro dos currículos de pesquisadores brasileiros que possibilitasse a busca e seleção de especialistas bem como a geração de um mapa sobre a distribuição da pesquisa científica no Brasil. Em 1999, o CNPq lançou a Plataforma Lattes\footnote{\url{http://lattes.cnpq.br/}}, um sistema de informação para registro e consulta de currículos acadêmicos, e padronizou o Currículo Lattes como o formulário de currículo a ser utilizado no âmbito do Ministério da Ciência e Tecnologia e CNPq \cite{CNPQ-Historico,CNPQ-Sobre}.
 
-Entre os dados contidos em um currículo Lattes, estão os dados gerais do pesquisador, produção bibliográfica, orientações, citações, formação acadêmica, etc. No módulo Produção Bibliográfica, por exemplo, é possível a inserção de artigos publicados em periódicos indexados pelo ISSN, livros e capítulos, textos em jornais ou revistas, trabalhos publicados em anais de eventos, entre outras formas de produções \cite{CNPQ-Ajuda}. Estes dados de publicações seriam usados pela primeira versão do SILQ \cite{Silq1} para a avaliação automática de currículos.
+Entre os registros contidos em um currículo Lattes, estão os dados gerais do pesquisador, produção bibliográfica, orientações, citações, formação acadêmica, etc. No módulo Produção Bibliográfica, por exemplo, é possível a inserção de artigos publicados em periódicos indexados pelo ISSN, livros e capítulos, textos em jornais ou revistas, trabalhos publicados em anais de eventos, entre outras formas de produções \cite{CNPQ-Ajuda}. Estes dados de publicações seriam usados pela primeira versão do SILQ \cite{Silq1} para a avaliação automática de currículos.
 
 A Plataforma Lattes, além de apresentar seus currículos através de uma interface web usando HTML, também disponibiliza os dados em formato XML, uma linguagem de marcação semi-estruturada legível por humanos e máquinas \cite[p. 34]{Silq1}. Foi este o formato utilizado pelo SILQ para a extração dos dados Lattes de um pesquisador, conforme relatado em \cite{Silq1}.
 
-\section{Sistemas de Recuperação de Informação e métricas de avaliação}
+\section{Sistemas de \textit{IR} e métricas de avaliação}
 
-Recuperação de Informação, ou \textit{Information Retrieval} (IR), é a obtenção de informações relevantes, dados certos critérios de busca, de uma coleção maior de informações \cite{BaezaYates99}. Os maiores exemplos atuais de sistemas de IR são os buscadores web, baseados em busca textual.
+Recuperação de Informação, ou \textit{Information Retrieval} (IR), é a obtenção de informações relevantes, dados certos critérios de busca, de uma coleção maior de informações. Os maiores exemplos atuais de sistemas de IR são os buscadores web \cite{BaezaYates99}.
 
 Áreas tipicamente relacionadas com IR e cujas técnicas e definições muita vezes se intersectam são as de \textit{Data Mining}, Sistemas de Recomendação e \textit{Data-Matching}. Data matching é o processo de comparação entre informações de diferentes fontes com o objetivo de descobrir se de fato representam o mesmo objeto do mundo real \cite{Dorneles2011}. Neste contexto, é denominada de \textit{query} toda consulta submetida ao sistema de IR e de \textit{documentos} o conjunto de dados sobre o qual ocorrerá a pesquisa e do qual, possivelmente, resultará um subconjunto contendo os resultados para a \textit{query}. Desta forma o algoritmo de avaliação de currículos do SILQ pode ser classificado como um sistema de IR baseado em \textit{data matching} aproximado, utilizando uma função de similaridade textual para classificação dos resultados.
 
@@ -52,15 +55,15 @@ Um processo de \textit{data mathing} aproximado emprega funções de similaridade 
 
 A função de similaridade utilizada pelo algoritmo de avaliação de currículos do SILQ é a \textit{ngram}, com valor de \textit{n} igual a 3 (sendo chamado, neste caso, de \textit{trigram}) \cite{Silq1}.
 
-Desta forma, ao avaliar uma publicação qualquer, o SILQ compara, através da função \textit{trigram}, o nome do veículo onde esta publicação foi submetida com cada um dos registros Qualis presentes na base de dados. Se a similaridade for 60\% ou maior\footnote{Este valor é o \textit{threshold} padrão para avaliações, mas pode ser configurado pelo sistema.}, o veículo é considerado como um \textit{matching} positivo. O evento com maior similaridade, caso exista, é considerado e seu estrato Qualis é atribuído à publicação que está sendo avaliada.
+Desta forma, ao avaliar uma publicação qualquer, o SILQ compara, através da função \textit{trigram}, o nome do veículo onde esta publicação foi submetida com cada um dos registros Qualis presentes na base de dados. Se o valor de similaridade for $0.6$ ou maior\footnote{Este valor é o \textit{threshold} padrão para avaliações, mas pode ser configurado pelo sistema.}, o veículo é considerado como um \textit{matching} positivo. O evento com maior similaridade, caso exista, é considerado e seu estrato Qualis é atribuído à publicação que está sendo avaliada.
 
 Algumas questões relacionadas a este processo são a definição do valor de \textit{threshold} ideal para maximizar a precisão do algoritmo \cite{Dorneles2011} e a própria função de similaridade mais indicada para o conjunto de dados em questão \cite{Silva07}. Para ambas as questões, entretando, é preciso estipular métricas para a medição de quão preciso é o algoritmo de similaridade, para só então testar diferentes técnicas e variáveis até chegar a uma configuração ideal para o conjunto de dados trabalhados. Duas medidas clássicas de IR que podem ser utilizadas neste caso são a precisão (\textit{precision}) e a revocação (\textit{recall}), além de outras derivadas mais indicadas para sistemas que utilizam \textit{ranking}, conforme descritas nas próximas subseções. \afazer{Referências}.
 
 \subsection{Precisão e Revocação}
 
-Em sistemas de reconhecimento de padrões e/ou informações baseados em classificações binárias\footnote{Que só fazem distinção entre dois possíveis resultados para uma busca: ou o elemento faz parte do grupo desejado ou não faz parte.}, precisão (ou valor preditivo positivo) é a fração dos objetos retornados que são relevantes, enquanto a revocação (ou sensibilidade) é a fração de todos os objetos relevantes que foram retornados \cite{Sammut2001}. Desta forma, \textit{precision} e \textit{recall} podem ser consideradas medidas de correção e completude e são métricas base para o entendimento da relevância dos resultados retornados \cite{Euzenat07}.
+Em sistemas de reconhecimento de padrões e/ou informações baseados em classificações binárias\footnote{Que só fazem distinção entre dois possíveis resultados para uma busca: ou o elemento é relevante para a \textit{query} em questão ou não é.}, precisão (ou valor preditivo positivo) é a fração dos objetos retornados que são relevantes, enquanto a revocação (ou sensibilidade) é a fração de todos os objetos relevantes que foram retornados \cite{Sammut2001}. Desta forma, \textit{precision} (precisão) e \textit{recall} (revocação) podem ser consideradas medidas de correção e completude e são métricas base para o entendimento da relevância dos resultados retornados \cite{Euzenat07}.
 
-De maneira semelhante, em \textit{Data-matching}, estas medidas são interessantes para medir a habilidade de algoritmos de similaridade em ordenar os resultados de uma consulta, embora não sejam indicados como medidas absolutas para expressar o quão eficientemente uma certa função de similaridade separa os resultados relevantes dos irrelevantes, conforme cita o trabalho de \cite{Silva07} que também propõe o uso de uma função de \textit{discernability}, utilizando métricas de \textit{precision} e \textit{recall}, além de outras, para medir a qualidade de uma função de similaridade.
+Entretanto, precisão e revocação são medidas baseadas em conjuntos, computadas usando coleções de documentos não ordenados, ou seja, que são retornados sem uma distinção de ordem. São necessárias diferentes medidas para avaliar resultados ordenados \cite{Manning2008}.
 
 \subsection{\textit{Precision at $k$ (P@k)} e \textit{R-Precision}}
 
@@ -70,17 +73,11 @@ Para alguns sistemas de IR, não são relevantes todas as respostas a uma \textit{
 
 Uma das desvantagens desta medida é sua instabilidade em comparação com outras, principalmente de sua média já que o número total de documentos relevantes para uma \textit{query} tem uma forte influência no valor. Um exemplo é uma \textit{query} que só possua 1 item relevante e que ele seja o primeiro resultado retornado, mas ainda  assim o valor de \textit{precision at 10} é $0.1$, já que outros 9 itens não relevantes foram retornados.
 
-Uma alternativa que alivia este problema é chamado de \textit{R-Precision}. Esta medida requere que o conjunto $R$ de todos os documentos relevantes para certa \textit{query} seja conhecido. A partir deste conjunto calcula-se a precisão de uma query que retornou $r$ resultados relevantes como sendo $r/|R|$, ou seja, a fração dos itens relevantes que foram de fato retornados. Neste caso, ao analisar os primeiros $|R|$ resultados de uma \textit{query}, por definição, não apenas o valor da precisão é $r/|R|$ como o próprio valor de revocação também é $r/|R|$. Ou seja, os valores de precisão e revocação são idênticos ao utilizar tal métrica \cite{Manning2008}.
-
-\afazer{Citar o SILQ onde $|R| = 1$, sempre?}
-
-\afazer{Average Precision}
-
-\afazer{Mean Average Precision}
+Uma alternativa que alivia este problema é chamado de \textit{R-Precision}. Esta medida requere que o conjunto $R$ de todos os documentos relevantes para certa \textit{query} seja conhecido. A partir deste conjunto calcula-se a precisão de uma \textit{query} que retornou $r$ resultados relevantes como sendo $r/|R|$, ou seja, a fração dos itens relevantes que foram de fato retornados. Neste caso, ao analisar os primeiros $|R|$ resultados de uma \textit{query}, por definição, não apenas o valor da precisão é $r/|R|$ como o próprio valor de revocação também é $r/|R|$. Ou seja, os valores de precisão e revocação são idênticos ao utilizar tal métrica \cite{Manning2008}.
 
 \subsection{Média de Rank Recíproco} \label{sec:mrr}
 
-A média de rank recíproco (\textit{MRR - Mean Reciprocral Rank}), é uma medida estatística utilizada na avaliação de processos que produzem uma lista de resultados a uma \textit{query} ordenados por probabilidade de corretude \cite{Liu2009}.
+A média de rank recíproco (\textit{MRR - Mean Reciprocal Rank}), é uma medida estatística utilizada na avaliação de processos que produzem uma lista de resultados a uma \textit{query} ordenados por probabilidade de corretude \cite{Liu2009}.
 
 A média é dada por:
 
@@ -102,25 +99,23 @@ Tradicionalmente, sistemas que utilizam esta técnica dão a possibilidade para o 
 
 Segundo \cite{Manning2008}, feedback de relevância pode proporcionar ganhos substanciais na performance de sistemas de recuperação de informação, porém a avaliação de sua eficácia em um sistema de IR pode não ser trivial. Um dos métodos para tal mensuração é traçar gráficos de precisão-revocação antes e depois de uma rodada de \textit{feedback} do usuário e comparar os resultados. Esta técnica, porém, é trapaceira pois os documentos julgados pelo usuário com certeza serão melhor rankeados. Para uma avaliação justa devem ser levados em conta somente documentos que não foram vistos pelo usuário. Um outro método de avaliação requere dois conjuntos, o primeiro utilizado para a \textit{query} inicial e para receber \textit{feedback} do usuário, e o segundo para avaliação via comparação, que contém os resultados desejados previamente estabelecidos por um especialista. A performance do sistema pode ser medido através da comparação dos dois conjuntos, antes e após a inclusão dos dados de \textit{feedback} do usuário.
 
-\afazer{Algoritmo de \textit{Rocchio}}
-
 \subsection{Avaliação de sistemas IR}
 
 Um dos desafios em projetar sistemas de IR está em escolher técnicas que sejam efetivas para a aplicação. Um processo importante no desenvolvimento de tais aplicações, portanto, é o de avaliação, que envolve a medição de certos aspectos do sistema baseados em métricas \cite{Manning2008}, como as descritas nas seções anteriores.
 
 A forma padrão de realizar tais medições envolve o uso de um \textit{conjunto de testes}. Este conjunto é uma coleção de exemplos contendo \textit{queries} e seus respectivos resultados corretos, geralmente avaliados por um especialista, e usados apenas para realizar a avaliação do sistema. Ou seja, em sistemas que dependem de um conjunto de treino para alimentar o algoritmo, como os baseados em \textit{machine learning}, o conjunto de testes não é previamente conhecido pelo sistema \cite{Ripley1995}.
 
-As \textit{queries} do conjunto de testes são dadas ao sistema e os resultado retornados comparados com aqueles informados pelo especialista, produzindo uma série de medidas que podem ser utilizadas para a avaliação do sistema \cite{Witten2005}.
+As \textit{queries} do conjunto de testes são submetidas ao sistema e os resultado retornados comparados com aqueles informados pelo especialista, produzindo uma série de medidas que podem ser utilizadas para a avaliação do sistema \cite{Witten2005}.
 
 \section{Arquitetura de sistemas baseados na \textit{Web}}
 
 Nesta seção serão introduzidos conceitos e fundamentos relacionados à construção, interoperabilidade e arquitetura geral de sistemas baseados na Web. A maioria destes conceitos já estão consolidados na indústria de software e são aqui explanados com o objetivo de familiarizar o leitor com os assuntos discutidos no decorrer do desenvolvimento deste trabalho, bem como para apresentar as justificativas tecnológicas que motivaram as alterações arquiteturais realizadas.
 
-\subsection{\textit{Web Services} e a arquitetura \textit{REST}}
+\subsection{\textit{Web services} e a arquitetura \textit{REST}}
 
-Segundo a W3C, Web Services são serviços que provém meios de interoperabilidade padronizados entre diferentes aplicações de software rodando em ambientes e/ou plataformas heterogêneas. Um Web Service, portanto, oferece tal serviço de interoperabilidade através da \textit{World Wide Web}, expondo uma interface descrita em um formato legível por máquinas. Diferentes entidades consomem tal serviço através de trocas de mensagem utilizando o formato especificado \cite{W3C-Web-Services}.
+Segundo a W3C (\textit{World Wide Web Consortium}), \textit{web services} são serviços que provém meios de interoperabilidade padronizados entre diferentes aplicações de software rodando em ambientes e/ou plataformas heterogêneas. Um \textit{web service}, portanto, oferece tal serviço de interoperabilidade através da \textit{World Wide Web}, expondo uma interface descrita em um formato legível por máquinas. Diferentes entidades consomem tal serviço através de trocas de mensagem utilizando o formato especificado \cite{W3C-Web-Services}.
 
-\textit{Representational state transfer} (REST) é um estilo arquitetural utilizado para a implementação de um Web Service, baseado no protocolo HTTP \cite{Fielding02}. Serviços web que implementam uma API no estilo REST também são chamadas de \textit{RESTful APIs} e comumente utilizam JSON como formato de intercomunicação, podendo utilizar também XML, Atom, texto, entre outros \cite{richardson2013restful}.
+\textit{Representational state transfer} (REST) é um estilo arquitetural utilizado para a implementação de um \textit{web service}, baseado no protocolo HTTP \cite{Fielding02}. Serviços web que implementam uma API no estilo REST também são chamadas de \textit{RESTful APIs} e comumente utilizam JSON como formato de intercomunicação, podendo utilizar também XML, Atom, texto, entre outros \cite{richardson2013restful}.
 
 Um exemplo de comunicação entre um servidor web rodando um serviço de consulta de uma biblioteca e um cliente (outra aplicação) que desejasse saber a coleção de livros de seu acervo seria o seguinte:
 
