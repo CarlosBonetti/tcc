@@ -1,6 +1,6 @@
 % !TEX root = main.tex
 
-\chapter{Avaliação do uso de Feedback de relevância} \label{cap:avaliacao}
+\chapter{Uso de \textit{Feedback} de relevância} \label{cap:avaliacao}
 
 Um dos itens de melhoria indicados por \cite{Silq1} após a realização da primeira versão do sistema seria ``permitir que o usuário auxilie a ferramenta na qualificação", conforme relatado na seção \ref{sec:trabalhos-futuros-silq1}. Em sistemas de IR, esta característica é denominada \textit{Feedback de Relevância}.
 
@@ -25,11 +25,11 @@ A Figura \ref{fig:feedbacks} mostra o exemplo de três trabalhos conceituados, em
 
 Os \textit{feedbacks} de relevância dados pelos usuários são salvos na base de dados SILQ na tabela \textit{tb\_feedback} (Figura \ref{fig:modelo-logico}) para uso posterior pelo algoritmo de classificação, conforme descrito na seção \ref{sec:algoritmo}. Já que um trabalho qualquer pode ter no máximo um registro Qualis associado, são salvas somente um \textit{feedback} por \textit{query} por usuário. Desta forma, uma chave única é utilizada na tabela de \textit{feedbacks}, dada pela dupla (título do trabalho, usuário).
 
-\subsection{Algoritmo de avaliação com feedback} \label{sec:algoritmo}
+\section{Algoritmos de avaliação com feedback} \label{sec:algoritmo}
 
 Uma vez registrados os \textit{feedbacks} dos usuários, passa-se a questionar de que forma utilizá-los para aumentar a performance do sistema. A seção atual apresenta dois algoritmos que foram testados neste trabalho e como foram implementados, enquanto a \afazer{próxima seção} apresenta os resultados e comparações de precisão dos mesmos.
 
-\textbf{Algoritmo \textit{fb(t)}:}
+\subsection{Algoritmo \textit{fb(t)}}
 
 Umas das abordagens mais simples que podem ser usadas neste caso é utilizar o resultado marcado pelo usuário sempre que uma \textit{query} idêntica ao do \textit{feedback} seja submetida ao sistema. O algoritmo \textit{fb(1.0)}, portanto, foi desenvolvido com base nesta ideia. O valor ``$1.0$" presente no nome do algoritmo apenas indica que o \textit{feedback} é considerado em detrimento de qualquer outro resultado dado pelo sistema quando a \textit{query} submetida for 100\% similar (ou seja, idêntica) à \textit{query} do \textit{feedback}.
 
@@ -49,7 +49,7 @@ Uma modificação que pode ser feita no mesmo algoritmo é utilizar \textit{thresho
 
 O algoritmo \textit{fb(t)}, entretanto, leva a outros questionamentos, já que utiliza a mesma técnica de \textit{data matching} que foi proposta a melhorar. Qual o valor de $t$ (\textit{trehshold de feedback}) ideal? Qual o algoritmo de similaridade textual ideal para este caso? A seção \ref{sec:avaliacao-algoritmos} apresenta testes de validação do algoritmo \textit{fb(t)} para diferentes valores de $t$.
 
-\textbf{Algoritmo \textit{query\_aliasing}:}
+\subsection{Algoritmo \textit{query\_aliasing}}
 
 Outra estratégia que mostrou-se de mais fácil implementação e melhor desempenho foi considerar os \textit{feedbacks} do usuário e inserí-los no \textit{rank} de resultados do sistema com base em seu valor de similaridade textual em relação à \textit{query} submetida.
 
