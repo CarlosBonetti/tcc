@@ -6,7 +6,7 @@ A Plataforma Lattes, criada e mantida pela CNPq (Conselho Nacional de Desenvolvi
 
 No Currículo Lattes pode-se inserir dados gerais do pesquisador, produção bibliográfica, orientações, citações, participações em eventos científicos entre outros dados. No módulo Produção Bibliográfica, por exemplo, é possível a inserção de artigos publicados ou aceitos para publicação em periódicos indexados pelo ISSN \cite{CNPQ-Ajuda}.
 
-A classificação da qualidade da produção intelectual é realizada pela CAPES (Coordenação de Aperfeiçoamento de Pessoal de Nível Superior) através de um conjunto de procedimentos denominado Qualis. O Qualis afere a qualidade de artigos e outras produções a partir da análise da qualidade dos veículos de divulgação, ou seja, periódicos científicos. Esta classificação é realizada pelas áreas de avaliação em um processo anual de atualização, sendo os veículos enquadrados em estratos indicativos de qualidade (A1 - o mais elevado; A2; B1; B2; B3; B4; B5; C - com peso zero \cite{CAPES-Classificacao}.
+A classificação da qualidade da produção intelectual é realizada pela CAPES (Coordenação de Aperfeiçoamento de Pessoal de Nível Superior) através de um conjunto de procedimentos denominado Qualis. O Qualis afere a qualidade de artigos e outras produções a partir da análise da qualidade dos veículos de divulgação, ou seja, periódicos científicos. Esta classificação é realizada pelas áreas de avaliação em um processo anual de atualização, sendo os veículos enquadrados em estratos indicativos de qualidade: A1 - o mais elevado; A2; B1; B2; B3; B4; B5; C - com peso zero \cite{CAPES-Classificacao}.
 
 Apesar da Plataforma Lattes possuir um módulo de inclusão de publicações e permitir a definição do veículo onde este foi publicado, não há qualquer tipo de conexão entre os sistemas Lattes e Qualis, ou seja, o processo de avaliação de uma publicação (que é feita através da avaliação do veículo onde este foi publicado) era realizado de forma manual.
 
@@ -16,15 +16,21 @@ A primeira versão do sistema foi finalizada em 2015 e desde então encontra-se di
 
 A primeira versão do SILQ, no entanto, possui em seu banco de dados de eventos e periódicos extraídos do Qualis apenas dados referentes ao triênio 2010-2012, já que, até metade de 2015, o Qualis realizava classificações de forma trienal. Em 2016, no entanto, após a finalização do projeto SILQ, o Qualis alterou seu modo de operação para classificações anuais, já disponibilizando dados referentes aos anos 2013 e 2014, que ainda não estava incluídos nesta primeira versão da base de dados SILQ.
 
-Outra questão relacionada à primeira versão do SILQ é a falta de alguns recursos que poderiam facilitar o processo de avaliação e acompanhamento de currículos, como gráficos de classificações dentro de grupos de pesquisa. Outra característica importante seria a capacidade de integração com outros sistemas, facilitando o reuso do serviço disponibilizado pelo SILQ em trabalhos futuros.
+Outra questão relacionada à primeira versão do SILQ é a falta de alguns recursos que poderiam facilitar o processo de avaliação e acompanhamento de currículos, como gráficos de classificações dentro de grupos de pesquisa. Uma característica importante também seria a capacidade de integração com outros sistemas, facilitando o reuso do serviço disponibilizado pelo SILQ em trabalhos futuros.
+
+Mais um ponto de melhoria seria a avaliação experimental do algoritmo de classificação do SILQ para o estabelecimento de uma medida do grau de precisão da ferramenta. A partir disto, outras técnicas podem ser propostas e comparadas com as anteriores a fim de provar se elas resultaram em ganho de precisão ou não.
 
 A proposta deste trabalho, portanto, é a criação de uma segunda versão do SILQ, desenvolvida a partir do código existente da primeira, a fim de realizar as mudanças sugeridas acima, junto com a atualização da base de dados e arquitetura do sistema para a inclusão das novas qualificações Qualis em um ritmo anual.
 
-Outra proposta do trabalho é levar em consideração feedbacks de usuários ao avaliar currículos. Ou seja, permitir ao usuário sugerir o melhor \textit{matching} caso o sistema não encontre um candidato satisfatório. A hipótese de pesquisa a ser avaliada a partir desta ideia, portanto, é avaliar se o feeback explícito de usuários pode aumentar a acurácia do SILQ, um sistema de avaliação baseada em similaridade textual.
+Também propõe-se a implementar controles que permitam ao usuário fornecer \textit{feedback} de relevância sobre os resultados retornados pelo sistema, ou seja, permitir ao usuário sugerir o melhor \textit{matching} caso o sistema não encontre um candidato satisfatório, e assim alimentar o algoritmo de classificação com o objetivo de melhorar as respostas subsequentes. Por fim, pretende-se realizar uma avaliação experimental do grau de exatidão do algoritmo de classificação antes e depois das mudanças realizadas.
+
+A hipótese de pesquisa a ser avaliada a partir desta ideia, portanto, é avaliar se o feeback explícito de usuários pode aumentar a acurácia do SILQ, um sistema de avaliação baseada em similaridade textual.
 
 \section{Objetivos}
 
-O objetivo geral deste trabalho é a reestruturação arquitetural do Sistema de Integração Lattes-Qualis (SILQ), incluindo a criação de API de integração com outros sistemas e a atualização da base de dados conforme novas classificações Qualis, e uma análise do uso de feedback de relevância e seu impacto na precisão dos resultados de avaliações de publicações, baseadas em similaridade textual.
+O objetivo geral deste trabalho é analisar o impacto que o uso de \textit{feedback} de relevância tem na precisão dos resultados de avaliações realizadas pelo SILQ, e uma reestruturação arquitetural da ferramenta, incluindo a criação de API de integração com outros sistemas e a atualização da base de dados conforme as novas classificações Qualis.
+
+%O objetivo geral deste trabalho é a reestruturação arquitetural do Sistema de Integração Lattes-Qualis (SILQ), incluindo a criação de API de integração com outros sistemas e a atualização da base de dados conforme novas classificações Qualis, e uma análise do uso de feedback de relevância e seu impacto na precisão dos resultados de avaliações de publicações, baseadas em similaridade textual.
 
 Os objetivos específicos são os seguintes:
 
@@ -35,17 +41,17 @@ Os objetivos específicos são os seguintes:
 
     \item Criação de uma API pública de disponibilização dos serviços do SILQ, via camada de aplicação REST para integração com outros sistemas;
 
-    \item \afazer{Criação de uma documentação da nova API REST com o objetivo de auxiliar outros serviços a se integrarem com o SILQ};
+    %\item \afazer{Criação de uma documentação da nova API REST com o objetivo de auxiliar outros serviços a se integrarem com o SILQ};
 
-    \item Alterações na interface do sistema incluindo migração de \textit{framework} de interface, novos gráficos de acompanhamento de grupos de pesquisa e melhorias gerais de usabilidade;
+    \item Alterações na interface do sistema incluindo migração de \textit{framework} de interface, inclusão de controles de \textit{feedback}, novos gráficos de acompanhamento de grupos de pesquisa e melhorias gerais de usabilidade;
 
-    \item Verificar se a precisão da avaliação de currículos baseada em algoritmos de similaridade textual, pode ser melhorada utilizando \textit{feedback} de relevância.
+    \item Propor algoritmos de avaliação baseados em \textit{feedback} de relevância e verificar se a taxa de exatidão do sistema foi melhorada com tal ação.
 \end{itemize}
 
 \section{Procedimentos Metodológicos}
 
-A primeira etapa do trabalho envolveu a migração tecnológica da camada de interface e desacoplamento entre \textit{server} e \textit{client side}, originando um serviço RESTful de integração. Para isto, foram utilizadas práticas ágeis de desenvolvimento de software incluindo desenvolvimento orientado a testes e eventuais modelagens lógicas de arquitetura de sistemas usando práticas da Engenharia de Software.
+A primeira etapa do trabalho envolveu a migração tecnológica da camada de interface e desacoplamento entre \textit{server} e \textit{client side}, originando um serviço \textit{RESTful} de integração. Para isto, foram utilizadas práticas ágeis de desenvolvimento de software incluindo desenvolvimento orientado a testes e eventuais modelagens lógicas de arquitetura de sistemas usando práticas da Engenharia de Software.
 
 Concomitantemente, ocorreu a alteração da base de dados para suporte aos novos registros disponibilizados pelo Qualis. Certos aspectos do banco foram alterados para suportar tais registros novos. Os dados também passaram por um processo de \textit{data-cleaning} manual antes de serem inseridos no banco, conforme detalhado na seção \ref{sec:extracao-qualis-novo}.
 
-A segunda etapa do trabalho envolveu o processo de construção do módulo de captação de \textit{feedback} de relevância, envolvendo a modelagem lógica, criação da camada de serviço, API e alterações na página de resultados de avaliação do sistema com a inclusão dos controles que permitem aos usuários ``julgar" os resultados retornados. Após esta etapa o algoritmo de classificação baseado em similaridade textual do SILQ foi extendido para levar em conta os \textit{feedbacks} dos usuários. Deste processo surgiram dois algoritmos que passaram por uma avaliação experimental, realizada usando um conjunto de testes contendo trabalhos extraídos de currículos Lattes de pesquisadores e manualmente avaliados por um especialista.
+A segunda etapa do trabalho envolveu o processo de construção do módulo de captação de \textit{feedback} de relevância, envolvendo a modelagem lógica, criação da camada de serviço, API e alterações na página de resultados de avaliação do sistema com a inclusão dos controles que permitem aos usuários ``julgar" os resultados retornados. Após esta etapa o algoritmo de classificação baseado em similaridade textual do SILQ foi extendido para levar em conta os \textit{feedbacks} dos usuários. Deste processo surgiram dois algoritmos que passaram por uma avaliação experimental, realizada usando um conjunto de testes contendo trabalhos extraídos de currículos Lattes de pesquisadores e manualmente avaliados por um especialista. \afazer{conforme relatado na seção TAL}.
