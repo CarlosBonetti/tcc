@@ -2,5 +2,3 @@
 * Mais incremento da seção "Trabalhos Correlatos"
 * Algoritmos
 * Encerrar conclusões
-* Agradecimentos
-* Epígrafe?
