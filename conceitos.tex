@@ -57,7 +57,7 @@ A função de similaridade utilizada pelo algoritmo de avaliação de currículos do 
 
 Desta forma, ao avaliar uma publicação qualquer, o SILQ compara, através da função \textit{trigram}, o nome do veículo onde esta publicação foi submetida com cada um dos registros Qualis presentes na base de dados. Se o valor de similaridade for $0.6$ ou maior\footnote{Este valor é o \textit{threshold} padrão para avaliações, mas pode ser configurado pelo sistema.}, o veículo é considerado como um \textit{matching} positivo. O evento com maior similaridade, caso exista, é considerado e seu estrato Qualis é atribuído à publicação que está sendo avaliada.
 
-Algumas questões relacionadas a este processo são a definição do valor de \textit{threshold} ideal para maximizar a precisão do algoritmo \cite{Dorneles2011} e a própria função de similaridade mais indicada para o conjunto de dados em questão \cite{Silva07}. Para ambas as questões, entretando, é preciso estipular métricas para a medição de quão preciso é o algoritmo de similaridade, para só então testar diferentes técnicas e variáveis até chegar a uma configuração ideal para o conjunto de dados trabalhados. Duas medidas clássicas de IR que podem ser utilizadas neste caso são a precisão (\textit{precision}) e a revocação (\textit{recall}), além de outras derivadas mais indicadas para sistemas que utilizam \textit{ranking}, conforme descritas nas próximas subseções. \afazer{Referências}.
+Algumas questões relacionadas a este processo são a definição do valor de \textit{threshold} ideal para maximizar a precisão do algoritmo \cite{Dorneles2011} e a própria função de similaridade mais indicada para o conjunto de dados em questão \cite{Silva07}. Para ambas as questões, entretando, é preciso estipular métricas para a medição de quão preciso é o algoritmo de similaridade, para só então testar diferentes técnicas e variáveis até chegar a uma configuração ideal para o conjunto de dados trabalhados. Duas medidas clássicas de IR que podem ser utilizadas neste caso são a precisão (\textit{precision}) e a revocação (\textit{recall}), além de outras derivadas mais indicadas para sistemas que utilizam \textit{ranking}, conforme descritas nas próximas subseções.
 
 \subsection{Precisão e Revocação}
 
@@ -67,7 +67,7 @@ Entretanto, precisão e revocação são medidas baseadas em conjuntos, computadas u
 
 \subsection{\textit{Precision at $k$ (P@k)} e \textit{R-Precision}}
 
-\afazer{Referências}
+%\afazer{Referências}
 
 Para alguns sistemas de IR, não são relevantes todas as respostas a uma \textit{query}, mas somente os primeiros $k$ resultados. Neste caso, podem ser realizadas mensurações da precisão considerando somente um certo limite de resultados, por exemplo, 10 ou 20 documentos. Este valor é conhecido como \textit{precision at $k$}, por exemplo, \textit{precision at 10}, sendo 10 o número de resultados considerados  \cite{Manning2008}.
 

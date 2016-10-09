@@ -33,18 +33,6 @@ Uma vez registrados os \textit{feedbacks} dos usuários, passa-se a questionar de
 
 Umas das abordagens mais simples que podem ser usadas neste caso é utilizar o resultado marcado pelo usuário sempre que uma \textit{query} idêntica ao do \textit{feedback} seja submetida ao sistema. O algoritmo \textit{fb(1.0)}, portanto, foi desenvolvido com base nesta ideia. O valor ``$1.0$" presente no nome do algoritmo apenas indica que o \textit{feedback} é considerado em detrimento de qualquer outro resultado dado pelo sistema quando a \textit{query} submetida for 100\% similar (ou seja, idêntica) à \textit{query} do \textit{feedback}.
 
-\begin{lstlisting}[language=java, caption=Algoritmo \textit{fb(1.0)}]
-public List<Conceito> avaliar(String query, Usuario usuarioLogado) {
-   List<Conceito> conceitos = getConceitosTrigrams(query);
-
-   Feedback feedback = getConceitoFeedback(query, usuarioLogado);
-   Conceito feedbackConceito = feedbackToConceito(feedback);
-   conceitos.add(feedbackConceito);
-
-   return conceitos;
-}
-\end{lstlisting}
-
 Uma modificação que pode ser feita no mesmo algoritmo é utilizar \textit{thresholds de feedback} mais baixos. O \textit{fb(1.0)} considera apenas \textit{feedbacks} que sejam idênticos à \textit{query} submetida, porém pode ser que sejam obtidos resultados melhores ao considerar \textit{feedbacks} textualmente similares à \textit{query} atual, considerando certo \textit{threhold}. O algoritmo \textit{fb(t)} (para $0.0 \le t \le 1.0$) é uma generalização de \textit{fb(1.0)} que considera \textit{feedbacks} cuja similaridade textual em relação à \textit{query} seja maior que o \textit{treshold} $t$. Por exemplo, \textit{fb(0.75)} irá considerar \textit{feedbacks} cujo valor de similaridade textual em relação à \textit{query} seja $0.75$ ou superior. Neste caso o \textit{feedback} é retornado em detrimento dos demais resultado encontrados pelo sistema.
 
 O algoritmo \textit{fb(t)}, entretanto, leva a outros questionamentos, já que utiliza a mesma técnica de \textit{data matching} que foi proposta a melhorar. Qual o valor de $t$ (\textit{trehshold de feedback}) ideal? Qual o algoritmo de similaridade textual ideal para este caso? A seção \ref{sec:avaliacao-algoritmos} apresenta testes de validação do algoritmo \textit{fb(t)} para diferentes valores de $t$.
