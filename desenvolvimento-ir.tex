@@ -33,9 +33,31 @@ Uma vez registrados os \textit{feedbacks} dos usuários, passa-se a questionar de
 
 Umas das abordagens mais simples que podem ser usadas neste caso é utilizar o resultado marcado pelo usuário sempre que uma \textit{query} idêntica ao do \textit{feedback} seja submetida ao sistema. O algoritmo \textit{fb(1.0)}, portanto, foi desenvolvido com base nesta ideia. O valor ``$1.0$" presente no nome do algoritmo apenas indica que o \textit{feedback} é considerado em detrimento de qualquer outro resultado dado pelo sistema quando a \textit{query} submetida for 100\% similar (ou seja, idêntica) à \textit{query} do \textit{feedback}.
 
-Uma modificação que pode ser feita no mesmo algoritmo é utilizar \textit{thresholds de feedback} mais baixos. O \textit{fb(1.0)} considera apenas \textit{feedbacks} que sejam idênticos à \textit{query} submetida, porém pode ser que sejam obtidos resultados melhores ao considerar \textit{feedbacks} textualmente similares à \textit{query} atual, considerando certo \textit{threhold}. O algoritmo \textit{fb(t)} (para $0.0 \le t \le 1.0$) é uma generalização de \textit{fb(1.0)} que considera \textit{feedbacks} cuja similaridade textual em relação à \textit{query} seja maior que o \textit{treshold} $t$. Por exemplo, \textit{fb(0.75)} irá considerar \textit{feedbacks} cujo valor de similaridade textual em relação à \textit{query} seja $0.75$ ou superior. Neste caso o \textit{feedback} é retornado em detrimento dos demais resultado encontrados pelo sistema.
+Pode-se dar o exemplo real de um nome de evento extraído de um currículo Lattes cadastrado pelo pesquisador como ``Software Engineering Knowledge Engineering", no ano de 2009 e com área de avaliação Ciência da Computação. Ao avaliar tal trabalho, o sistema retorna a lista da Tabela \ref{tab:exemplo-fb1}.
 
-O algoritmo \textit{fb(t)}, entretanto, leva a outros questionamentos, já que utiliza a mesma técnica de \textit{data matching} que foi proposta a melhorar. Qual o valor de $t$ (\textit{trehshold de feedback}) ideal? Qual o algoritmo de similaridade textual ideal para este caso? A seção \ref{sec:avaliacao-algoritmos} apresenta testes de validação do algoritmo \textit{fb(t)} para diferentes valores de $t$.
+\begin{table}[!h]
+\begin{center}
+\caption{Resultados retornados pelo SILQ para a \textit{query} \textit{``Software Engineering Knowledge Engineering"}} \label{tab:exemplo-fb1}
+\begin{tabular}{ c | p{7cm} | c }
+\hline
+\textbf{\#} & \textbf{Evento} & \textbf{Similaridade} \\ \hline
+1 & Software Engineering and Data Engineering (SEDE) & 53\% \\ \hline
+2 & International Conference on Software Engineering and Knowledge Engineering (SEKE) & 49\% \\ \hline
+3 & Software Engineering and Applications (SEA\_A) & 45\% \\ \hline
+4 & Software Engineering for Secure Systems (SESS) & 45\% \\ \hline
+5 & Annual Software Engineering Workshop (SEW) & 45\% \\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+
+Após analisar esta lista, o usuário submeteu um \textit{feedback} ao sistema marcando o resultado \#2 como o correto. Desta forma, utilizando o algoritmo \textit{fb(1.0)}, toda \textit{query} subsequente idêntica a ``Software Engineering Knowledge Engineering" terá o resultado \#2 retornado na primeira posição.
+
+O \textit{fb(1.0)} considera apenas \textit{feedbacks} que sejam idênticos à \textit{query} submetida, \textit{queries} similares não são consideradas. O usuário do exemplo anterior possui um outro trabalho cadastrado em seu currículo Lattes cujo título de evento é ``Software Engineering \textbf{and} Knowledge Engineering". Pode-se deduzir que o usuário quis se referir ao mesmo evento, porém o título não é idêntico ao exemplo anterior por causa do termo \textit{``and"}. Neste caso, o algoritmo \textit{fb(1.0)} não é capaz de deduzir que os dois casos se referem ao mesmo evento, apesar da semelhança entre eles. Uma modificação que pode ser realizada no algoritmo é utilizar uma função de similaridade entre novas \textit{queries} submetidas ao sistema com aquelas anteriormente submetidas e que possuem \textit{feedback} do usuário. Se a similaridade entre a nova \textit{query} e algum dos \textit{feedbacks} for maior do que certo \textit{threshold de feedback}, então é provável que a nova \textit{query} se refira ao mesmo evento do \textit{feedback} anteriormente fornecido.
+
+O algoritmo \textit{fb(t)} (para $0.0 \le t \le 1.0$) é uma generalização de \textit{fb(1.0)} que considera \textit{feedbacks} cuja similaridade textual em relação à \textit{query} seja maior que o \textit{treshold} $t$. Por exemplo, \textit{fb(0.75)} irá considerar \textit{feedbacks} cujo valor de similaridade textual em relação à \textit{query} seja $0.75$ ou superior. No exemplo anterior, ao submeter a nova \textit{query} ``Software Engineering and Knowledge Engineering" ao sistema, o algoritmo \textit{fb(0.75)} calcula a similaridade entre ela e os \textit{feedbacks} anteriores fornecidos pelo usuário e encontra o \textit{feedback} da primeira \textit{query} ``Software Engineering Knowledge Engineering" por ser 88\% similar à \textit{query} atual. Neste caso, por ter uma similaridade maior do que o \textit{threhold} de $0.75$ estipulado, o algoritmo retorna o mesmo evento marcado no \textit{feedback} para a \textit{query} atual (o evento \#2 da Tabela \ref{tab:exemplo-fb1}).
+
+O algoritmo \textit{fb(t)}, entretanto, leva a outros questionamentos, já que utiliza a mesma técnica de \textit{data-matching} que foi proposta a melhorar. Qual o valor de $t$ (\textit{trehshold de feedback}) ideal? Qual o algoritmo de similaridade textual ideal para este caso? A seção \ref{sec:avaliacao-algoritmos} apresenta testes de validação do algoritmo \textit{fb(t)} para diferentes valores de $t$.
 
 \subsection{Algoritmo \textit{query\_aliasing}}
 
