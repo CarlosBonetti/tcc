@@ -16,10 +16,6 @@ Conceitos - Produção Científica
 - Falar do MEC, antes de entrar na CAPES
 - Pequena explicação de como foi feito (extração dos dados Lattes de um pesquisador)
 
-Conceitos - IR
-- Sistemas de IR e Métricas de Avaliação
-  Colocar 2.2.1 Data Matching, falar de threshold e n-grams.
-
 Conceitos - Arquitetura de sistemas Web
 - Usar exemplo JSON do SILQ! (Qualis?)
 - Colocar exemplo da requisição HTTP.
