@@ -8,7 +8,7 @@ A ideia por trás desta técnica é permitir que o usuário julgue resultados inicia
 
 O capítulo atual apresenta como esta técnica foi aplicada no SILQ, qual modelo lógico foi utilizado para o armazenamento dos \textit{feedbacks} e qual técnica utilizada para sua obtenção. Por fim, são apresentadas medições realizadas no sistema que validam se a técnica foi relevante para o aumento de performance.
 
-\section{Obtenção do feedback} \label{sec:feedback}
+\section{Obtenção de feedback} \label{sec:feedback}
 
 Em sistemas de IR que implementam \textit{feedback} de relevância, tipicamente é permitido ao usuário julgar como relevante ou não relevante cada item retornado pelo sistema. Isso é natural pois o objetivo deste tipo de sistema é retornar a totalidade do conjunto de itens relevantes, cujo tamanho é variável dependendo da \textit{query}. O SILQ, porém, é um caso específico em que existem somente 0 ou 1 item relevante para toda \textit{query}. Isso acontece pois cada trabalho indicado no currículo Lattes de um pesquisador aparece qualificado no Qualis apenas uma única vez no ano em que o pesquisador o publicou. O objetivo do algoritmo de avaliação do SILQ é deduzir que registro Qualis é esse, caso exista na base de dados.
 
@@ -27,7 +27,7 @@ Os \textit{feedbacks} de relevância dados pelos usuários são salvos na base de d
 
 \section{Algoritmos de avaliação com feedback} \label{sec:algoritmo}
 
-Uma vez registrados os \textit{feedbacks} dos usuários, passa-se a questionar de que forma utilizá-los para aumentar a precisão do sistema para futuras consultas. A Seção atual apresenta dois algoritmos que foram testados neste trabalho e como foram implementados, enquanto a próxima Seção apresenta os resultados e comparações de precisão dos mesmos.
+Uma vez registrados os \textit{feedbacks} dos usuários, passa-se a questionar de que forma utilizá-los para aumentar a taxa de acerto do sistema para futuras consultas. A Seção atual apresenta dois algoritmos que foram testados neste trabalho e como foram implementados, enquanto a próxima Seção apresenta os resultados e comparações de exatidão dos mesmos.
 
 \subsection{Algoritmo \textit{fb(t)}}
 
@@ -39,7 +39,7 @@ O algoritmo \textit{fb(t)}, entretanto, leva a outros questionamentos, já que ut
 
 \subsection{Algoritmo \textit{query\_aliasing}}
 
-Outra estratégia que mostrou-se de mais fácil implementação e melhor desempenho foi considerar os \textit{feedbacks} do usuário e inserí-los no \textit{rank} de resultados do sistema com base em seu valor de similaridade textual em relação à \textit{query} submetida.
+Outra estratégia que mostrou-se de mais fácil implementação e melhor desempenho foi considerar os \textit{feedbacks} do usuário e inseri-los no \textit{rank} de resultados do sistema com base em seu valor de similaridade textual em relação à \textit{query} submetida.
 
 Ao processar uma \textit{query} $q$ qualquer, o sistema processa um \textit{rank} de resultados primários com base no algoritmo \textit{trigrams} inicial. O \textit{rank} é ordenado do resultado mais similar à $q$ ao menos similar. Após esta etapa, ele também compara $q$ com cada uma das \textit{queries} atreladas aos \textit{feedbacks} de relevância dados pelo usuário utilizando o mesmo algoritmo de similaridade textual (\textit{trigrams} neste caso). O resultado mais similar, digamos $f$, é inserido no \textit{ranking} de resultados.
 
@@ -49,7 +49,7 @@ Desta forma, se $q$ é idêntico a um \textit{feedback} já submetido pelo usuário,
 
 \section{Avaliação experimental} \label{sec:validation}
 
-Esta seção apresenta os procedimentos realizados para avaliar as alterações promovidas no algoritmo de avaliação da nova versão do SILQ e se elas contribuíram para o aumento da precisão do sistema.
+Esta seção apresenta os procedimentos realizados para avaliar as alterações promovidas no algoritmo de avaliação da nova versão do SILQ e se elas contribuíram para o aumento da taxa de acerto do sistema.
 
 \subsection{Conjunto de testes}
 
@@ -58,6 +58,16 @@ O conjunto de testes utilizado para a avaliação do sistema foi criado a partir d
 Destes 33 currículos, 300 publicações foram selecionadas de forma aleatória e manualmente avaliadas: caso possuíssem um registro Qualis equivalente então a publicação juntamente com o Qualis associado eram salvos no conjunto de testes; caso não possuíssem registro Qualis equivalente, então eram marcados como tal e também adicionados ao conjunto de testes.
 
 Nas avaliações descritas a seguir, foram dadas como \textit{query} ao sistema cada uma das publicações da coleção de testes, porém sem expor os resultados manualmente avaliados. Cada resposta retornada pelo sistema foi comparada com a respectiva resposta manualmente selecionada. Em caso das respostas serem idênticas, então o sistema avaliou corretamente a publicação; em caso de não serem idênticas, avaliou incorretamente. O caso de não haver registro Qualis equivalente à publicação foi considerada uma resposta correta quando o sistema não retornou nenhum resultado, e uma resposta incorreta caso contrário.
+
+\subsection{Métricas utilizadas}
+
+Uma vez definido o conjunto de teste, é preciso definir as métricas utilizadas na avaliação. Através da comparação das métricas é possível concluir se houve melhora em certos aspectos do sistema. No caso do SILQ, deseja-se melhorar a taxa de acerto, ou seja, maximizar o número de trabalhos corretamente avaliados. As métricas clássicas de avaliação de sistemas IR discutidas na seção \ref{sec:avaliacao-ir} foram consideradas.
+
+As métricas de precisão e revocação foram descartadas por não se encaixarem com a forma de avaliação do sistema, baseada em \textit{rank}. Conforme já discutido, estas métricas não são indicadas para sistemas deste tipo. Medidas mais indicadas nesse caso são \textit{Precision at k} (\textit{P@k}) e \textit{R-Precision}. O algoritmo de avaliação do SILQ, porém, considera apenas o primeiro registro Qualis retornado para realizar \textit{match} com o trabalho sendo avaliado (apenas o mais similar). Neste caso, a avaliação usando estas duas métricas devem considerar apenas o primeiro resultado, ou seja, \textit{P@1} e \textit{R-Precision} com $|R| = 1$ (sendo $R$ o número de registros relevantes para a \textit{query}). Em ambos os casos, para cada \textit{match} retornado pelo sistema, temos medidas com valor igual a 0, caso o sistema não tenha avaliado corretamente o trabalho, e 1 caso tenha avaliado corretamente. Têm-se, portanto, um simples valor \textit{booleano} indicando se houve acerto ou não, para cada \textit{query} submetida. Considerando todo o conjunto de testes, pode-se somar o número de acertos e dividir pelo tamanho do conjunto, resultado um valor que indica a \textit{taxa de acerto} do sistema. Este valor também é conhecido como \textit{exatidão}\footnote{O termo utilizado na literatura é \textit{accuracy}, cuja tradução usual é \textit{precisão}. Optou-se pelo uso do termo \textit{exatidão}, no entanto, para evitar confusões com a métrica de precisão.} e foi a medida base escolhida para a  avaliação experimental do sistema.
+
+Outra medida utilizada em um primeiro momento foi a Média de Rank Recíproco (MRR). Conforme discutido, ela é particularmente interessante para sistemas que produzem uma lista de resultados ordenados por probabilidade de corretude, e, ao contrário da exatidão, é capaz de modelar o quão bem o sistema classificou o resultado correto, mesmo quando ele não foi classificado em primeiro lugar.
+
+Por estas razões, as medidas de exatidão (ou taxa de acerto) e MRR foram escolhidas para as avaliações experimentais descritas nas próximas subseções.
 
 \subsection{Avaliação de \textit{threshold} ideal}
 
@@ -72,9 +82,9 @@ Nas avaliações descritas a seguir, foram dadas como \textit{query} ao sistema ca
     \label{fig:avaliacao-threshold}
  \end{figure}
 
-O primeiro fenômeno que observamos ao avaliar o gráfico é o ponto de máximo por volta do valor $0.55$ de \textit{threshold}, que totaliza uma exatidão aproximada de 88\%, e a tendência da exatidão baixar ao se afastar deste pico, para ambas as direções. Esse é um comportamento esperado pois valores de \textit{threhold} baixos tendem a diminuir a precisão do sistema por retornar resultados não relevantes para as \textit{queries}, enquanto valores altos tendem a dimuir a precisão por deixar de retornar resultados relevantes. Este ponto máximo trata-se, portanto, do \textit{threshold} ideal para o caso de testes em questão.
+O primeiro fenômeno que observamos ao avaliar o gráfico é o ponto de máximo por volta do valor $0.55$ de \textit{threshold}, que totaliza uma exatidão aproximada de 88\%, e a tendência da exatidão baixar ao se afastar deste pico, para ambas as direções. Esse é um comportamento esperado pois valores de \textit{threhold} baixos tendem a diminuir a exatidão do sistema por retornar resultados não relevantes para as \textit{queries}, enquanto valores altos tendem a diminuir a exatidão por deixar de retornar resultados relevantes. Este ponto máximo trata-se, portanto, do \textit{threshold} ideal para o caso de testes em questão.
 
-Outra característica observada é a tendência do valor de MRR acompanhar o da exatidão, sendo sempre igual ou apenas um pouco superior em magnetude. Isso acontece pela forma com que o MRR é calculado, atribuindo valor de $1/r$ a cada avaliação, sendo $r$ a posição em que o resultado real foi avaliado pelo sistema. Se o resultado foi corretamente avaliado, portanto, o valor de $1/1 = 1$ é atribuído ao resultado, o mesmo valor que seria atribuído à exatidão, já que o conjunto de valores possíveis para esta métrica é $\{0, 1\}$ para cada resultado (0 representando um erro e 1 representando um acerto). A semelhança dos valores, portanto, indica que houveram poucos casos em que o algoritmo retornou o resultado real em posições inferiores à primeira no \textit{rank} de avaliação. Esta característica do valor de MRR permaneceu constante nos demais testes realizados neste trabalho, portanto omitiu-se o valor de MRR nas demais avaliações.
+Outra característica observada é a tendência do valor de MRR acompanhar o da exatidão, sendo sempre igual ou apenas um pouco superior em magnitude. Isso acontece pela forma com que o MRR é calculado, atribuindo valor de $1/r$ a cada avaliação, sendo $r$ a posição em que o resultado real foi avaliado pelo sistema. Se o resultado foi corretamente avaliado, portanto, o valor de $1/1 = 1$ é atribuído ao resultado, o mesmo valor que seria atribuído à exatidão, já que o conjunto de valores possíveis para esta métrica é $\{0, 1\}$ para cada resultado (0 representando um erro e 1 representando um acerto). A semelhança dos valores, portanto, indica que houveram poucos casos em que o algoritmo retornou o resultado real em posições inferiores à primeira no \textit{rank} de avaliação. Esta característica do valor de MRR permaneceu constante nos demais testes realizados neste trabalho, portanto omitiu-se o valor de MRR nas demais avaliações.
 
 \subsection{Avaliação dos algoritmos} \label{sec:avaliacao-algoritmos}
 

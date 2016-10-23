@@ -40,7 +40,6 @@ Algoritmos
 - Pseudocódigo
 
 Avaliações
-- Antes de "Avaliação de threshold inicial", citar quais métricas foram utilizadas e justificar.
 - Casos de falha?
 
 Conclusões
