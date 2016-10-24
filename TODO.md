@@ -15,12 +15,10 @@ Conclusões:
 
 ----
 
-RESUMOOOOO
-
 Conceitos - Arquitetura de sistemas Web
 - Usar exemplo JSON do SILQ! (Qualis?)
 - Colocar exemplo da requisição HTTP.
-- Pensar se é uma boa remover a parte de "microserviços"
+- Remover a parte "microserviços" ?
 
 Trabalhos relacionados
 - Tabela comparativa enumerando características dos trabalhos
@@ -29,9 +27,6 @@ Arquitetura
 - Figura da arquitetura antiga do SILQ, para comparação
 
 ---
-
-Supérfluos
-============================================
 
 - Falar do MEC, antes de entrar na CAPES
 - Pequena explicação de como foi feito (extração dos dados Lattes de um pesquisador)
