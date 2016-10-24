@@ -10,11 +10,10 @@ Pág 17
 Conceitos:
   - Utilizei nível 4 de subseção!!!
 
-----
+Conclusões:
+  - Não entendi os itens de trabalhos futuros
 
-Conceitos - Produção Científica
-- Falar do MEC, antes de entrar na CAPES
-- Pequena explicação de como foi feito (extração dos dados Lattes de um pesquisador)
+----
 
 Conceitos - Arquitetura de sistemas Web
 - Usar exemplo JSON do SILQ! (Qualis?)
@@ -24,24 +23,13 @@ Conceitos - Arquitetura de sistemas Web
 Trabalhos relacionados
 - Tabela comparativa enumerando características dos trabalhos
 
-Desenvolvimento - Trabalhos Futuros citados no SILQ 1
-- Automaticação da atualização dos dados Qualis inconsistente: não foi realizada esta automatização
-- Isto foi feito? - Sim
-
-Estração dados Qualis
-- .... mas podem ser incluídos facilmente na base de dados
-  "Como? Isto está muito obscuro no texto"
-
 Arquitetura
 - Figura da arquitetura antiga do SILQ, para comparação
 
-Avaliações
-- Casos de falha?
+---
 
-Conclusões
-- Contextualizar o trabalho de forma geral (no primeiro parágrafo)
-- Ver tabela do drive
-- Nota da Prof. sobre trabalhos futuros (?)
+Supérfluos
+============================================
 
-GERAL
-- Uniformizar termos
+- Falar do MEC, antes de entrar na CAPES
+- Pequena explicação de como foi feito (extração dos dados Lattes de um pesquisador)

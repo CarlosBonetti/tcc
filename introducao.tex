@@ -10,7 +10,7 @@ Apesar da Plataforma Lattes possuir um módulo de inclusão de publicações e permi
 
 O Sistema de Integração Lattes Qualis (SILQ) surgiu no ano de 2015, desenvolvido como Trabalho de Conclusão de Curso dos alunos Felipe Nedel Mendes de Aguiar e Maria Eloísa Costa do curso de Ciência da Computação da Universidade Federal de Santa Catarina (UFSC), orientados pela Prof. Carina F. Dorneles, da mesma instituição. O objetivo do sistema é a classificação automática da produção científica do currículo Lattes do pesquisador, através do \textit{matching} por similaridade de dados extraídos do Qualis, usando uma interface web amigável \cite{Silq1}.
 
-A primeira versão do sistema foi finalizada em 2015 e desde então encontra-se disponível de forma pública e gratuita através do endereço \url{http://silq.inf.ufsc.br/}. No entanto, esta primeira versão apresenta alguns pontos que merecem melhorias: \afazer{(i) ??; (ii) ??}.
+A primeira versão do sistema foi finalizada em 2015 e desde então encontra-se disponível de forma pública e gratuita através do endereço \url{http://silq.inf.ufsc.br/}. No entanto, esta primeira versão apresenta alguns pontos que merecem melhorias.
 
 No primeiro caso, o SILQ possui em seu banco de dados de eventos e periódicos extraídos do Qualis apenas dados referentes ao triênio 2010-2012, já que, até metade de 2015, o Qualis realizava classificações de forma trienal. Em 2016, no entanto, após a finalização do projeto SILQ, o Qualis alterou seu modo de operação para classificações anuais, já disponibilizando dados referentes aos anos 2013 e 2014, que ainda não estava incluídos nesta primeira versão da base de dados SILQ. Neste ponto, o SILQ deve permitir a atualização automática da qualificação a cada novo ano de lançamento do Qualis. Como o formato no qual a CAPES disponibiliza o Qualis não é interoperável, o SILQ deve oferecer esta funcionalidade.
 
@@ -20,7 +20,7 @@ O terceiro ponto de melhoria seria a avaliação experimental do algoritmo de clas
 
 Como o \textit{matching} entre os dados do Qualis e do Lattes de pesquisadores é feito através de funções de similaridade, o resultado pode ser um falso positivo. Portanto, um ponto importante a ser trabalhado é permitir ao usuário informar ao sistemas sugestões de resultados. Esta técnica, conhecida por \textit{feedback} de relevância, exige alterar o algoritmo de classificação a fim de treiná-lo com as informações providas pelo usuário e melhorar os resultados de pesquisas similares subsequentemente realizadas. Também se faz necessária a mensuração da taxa de acerto do sistema após a inclusão desta técnica e avaliar se ela beneficia a precisão do algoritmo de classificação.
 
-\afazer{A proposta deste trabalho, portanto, é a criação de uma segunda versão do SILQ, desenvolvida a partir do código existente da primeira, a fim de realizar as mudanças sugeridas acima, junto com a atualização da base de dados e arquitetura do sistema para a inclusão das novas qualificações Qualis em um ritmo anual.}
+A proposta deste trabalho, portanto, é a criação de uma segunda versão do SILQ, desenvolvida a partir do código existente da primeira, a fim de realizar as mudanças sugeridas acima, junto com a atualização da base de dados e arquitetura do sistema para a inclusão das novas qualificações Qualis em um ritmo anual.
 
 A hipótese de pesquisa a ser avaliada a partir desta ideia, portanto, é avaliar se o \textit{feedback} de usuários pode aumentar a taxa de acerto do SILQ.
 
@@ -37,11 +37,9 @@ Os objetivos específicos são os seguintes:
 
     \item Criação de uma API pública de disponibilização dos serviços do SILQ, via camada de aplicação REST para integração com outros sistemas;
 
-    %\item \afazer{Criação de uma documentação da nova API REST com o objetivo de auxiliar outros serviços a se integrarem com o SILQ};
-
     \item Alterações na interface do sistema incluindo migração de \textit{framework} de interface, inclusão de controles de \textit{feedback}, novos gráficos de acompanhamento de grupos de pesquisa e melhorias gerais de usabilidade;
 
-    \item Propor algoritmos de avaliação baseados em \textit{feedback} de relevância e verificar se a taxa de exatidão do sistema foi melhorada com tal ação.
+    \item Propor novos algoritmos de avaliação baseados em similaridade textual e \textit{feedback} de relevância e verificar se a taxa de acerto do sistema foi melhorada com tal ação.
 \end{itemize}
 
 \section{Procedimentos Metodológicos}

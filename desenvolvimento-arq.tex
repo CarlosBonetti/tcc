@@ -26,7 +26,7 @@ definir um novo container de execução para automatizar o uso de uma API de persi
 
 Esta melhoria trata-se de um detalhe de implementação do SILQ-1 que, devido à sua arquitetura, forçava a criação e gerenciamento manual de transações ao realizar acessos ao banco de dados. A automatização desta tarefa foi rapidamente alcançada no SILQ-2 com a migração para o \textit{Spring Framework}, conforme relatado na seção \ref{sec:arquitetura-silq-2}.
 
-\item \textbf{Automatização da atualização dos dados Qualis}
+\item \textbf{Atualização dos dados Qualis}
 
 \begin{citacao}
 as publicações periódicas dos documentos de avaliação do WebQualis levam à necessidade de atualizar o banco de dados periodicamente. A construção de uma funcionalidade automatizada é pertinente; \cite[p. 79]{Silq1}
@@ -34,7 +34,7 @@ as publicações periódicas dos documentos de avaliação do WebQualis levam à neces
 
 Os dados Qualis utilizados pelo sistema para realizar a avaliação de currículos Lattes continuam sendo inseridos de forma manual, já que a disponibilização de novos registros Qualis pela CAPES ocorre atualmente a cada ano, no máximo. Um dos objetivos deste trabalho é a atualização da base de dados para inclusão dos novos registros divulgados no ano de 2016.
 
-Os dados Qualis 2013 e 2014, divulgados somente no ano de 2016, portanto, foram inseridos manualmente na base de dados do SILQ-2. O processo é descrito na seção \ref{sec:extracao-qualis-novo}.
+Não foi construída uma funcionalidade automática para tal tarefa já que as tabelas fornecidas pela CAPES constantemente possuem erros de formatação que necessitam de ajuste manual e sofreram mudanças no formato de disponibilização nos últimos anos, passando de PDF para CSV. Os dados Qualis 2013 e 2014, divulgados somente no ano de 2016, portanto, foram inseridos manualmente na base de dados do SILQ-2. O processo é descrito na seção \ref{sec:extracao-qualis-novo}.
 
 \item \textbf{\textit{Fine-tuning} da função de similaridade}
 
@@ -166,7 +166,7 @@ As planilhas CSV foram então dadas como \textit{input} à base de dados resultand
 
 Após esta etapa, verificou-se que todos os registros da base de dados antiga do SILQ-1 estavam contidos nesta nova versão. Desta forma, os dados do SILQ-1 foram mantidos, porém agora incluindo o ano de avaliação, além do nome do periódico, ISSN, estrato Qualis atribuído pela CAPES e área de avaliação.
 
-A inclusão dos novos registros aumentou o número de publicações passíveis de serem avaliadas pelo sistema. Os dados Qualis de 2015 e 2016 ainda não foram divulgados no momento de escrita deste trabalho, mas podem ser incluídos facilmente na base de dados assim que forem disponibilizados pela CAPES.
+A inclusão dos novos registros aumentou o número de publicações passíveis de serem avaliadas pelo sistema. Os dados Qualis de 2015 e 2016 ainda não foram divulgados no momento de escrita deste trabalho, mas podem ser incluídos na base de dados, assim que forem disponibilizados pela CAPES, passando por um processo semelhante ao descrito nesta seção.
 
 \subsection{Criação do \textit{Web Service}} \label{sec:arquitetura-silq-2}
 
