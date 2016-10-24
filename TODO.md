@@ -15,6 +15,8 @@ Conclusões:
 
 ----
 
+RESUMOOOOO
+
 Conceitos - Arquitetura de sistemas Web
 - Usar exemplo JSON do SILQ! (Qualis?)
 - Colocar exemplo da requisição HTTP.
