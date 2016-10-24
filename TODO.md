@@ -35,10 +35,6 @@ Estração dados Qualis
 Arquitetura
 - Figura da arquitetura antiga do SILQ, para comparação
 
-Algoritmos
-- Adicionar exemplos (ta difícil de entender...)
-- Pseudocódigo
-
 Avaliações
 - Casos de falha?
 

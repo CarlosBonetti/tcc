@@ -29,9 +29,9 @@ Os \textit{feedbacks} de relevância dados pelos usuários são salvos na base de d
 
 Uma vez registrados os \textit{feedbacks} dos usuários, passa-se a questionar de que forma utilizá-los para aumentar a taxa de acerto do sistema para futuras consultas. A Seção atual apresenta dois algoritmos que foram testados neste trabalho e como foram implementados, enquanto a próxima Seção apresenta os resultados e comparações de exatidão dos mesmos.
 
-\subsection{Algoritmo \textit{fb(t)}}
+\subsection{Algoritmo \texttt{fb(t)}}
 
-Umas das abordagens mais simples que podem ser usadas neste caso é utilizar o resultado marcado pelo usuário sempre que uma \textit{query} idêntica ao do \textit{feedback} seja submetida ao sistema. O algoritmo \textit{fb(1.0)}, portanto, foi desenvolvido com base nesta ideia. O valor ``$1.0$" presente no nome do algoritmo apenas indica que o \textit{feedback} é considerado em detrimento de qualquer outro resultado dado pelo sistema quando a \textit{query} submetida for 100\% similar (ou seja, idêntica) à \textit{query} do \textit{feedback}.
+Umas das abordagens mais simples que podem ser usadas neste caso é utilizar o resultado marcado pelo usuário sempre que uma \textit{query} idêntica ao do \textit{feedback} seja submetida ao sistema. O algoritmo \texttt{fb(1.0)}, portanto, foi desenvolvido com base nesta ideia. O valor ``$1.0$" presente no nome do algoritmo apenas indica que o \textit{feedback} é considerado em detrimento de qualquer outro resultado dado pelo sistema quando a \textit{query} submetida for 100\% similar (ou seja, idêntica) à \textit{query} do \textit{feedback}.
 
 Pode-se dar o exemplo real de um nome de evento extraído de um currículo Lattes cadastrado pelo pesquisador como ``Software Engineering Knowledge Engineering", no ano de 2009 e com área de avaliação Ciência da Computação. Ao avaliar tal trabalho, o sistema retorna a lista da Tabela \ref{tab:exemplo-fb1}.
 
@@ -51,23 +51,52 @@ Pode-se dar o exemplo real de um nome de evento extraído de um currículo Lattes 
 \end{center}
 \end{table}
 
-Após analisar esta lista, o usuário submeteu um \textit{feedback} ao sistema marcando o resultado \#2 como o correto. Desta forma, utilizando o algoritmo \textit{fb(1.0)}, toda \textit{query} subsequente idêntica a ``Software Engineering Knowledge Engineering" terá o resultado \#2 retornado na primeira posição.
+Após analisar esta lista, o usuário submeteu um \textit{feedback} ao sistema marcando o resultado \#2 como o correto. Desta forma, utilizando o algoritmo \texttt{fb(1.0)}, toda \textit{query} subsequente idêntica a ``Software Engineering Knowledge Engineering" terá o resultado \#2 retornado na primeira posição.
 
-O \textit{fb(1.0)} considera apenas \textit{feedbacks} que sejam idênticos à \textit{query} submetida, \textit{queries} similares não são consideradas. O usuário do exemplo anterior possui um outro trabalho cadastrado em seu currículo Lattes cujo título de evento é ``Software Engineering \textbf{and} Knowledge Engineering". Pode-se deduzir que o usuário quis se referir ao mesmo evento, porém o título não é idêntico ao exemplo anterior por causa do termo \textit{``and"}. Neste caso, o algoritmo \textit{fb(1.0)} não é capaz de deduzir que os dois casos se referem ao mesmo evento, apesar da semelhança entre eles. Uma modificação que pode ser realizada no algoritmo é utilizar uma função de similaridade entre novas \textit{queries} submetidas ao sistema com aquelas anteriormente submetidas e que possuem \textit{feedback} do usuário. Se a similaridade entre a nova \textit{query} e algum dos \textit{feedbacks} for maior do que certo \textit{threshold de feedback}, então é provável que a nova \textit{query} se refira ao mesmo evento do \textit{feedback} anteriormente fornecido.
+O \texttt{fb(1.0)} considera apenas \textit{feedbacks} que sejam idênticos à \textit{query} submetida, \textit{queries} similares não são consideradas. O usuário do exemplo anterior possui um outro trabalho cadastrado em seu currículo Lattes cujo título de evento é ``Software Engineering \textbf{and} Knowledge Engineering". Pode-se deduzir que o usuário quis se referir ao mesmo evento, porém o título não é idêntico ao exemplo anterior por causa do termo \textit{``and"}. Neste caso, o algoritmo \texttt{fb(1.0)} não é capaz de deduzir que os dois casos se referem ao mesmo evento, apesar da semelhança entre eles. Uma modificação que pode ser realizada no algoritmo é utilizar uma função de similaridade entre novas \textit{queries} submetidas ao sistema com aquelas anteriormente submetidas e que possuem \textit{feedback} do usuário. Se a similaridade entre a nova \textit{query} e algum dos \textit{feedbacks} for maior do que certo \textit{threshold de feedback}, então é provável que a nova \textit{query} se refira ao mesmo evento do \textit{feedback} anteriormente fornecido.
 
-O algoritmo \textit{fb(t)} (para $0.0 \le t \le 1.0$) é uma generalização de \textit{fb(1.0)} que considera \textit{feedbacks} cuja similaridade textual em relação à \textit{query} seja maior que o \textit{treshold} $t$. Por exemplo, \textit{fb(0.75)} irá considerar \textit{feedbacks} cujo valor de similaridade textual em relação à \textit{query} seja $0.75$ ou superior. No exemplo anterior, ao submeter a nova \textit{query} ``Software Engineering and Knowledge Engineering" ao sistema, o algoritmo \textit{fb(0.75)} calcula a similaridade entre ela e os \textit{feedbacks} anteriores fornecidos pelo usuário e encontra o \textit{feedback} da primeira \textit{query} ``Software Engineering Knowledge Engineering" por ser 88\% similar à \textit{query} atual. Neste caso, por ter uma similaridade maior do que o \textit{threhold} de $0.75$ estipulado, o algoritmo retorna o mesmo evento marcado no \textit{feedback} para a \textit{query} atual (o evento \#2 da Tabela \ref{tab:exemplo-fb1}).
+O algoritmo \texttt{fb(t)} (para $0.0 \le t \le 1.0$) é uma generalização de \texttt{fb(1.0)} que considera \textit{feedbacks} cuja similaridade textual em relação à \textit{query} seja maior que o \textit{treshold} $t$. Por exemplo, \textit{fb(0.75)} irá considerar \textit{feedbacks} cujo valor de similaridade textual em relação à \textit{query} seja $0.75$ ou superior. No exemplo anterior, ao submeter a nova \textit{query} ``Software Engineering and Knowledge Engineering" ao sistema, o algoritmo \textit{fb(0.75)} calcula a similaridade entre ela e os \textit{feedbacks} anteriores fornecidos pelo usuário e encontra o \textit{feedback} da primeira \textit{query} ``Software Engineering Knowledge Engineering" por ser 88\% similar à \textit{query} atual. Neste caso, por ter uma similaridade maior do que o \textit{threhold} de $0.75$ estipulado, o algoritmo retorna o mesmo evento marcado no \textit{feedback} para a \textit{query} atual (o evento \#2 da Tabela \ref{tab:exemplo-fb1}).
 
-O algoritmo \textit{fb(t)}, entretanto, leva a outros questionamentos, já que utiliza a mesma técnica de \textit{data-matching} que foi proposta a melhorar. Qual o valor de $t$ (\textit{trehshold de feedback}) ideal? Qual o algoritmo de similaridade textual ideal para este caso? A seção \ref{sec:avaliacao-algoritmos} apresenta testes de validação do algoritmo \textit{fb(t)} para diferentes valores de $t$.
+O algoritmo \texttt{fb(t)}, entretanto, leva a outros questionamentos, já que utiliza a mesma técnica de \textit{data-matching} que foi proposta a melhorar. Qual o valor de $t$ (\textit{trehshold de feedback}) ideal? Qual o algoritmo de similaridade textual ideal para este caso? A seção \ref{sec:avaliacao-algoritmos} apresenta testes de validação do algoritmo \texttt{fb(t)} para diferentes valores de $t$.
 
-\subsection{Algoritmo \textit{query\_aliasing}}
+O Algoritmo \ref{alg:fbt} é a representação em pseudocódigo de \texttt{fb(t)}. O parâmetro $q$ representa a \textit{query}, $t$ é o valor de \textit{threshold de feedback}, $D$ é o conjunto de todos os documentos a serem pesquisados e $F$ o conjunto de \textit{feedbacks} fornecidos contendo as duplas ($q_f, d$), \textit{query} do \textit{feedback} e documento dado como \textit{feedback}, respectivamente. A saída $m$ é o registro com maior probabilidade de ser um \textit{match} correto para a \textit{query}. A variável $R$ é uma lista 0-indexada contendo os resultados da consulta, ordenada por ordem decrescente da probabilidade do resultado ser um \textit{match} correto para a \textit{query}. A função \texttt{trigram\_sim} calcula a similaridade textual entre duas \textit{strings} utilizando o método \textit{trigrams} e retornando um valor no intervalo $[0, 1]$. A função \texttt{trigram\_rank} é o algoritmo de avaliação da primeira versão do SILQ, que cria o rank $R$ de similaridade a partir da comparação entre $q$ e cada um dos documentos de $D$.
 
-Uma adaptação de \textit{fb(t)} que mostrou-se de mais fácil implementação e que não gera o questionamento de qual valor de $t$ utilizar, foi considerar as \textit{queries} de \textit{feedbacks} anteriormente fornecidos pelo usuário, da mesma forma que o \textit{fb(t)}, porém inseri-las no \textit{rank} de resultados de novas \textit{queries} submetidas com base em seus valores de similaridade textual em relação à nova \textit{query}, junto com os resultados previamente selecionados. Assim, ao invés de escolhê-lo em detrimento dos demais, o evento marcado com \textit{feedback} só é retornado se for mais bem ranqueado que os demais resultados.
+\begin{algorithm}
+\caption{\texttt{fb(t)}}
+\label{alg:fbt}
+\LinesNumbered
+\SetKwInOut{Input}{Input}\SetKwInOut{Output}{Output}
+\SetAlgoLined
+\Input{$q, t, D, F$}
+\Output{$m$}
 
-Considerando os mesmos exemplos dados na seção anterior, em que o usuário submete a nova \textit{query}  ``Software Engineering and Knowledge Engineering" ao sistema, o algoritmo de \textit{query\_aliasing} realiza comparação textual entre a nova \textit{query} e as \textit{queries} anteriores que possuam \textit{feedback}, da mesma forma que o \textit{fb(t)}, encontrando a \textit{query} ``Software Engineering Knowledge Engineering", com um valor de similaridade de $0.88$. Ao contrário do $fb(t)$, o algoritmo de \textit{query\_aliasing} irá inserir o evento dado como \textit{feedback} a esta \textit{query} junto com a lista de resultados previamente encontrados apenas via similaridade textual, usando o valor de $0.88$ para posicionamento no \textit{ranking}. A Tabela \ref{tab:exemplo-qa} mostra o \textit{ranking} retornado para este exemplo. Nota-se que o evento \#2, marcado pelo usuário como correto, foi elevado no \textit{ranking} por receber o novo valor de similaridade da comparação com o \textit{feedback}.
+$R \gets \texttt{trigram\_rank(q, D)}$
+
+$m \gets R[0]$
+
+$s_m \gets -1$
+
+\For{$ (q_f, d) \in F$}{
+   $s \gets \texttt{trigram\_sim($q, q_f$)}$
+
+	\If{$s \ge t$ \texttt{and} $s \ge s_m$}{
+		$m \gets d$
+
+      $s_m \gets s$
+	}
+}
+\KwRet{$m$} \label{li:sum-zero-begin}
+\end{algorithm}
+
+\subsection{Algoritmo \texttt{query\_aliasing}}
+
+Uma adaptação de \texttt{fb(t)} que mostrou-se de mais fácil implementação e que não gera o questionamento de qual valor de $t$ utilizar, foi considerar as \textit{queries} de \textit{feedbacks} anteriormente fornecidos pelo usuário, da mesma forma que o \texttt{fb(t)}, porém inseri-las no \textit{rank} de resultados de novas \textit{queries} submetidas com base em seus valores de similaridade textual em relação à nova \textit{query}, junto com os resultados previamente selecionados. Assim, ao invés de escolhê-lo em detrimento dos demais, o evento marcado com \textit{feedback} só é retornado se for mais bem ranqueado que os demais resultados.
+
+Considerando os mesmos exemplos dados na seção anterior, em que o usuário submete a nova \textit{query}  ``Software Engineering and Knowledge Engineering" ao sistema, o algoritmo de \texttt{query\_aliasing} realiza comparação textual entre a nova \textit{query} e as \textit{queries} anteriores que possuam \textit{feedback}, da mesma forma que o \texttt{fb(t)}, encontrando a \textit{query} ``Software Engineering Knowledge Engineering", com um valor de similaridade de $0.88$. Ao contrário do $fb(t)$, o algoritmo de \texttt{query\_aliasing} irá inserir o evento dado como \textit{feedback} a esta \textit{query} junto com a lista de resultados previamente encontrados apenas via similaridade textual, usando o valor de $0.88$ para posicionamento no \textit{ranking}. A Tabela \ref{tab:exemplo-qa} mostra o \textit{ranking} retornado para este exemplo. Nota-se que o evento \#2, marcado pelo usuário como correto, foi elevado no \textit{ranking} por receber o novo valor de similaridade da comparação com o \textit{feedback}.
 
 \begin{table}[!h]
 \begin{center}
-\caption{Resultados retornados pelo SILQ para a \textit{query} \textit{``Software Engineering and Knowledge Engineering"} utilizando \textit{query\_aliasing}} \label{tab:exemplo-qa}
+\caption{Resultados retornados pelo SILQ para a \textit{query} \textit{``Software Engineering and Knowledge Engineering"} utilizando \texttt{query\_aliasing}} \label{tab:exemplo-qa}
 \begin{tabular}{ c | p{7cm} | c }
 \hline
 \textbf{\#} & \textbf{Evento} & \textbf{Similaridade} \\ \hline
@@ -83,7 +112,28 @@ O valor de similaridade atribuído, porém, perde seu significado semântico pois n
 
 Desta forma, ao processar uma \textit{query} $q$ qualquer, o sistema processa um \textit{rank} de resultados primários com base no algoritmo \textit{trigrams} inicial. O \textit{rank} é ordenado do resultado mais similar à $q$ ao menos similar. Após esta etapa, ele também compara $q$ com cada uma das \textit{queries} anteriormente submetidas pelo usuário e que possuem \textit{feedback} de relevância utilizando o mesmo algoritmo de similaridade textual. O resultado mais similar é inserido no \textit{ranking} de resultados. Assim, se $q$ é idêntico a um \textit{feedback} já submetido pelo usuário, o evento deste \textit{feedback} será retornado e inserido no topo do \textit{ranking} de resultados, por ser 100\% similar à \textit{query}. Outros resultados similares, porém não idênticos, serão inseridos no \textit{ranking} conforme seu valor de similaridade e só serão escolhidos em detrimento de outros resultados primários se seus valores de similaridade forem superiores a eles.
 
-É como se, ao dar um \textit{feedback} de relevância qualquer, o usuário criasse um \textit{alias} (um apelido) ao resultado que está sugerindo. Assim, o sistema deve avaliar novas \textit{queries} não só comparando-as com o nome real dos documentos, mas também com os apelidos dados a eles pelo usuário. Por este motivo o algoritmo foi chamado de \textit{query\_aliasing}. A avaliação deste algoritmo foi realizada e comparada com os demais na seção \ref{sec:avaliacao-algoritmos}.
+É como se, ao dar um \textit{feedback} de relevância qualquer, o usuário criasse um \textit{alias} (um apelido) ao resultado que está sugerindo. Assim, o sistema deve avaliar novas \textit{queries} não só comparando-as com o nome real dos documentos, mas também com os apelidos dados a eles pelo usuário. Por este motivo o algoritmo foi chamado de \texttt{query\_aliasing}. A avaliação deste algoritmo foi realizada e comparada com os demais na seção \ref{sec:avaliacao-algoritmos}.
+
+O Algoritmo \ref{alg:qa} é a representação em pseudocódigo do método proposto. O significado semântico das variáveis é equivalente ao do Algoritmo \ref{alg:fbt}. A saída deste algoritmo, porém, é o próprio \textit{rank} $R$, possivelmente contendo novos resultados devido à comparação com os \textit{feedbacks} de $F$. O método \texttt{insert\_ordered} da linha \ref{lin:insert} insere o registro $d$ na lista ordenada $R$ com um valor de \textit{rank} $s$, preservando a ordenação da lista, de forma que o elemento em $R[0]$ seja aquele com maior valor de \textit{rank} e, assim, o registro com maior probabilidade de ser um \textit{match} correto para a \textit{query}.
+
+\begin{algorithm}
+\caption{\texttt{query\_aliasing}}
+\label{alg:qa}
+\LinesNumbered
+\SetKwInOut{Input}{Input}\SetKwInOut{Output}{Output}
+\SetAlgoLined
+\Input{$q, D, F$}
+\Output{$R$}
+
+$R \gets \texttt{trigram\_rank(q, D)}$
+
+\For{$ (q_f, d) \in F$}{
+   $s \gets \texttt{trigram\_sim($q, q_f$)}$
+
+   $\texttt{insert\_ordered(R, s, d)}$ \label{lin:insert}
+}
+\KwRet{$R$} \label{li:sum-zero-begin}
+\end{algorithm}
 
 \section{Avaliação experimental} \label{sec:validation}
 
@@ -126,7 +176,7 @@ Outra característica observada é a tendência do valor de MRR acompanhar o da exa
 
 \subsection{Avaliação dos algoritmos} \label{sec:avaliacao-algoritmos}
 
-Os algoritmos descritos na Seção \ref{sec:algoritmo} foram avaliados utilizando o mesmo processo descrito na seção anterior. O algoritmo \textit{trgm} trata-se do algoritmo \textit{trigrams} inicial utilizado pelo SILQ 1 e cuja análise de \textit{threshold} ideal foi realizada na seção anterior. O algoritmo \textit{fb(t)} foi testado variando $t$ nos valores que obtiveram melhores resultados. Todas as análise foram realizadas com valor de \textit{treshold} igual a $0.55$. A Tabela \ref{tab:comparacao-algoritmos} apresenta os resultados de cada teste.
+Os algoritmos descritos na Seção \ref{sec:algoritmo} foram avaliados utilizando o mesmo processo descrito na seção anterior. O algoritmo \textit{trgm} trata-se do algoritmo \textit{trigrams} inicial utilizado pelo SILQ 1 e cuja análise de \textit{threshold} ideal foi realizada na seção anterior. O algoritmo \texttt{fb(t)} foi testado variando $t$ nos valores que obtiveram melhores resultados. Todas as análise foram realizadas com valor de \textit{treshold} igual a $0.55$. A Tabela \ref{tab:comparacao-algoritmos} apresenta os resultados de cada teste.
 
 \begin{table}[!h]
 \begin{center}
@@ -151,13 +201,13 @@ Os algoritmos descritos na Seção \ref{sec:algoritmo} foram avaliados utilizando 
 
 A primeira tentativa de usar \textit{feedback} de relevância na avaliação foi com o algoritmo \textit{fb(1.00)}, que considera os resultados informados pelo usuário quando a \textit{query} é idêntica a algum \textit{feedback}. Houve uma melhora na taxa de acertos, porém de forma não tão significativa.
 
-As variações que utilizam valores menores de $t$, porém, obtiveram melhores resultados, por serem capazes de identificar \textit{queries} similares aos \textit{feedbacks} já informados pelo usuário, mesmo quando este não julgou exatamente a \textit{query} em questão. Um exemplo que demonstra este fato são os nomes de eventos \textit{``IEEE International Symposium on Computer-Based Medical Systems"} e \textit{``27th International Symposium on ComputerBased Medical Systems (CBMS)"}, extraídos de um mesmo currículo Lattes. É fácil notar que tratam-se do mesmo evento, porém o usuário informou a sigla e o número da edição no segundo, e nenhuma destas informações no primeiro (além de não utilizar o hífen em um dos casos). Caso o usuário tenha dado \textit{feedback} para somente um dos casos, os algoritmos \textit{fb(t)} com valores de $t$ inferiores a $1.0$ são capazes de utilizar o mesmo \textit{feedback} para ambos, apesar das \textit{queries} não serem idênticas.
+As variações que utilizam valores menores de $t$, porém, obtiveram melhores resultados, por serem capazes de identificar \textit{queries} similares aos \textit{feedbacks} já informados pelo usuário, mesmo quando este não julgou exatamente a \textit{query} em questão. Um exemplo que demonstra este fato são os nomes de eventos \textit{``IEEE International Symposium on Computer-Based Medical Systems"} e \textit{``27th International Symposium on ComputerBased Medical Systems (CBMS)"}, extraídos de um mesmo currículo Lattes. É fácil notar que tratam-se do mesmo evento, porém o usuário informou a sigla e o número da edição no segundo, e nenhuma destas informações no primeiro (além de não utilizar o hífen em um dos casos). Caso o usuário tenha dado \textit{feedback} para somente um dos casos, os algoritmos \texttt{fb(t)} com valores de $t$ inferiores a $1.0$ são capazes de utilizar o mesmo \textit{feedback} para ambos, apesar das \textit{queries} não serem idênticas.
 
 Valores de $t$ muito baixos, porém, deterioram rapidamente a taxa de acerto pois consideram \textit{feedbacks} similares entre eventos que não tem relação. Desta forma, existe também um ``valor ideal" de $t$, que gira em torno de $0.7$ a $0.8$ conforme os testes realizados.
 
-O algoritmo \textit{fb(t)}, porém, pode cometer ``injustiças" pois considera os \textit{feedbacks} como resultados corretos, independente dos resultados primários retornados, caso sejam superiores ao \textit{threshold} $t$. O algoritmo de \textit{query\_aliasing} resolve este problema inserindo o \textit{feedback} no \textit{ranking} junto com os demais resultados. O melhor resultado (aquele mais similar à \textit{query}) será utilizado, independente da técnica usada para obtê-lo. Nos testes realizados, o algoritmo de \textit{query\_aliasing} obteve a melhor taxa de acerto, com uma média de 93.3\% de trabalhos corretamente avaliados.
+O algoritmo \texttt{fb(t)}, porém, pode cometer ``injustiças" pois considera os \textit{feedbacks} como resultados corretos, independente dos resultados primários retornados, caso sejam superiores ao \textit{threshold} $t$. O algoritmo de \texttt{query\_aliasing} resolve este problema inserindo o \textit{feedback} no \textit{ranking} junto com os demais resultados. O melhor resultado (aquele mais similar à \textit{query}) será utilizado, independente da técnica usada para obtê-lo. Nos testes realizados, o algoritmo de \texttt{query\_aliasing} obteve a melhor taxa de acerto, com uma média de 93.3\% de trabalhos corretamente avaliados.
 
-Foi realizada uma última avaliação comparativa entre o algoritmo \textit{trgm} inicial e o novo que utiliza \textit{query\_aliasing}. A Figura \ref{fig:avaliacao-algoritmos} mostra a taxa de acerto média para ambos os algoritmos variando o \textit{threshold} utilizado. Nota-se que o algoritmo que utiliza \textit{feedback} de relevância obteve melhores resultados, para qualquer \textit{threshold} utilizado, aumentando em aproximadamente 6\% a taxa de acerto. O \textit{threshold} ideal, porém, se manteve constante em $0.55$ pois é dependente da função de similaridade.
+Foi realizada uma última avaliação comparativa entre o algoritmo \textit{trgm} inicial e o novo que utiliza \texttt{query\_aliasing}. A Figura \ref{fig:avaliacao-algoritmos} mostra a taxa de acerto média para ambos os algoritmos variando o \textit{threshold} utilizado. Nota-se que o algoritmo que utiliza \textit{feedback} de relevância obteve melhores resultados, para qualquer \textit{threshold} utilizado, aumentando em aproximadamente 6\% a taxa de acerto. O \textit{threshold} ideal, porém, se manteve constante em $0.55$ pois é dependente da função de similaridade.
 
 \begin{figure}[!h]
    \centering
