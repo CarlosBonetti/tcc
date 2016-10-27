@@ -10,9 +10,6 @@ Pág 17
 Conceitos:
   - Utilizei nível 4 de subseção!!!
 
-Conclusões:
-  - Não entendi os itens de trabalhos futuros
-
 ----
 
 Conceitos - Arquitetura de sistemas Web
