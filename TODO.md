@@ -27,3 +27,12 @@ Arquitetura
 
 - Falar do MEC, antes de entrar na CAPES
 - Pequena explicação de como foi feito (extração dos dados Lattes de um pesquisador)
+
+
+
+
+Apresentação
+=======================
+
+- Devo falar dos trabalhos correlatos?
+- Devo falar sobre conceitos de arquitetura?

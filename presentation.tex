@@ -71,7 +71,9 @@
   Bacharelando de Ciência da Computação\\
   Departamento de Informática e Estatística\\
   Centro Tecnológico\\
-  Universidade Federal de Santa Catarina
+  Universidade Federal de Santa Catarina\\
+  \hfill \\
+  Orientação: Profa. Dra. Carina F. Dorneles
   %\and
   %\inst{2}%
   %Department of Theoretical Philosophy\\
@@ -150,7 +152,13 @@
 \end{frame}
 
 \begin{frame}
-  dsdsa
+  \begin{block}{Motivação}
+    Atualização tecnológica e da base de dados
+  \end{block}
+
+  \begin{block}{Hipótese}
+    É possível aumentar a taxa de acerto do SILQ utilizando \textit{feedback} de usuários?
+  \end{block}
 \end{frame}
 
 \subsection{Objetivos}
@@ -181,8 +189,6 @@
   \end{enumerate}
 \end{frame}
 
-\subsection{Procedimentos metodológicos}
-
 \begin{frame}{Procedimentos metodológicos}
   \begin{enumerate}
     \item Atualização tecnológica e arquitetural
@@ -203,36 +209,127 @@
 
 \section{Conceitos}
 
-\begin{frame}{Conceitos}
-    Incluir alguns conceitos que sejam interessantes.
+\subsection{Information Retrieval e Data-matching}
+
+\begin{frame}{IR e Data Matching}
+  \begin{itemize}
+    \item \textit{Information Retrieval} (IR)
     \begin{itemize}
-      \item Recuperação de Informação (IR);
-
-      \item \textit{Data-Machting}
-      \item query
+      \item \textit{query}
       \item documentos
-      \item SILQ: IR baseado em data matching aproximado
-      \item funções de similaridade
-      \item valor de similaridade (ou dissimilaridade)
-      \item threshold
-      \item SILQ: n-grams
-      \item como o silq realiza uma avaliação
-
-      \item qual trehsold utilizar? qual função de similaridade utilizar?
-      \item Métricas
-      \item Precisão e revocação
-      \item txa de acerto / exatidão?
-      \item conjunto de testes ?
-      \item média de rank recíproco
-
-      \item Arquitetura?
     \end{itemize}
+
+    \item \textit{Data-Matching}
+    \begin{itemize}
+      \item similaridade / dissimilaridade
+      \item \textit{threshold}
+    \end{itemize}
+
+    \item SILQ: sistema de IR baseado em \textit{data matching}
+  \end{itemize}
 \end{frame}
 
-\subsection{Trabalhos correlatos}
+\begin{frame}{\textit{n-grams} / \textit{trigrams}}
+  \begin{itemize}
+    \item n-grams + trigrams
+    \item qual trehsold utilizar? qual função de similaridade utilizar?
+    \item o sistema apresenta os resultados corretos?
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Como o SILQ avalia um currículo Lattes}
+  \underline{Artigo \#1} (extraído do Lattes)\\
+  \textbf{Título}: Approximate data instance matching: a survey\\
+  \textbf{Ano}: 2011\\
+  \textbf{Área}: Ciência da Computação\\
+  \textbf{Journal}: Knowledge and Information Systems\\
+  \textbf{ISSN}: 0219-1377\\
+
+  \hfill \\
+  \underline{Artigo \#2} (extraído do Lattes)\\
+  ...
+\end{frame}
+
+\begin{frame}{Como o SILQ avalia um currículo Lattes}
+  \underline{Artigo \#1}\\
+  \textbf{Título}: Approximate data instance matching: a survey\\
+  \textbf{Ano}: 2011\\
+  \textbf{Área}: Ciência da Computação\\
+  \textbf{Journal}: Knowledge and Information Systems\\
+  \textbf{ISSN}: 0219-1377\\
+
+  \hfill \\
+  query: (ISSN, ano, área)\\
+  $q_A = (\texttt{0219-1377}, \texttt{2011}, \texttt{Ciência da Computação})$
+\end{frame}
 
 \begin{frame}
-  TODO: trabalhos correlatos
+  $q_A = (\texttt{0219-1377}, \texttt{2011}, \texttt{Ciência da Computação})$
+
+  \pause
+  \footnotesize
+  \begin{table}
+    \begin{tabular}{ c | c | c | c }
+      \textbf{Conceito} & \textbf{Ano} & \textbf{ISSN} & \textbf{Título}\\
+      \hline \hline
+
+      A2 & \textbf{2011} & 0219-1377 & Knowledge and Information Systems (Print)\\
+      A2 & 2012 & 0219-1377 & Knowledge and Information Systems (Print)\\
+      B1 & 2014 & 0219-1377 & Knowledge and Information Systems (Print)\\
+      A2 & 2010 & 0219-1377 & Knowledge and Information Systems (Print)\\
+    \end{tabular}
+    \caption{Resultados retornados pelo SILQ para a query $q_A$}
+  \end{table}
+
+  \pause
+  \normalsize
+  \textbf{Resultado}\\
+  Artigo \#1 recebe o conceito A2
+\end{frame}
+
+\begin{frame}{Como o SILQ avalia um currículo Lattes}
+  \underline{Trabalho \#1} (extraído do Lattes)\\
+  \textbf{Título}: A Strategy for Allowing Meaningful and Comparable Scores in Approximate Matching\\
+  \textbf{Ano}: 2007\\
+  \textbf{Área}: Ciência da Computação\\
+  \textbf{Evento}: Conference on Information and Knowledge Management (CIKM)\\
+
+  \pause
+  \hfill \\
+  query: (título do evento, ano, área)\\
+  $q_T$ = (\texttt{Conference on Information and Knowledge Management (CIKM)}", \texttt{2007}, \texttt{Ciência da Computação})
+\end{frame}
+
+\begin{frame}
+  $q_T$ = (\texttt{Conference on Information and Knowledge Management (CIKM)}", \texttt{2007}, \texttt{Ciência da Computação})
+
+  \pause
+  \footnotesize
+  \begin{table}
+    \begin{tabular}{ c | c | p{6.5cm} }
+      \textbf{Conceito} & \textbf{Similaridade} & \textbf{Título}\\
+      \hline \hline
+
+      A1 & 0.71 & International Conference on Information and Knowledge Management\\ \hline
+      B4 & 0.64 & International Conference on Information, Process, and Knowledge Management\\
+    \end{tabular}
+    \caption{Resultados retornados pelo SILQ para a query $q_T$}
+  \end{table}
+
+  \pause
+  \normalsize
+  \textbf{Resultado}\\
+  Trabalho \#1 recebe o conceito A1
+\end{frame}
+
+\begin{frame}{Métricas e avaliação de sistemas de IR}
+  \begin{itemize}
+    \item Precisão e revocação
+    \item taxa de acerto / exatidão
+    \item conjunto de testes
+    \item média de rank recíproco
+    \item OFF: arquitetura?? (TODO)
+  \end{itemize}
 \end{frame}
 
 \section{Desenvolvimento}
