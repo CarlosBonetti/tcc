@@ -224,14 +224,27 @@
       \item similaridade / dissimilaridade
       \item \textit{threshold}
     \end{itemize}
-
-    \item SILQ: sistema de IR baseado em \textit{data matching}
   \end{itemize}
 \end{frame}
 
 \begin{frame}{\textit{n-grams} / \textit{trigrams}}
+  Revista: $ A = \{\_\_R,\_Re,Rev,evi,vis,ist,sta,ta\_\}$ \\
+  Revisor: $ B = \{\_\_R,\_Re,Rev,evi,vis,iso,sor,or\_\}$ \\
+
+  \hfill \\
+  5 elementos em comum: $|A \cap B|$\\
+  11 elementos distintos: $|A \cup B|$\\
+
+  \hfill \\
+  $
+  \texttt{trigrams(Revista, Revisão)} = {|A \cap B| \over |A \cup B|} = {5 \over 11} = 0.45 = 45\%
+  $
+\end{frame}
+
+\begin{frame}{TODO}
   \begin{itemize}
-    \item n-grams + trigrams
+    \item SILQ: sistema de IR baseado em \textit{data matching}
+    \item trigrams com threshold de 0.6
     \item qual trehsold utilizar? qual função de similaridade utilizar?
     \item o sistema apresenta os resultados corretos?
   \end{itemize}
@@ -297,11 +310,11 @@
   \pause
   \hfill \\
   query: (título do evento, ano, área)\\
-  $q_T$ = (\texttt{Conference on Information and Knowledge Management (CIKM)}", \texttt{2007}, \texttt{Ciência da Computação})
+  $q_T$ = (\texttt{Conference on Information and Knowledge Management (CIKM)}, \texttt{2007}, \texttt{Ciência da Computação})
 \end{frame}
 
 \begin{frame}
-  $q_T$ = (\texttt{Conference on Information and Knowledge Management (CIKM)}", \texttt{2007}, \texttt{Ciência da Computação})
+  $q_T$ = (\texttt{Conference on Information and Knowledge Management (CIKM)}, \texttt{2007}, \texttt{Ciência da Computação})
 
   \pause
   \footnotesize
@@ -337,12 +350,18 @@
 % Slide: trabalhos futuros citados pelo SILQ 1?
 
 \subsection{Alterações tecnológicas}
-% Slide: Extração e inserção dos novos dados Qualis
-  % Citar que o banco foi alterado
-% Slide: Migração tecnológica
-  % Criação do Web Service
-  % Alterações no Front End
-  % Garantia da qualidade: testes de software
+
+\begin{frame}{Extração e inserção dos novos dados Qualis}
+  TODO
+
+  Citar que o banco foi alterado
+\end{frame}
+
+\begin{frame}{Migração tecnológica ????}
+  Criação do Web Service
+  Alterações no Front End
+  Garantia da qualidade: testes de software
+\end{frame}
 
 \subsection{Uso de feedback de relevância}
 
@@ -393,16 +412,38 @@
 \end{frame}
 
 \section{Conclusões}
+\subsection*{Conclusões}
 
 \begin{frame}{Conclusões}
-  Conclusões.
+  \begin{itemize}[<+->]
+    \item Criação da camada REST de integração
+    \begin{itemize}[<1->]
+      \item Ex.: \url{http://silq.inf.ufsc.br/api/qualis}
+    \end{itemize}
+    \item Atualização da base de dados com os novos registros Qualis
+    \item Métricas de exatidão do sistema
+    \item Descoberto \textit{threshold} ideal: 0.55
+    \item Inserção dos controles de \textit{feedback} de relevância
+    \item Taxa de acerto média do sistema melhorada de 87\% para 93.3\% com o uso de \textit{feedback} de usuários
+  \end{itemize}
 \end{frame}
 
 \begin{frame}{Trabalhos futuros}
-  Trabalhos futuros.
+  \begin{itemize}[<+->]
+    \item Avaliar outras funções de similaridade
+    \item Avaliar diferentes estratégias de uso de \textit{feedback} de relevância
+    \begin{itemize}[<1->]
+      \item Ex.: Algoritmo de Rocchio, \textit{machine learning}, etc
+    \end{itemize}
+    \item Tradução de nomes de eventos
+    \item Automatizar ainda mais o processo de avaliação de Programas de Pós-Graduação conforme regras da CAPES
+    \begin{itemize}[<1->]
+      \item Gerar valores de $I_{geral}$ e $I_{restrito}$
+      \item Utilizar pesos considerados pela CAPES
+    \end{itemize}
+  \end{itemize}
 \end{frame}
 
-% All of the following is optional and typically not needed.
 \appendix
 \section<presentation>*{\appendixname}
 \subsection<presentation>*{Encerramento}
