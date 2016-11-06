@@ -126,11 +126,15 @@
 \subsection{Histórico e Justificativa}
 
 \begin{frame}{Histórico e Justificativa}
-  \begin{itemize}
+  \begin{itemize}[<+->]
     \item AGUIAR, Felipe Nedel de; COSTA, Maria Eloísa. \textbf{SILQ - Sistema de Integração Lattes Qualis}. Trabalho de Conclusão de Curso. Florianópolis: Universidade Federal de Santa Catarina, Biblioteca Universitária, 2015.
-    \pause
-    \item Fotos?
+    \item Qualificação automática de produções científicas através de busca por similaridade textual nos dados Qualis;
+    \item \url{http://silq.inf.ufsc.br}
   \end{itemize}
+\end{frame}
+
+\begin{frame}
+  Fotinhas da primeira versão do SILQ
 \end{frame}
 
 \begin{frame}{Lattes}
@@ -252,10 +256,44 @@
   \end{figure}
 \end{frame}
 
-% Slide: Obtenção de feedback
-% Slide: Algoritmo fb(t)
-% Slide: Algoritmo query_aliasing
-% Slide: Avaliação experimental
+\begin{frame}{Algoritmo \texttt{fb(t)}}
+  HAL! go ritmo
+\end{frame}
+
+\begin{frame}{Algoritmo \texttt{query\_aliasing}}
+  HAL! go ritmo
+\end{frame}
+
+\begin{frame}{Avaliação de \textit{threshold} ideal}
+  \begin{figure}
+    \includegraphics[width=\textwidth]{figuras/avaliacao-threshold.png}
+    \caption{Valores de exatidão e MRR para diferentes valores de \textit{threshold} utilizando o método \textit{trigram}}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{Exatidão dos algoritmos propostos}
+  \begin{table}
+    \begin{tabular}{ c | c }
+      \textbf{Algoritmo} & \textbf{Exatidão} \\
+      \hline \hline
+      \textit{trgm} & 88.667\% \\
+      \textit{trgm + fb(1.00)} & 89.667\% \\
+      \textit{trgm + fb(0.90)} & 90.667\% \\
+      \textit{trgm + fb(0.80)} & 92.667\% \\
+      \textit{trgm + fb(0.70)} & 92.667\% \\
+      \textit{trgm + fb(0.60)} & 91.000\% \\
+      \textit{trgm + query\_aliasing} & \textbf{93.333}\%
+    \end{tabular}
+    \caption{Comparação da exatidão dos diferentes algoritmos testados (utilizando \textit{threshold} de $0.55$)}
+  \end{table}
+\end{frame}
+
+\begin{frame}
+  \begin{figure}
+    \includegraphics[width=\textwidth]{figuras/avaliacao-algoritmos.png}
+    \caption{Comparação da taxa de acerto do algoritmo \textit{trgm} e do \textit{trgm + query\_aliasing} para diferentes \textit{thresholds}}
+  \end{figure}
+\end{frame}
 
 \section{Conclusões}
 
@@ -274,7 +312,7 @@
 
 \begin{frame}
   \begin{center}
-    \large Análise do uso de \textit{feedback} de relevância no Sistema de Integração Lattes-Qualis (SILQ)
+    \large {\usebeamercolor[fg]{structure} Análise do uso de \textit{feedback} de relevância no Sistema de Integração Lattes-Qualis (SILQ)}
 
     \hfill \break
 
