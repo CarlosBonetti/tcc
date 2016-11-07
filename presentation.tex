@@ -73,7 +73,7 @@
   Centro Tecnológico\\
   Universidade Federal de Santa Catarina\\
   \hfill \\
-  Orientação: Profa. Dra. Carina F. Dorneles
+  Orientação: Profª. Drª. Carina F. Dorneles
   %\and
   %\inst{2}%
   %Department of Theoretical Philosophy\\
@@ -82,7 +82,7 @@
 % - Use the \inst command only if there are several affiliations.
 % - Keep it simple, no one is interested in your street address.
 
-\date{Trabalho de Conclusão de Curso, 2016}
+\date{Trabalho de Conclusão de Curso, 2016/2}
 % - Either use conference name or its abbreviation.
 % - Not really informative to the audience, more for people (including
 %   yourself) who are reading the slides online
@@ -153,62 +153,6 @@
   \end{figure}
 \end{frame}
 
-\begin{frame}
-  \begin{block}{Motivação}
-    Atualização tecnológica e da base de dados
-  \end{block}
-
-  \begin{block}{Hipótese}
-    É possível aumentar a taxa de acerto do SILQ utilizando \textit{feedback} de usuários?
-  \end{block}
-\end{frame}
-
-\subsection{Objetivos}
-
-\begin{frame}{Objetivos}
-  \begin{block}{Objetivo geral}
-    Analisar o impacto que o uso de feedback de relevância tem na precisão dos resultados de avaliações realizadas pelo SILQ, efetuado sobre uma nova arquitetura da ferramenta que inclui a criação de API de integração com outros sistemas e a atualização da base de dados conforme as novas classificações Qualis.
-  \end{block}
-\end{frame}
-
-\begin{frame}{Objetivos específicos}
-  \begin{enumerate}[<+->]
-    \item Reestruturação da arquitetura e banco de dados do SILQ a fim de suportar classificações de eventos e periódicos disponibilizados em um ritmo anual;
-
-    \item Atualização do banco de dados do sistema com as últimas classificações disponibilizadas pelo Qualis (anos 2013 e 2014);
-
-    \item Criação de uma API pública de disponibilização dos serviços do SILQ, via camada de aplicação REST para integração com outros sistemas;
-  \end{enumerate}
-\end{frame}
-
-\begin{frame}{Objetivos específicos}
-  \begin{enumerate}[<+->]
-    \setcounter{enumi}{3}
-
-    \item Alterações na interface do sistema incluindo migração de \textit{framework} de interface, inclusão de controles de \textit{feedback}, novos gráficos de acompanhamento de grupos de pesquisa e melhorias gerais de usabilidade;
-
-    \item Propor novos algoritmos de avaliação baseados em similaridade textual e \textit{feedback} de relevância e verificar se a taxa de acerto do sistema foi melhorada com tal ação.
-  \end{enumerate}
-\end{frame}
-
-\begin{frame}{Procedimentos metodológicos}
-  \begin{enumerate}
-    \item Atualização tecnológica e arquitetural
-      \begin{itemize}[<2->]
-        \item Criação da camada \textit{RESTful};
-        \item Migração do \textit{framework} de \textit{interface};
-        \item Alteração do modelo lógico p/ suporte aos novos dados Qualis;
-      \end{itemize}
-
-    \item Inclusão de \textit{feedback} de relevância
-      \begin{itemize}[<3->]
-          \item Controles de captação de \textit{feedback};
-          \item Desenvolvimento do algoritmo de classificação baseado em \textit{feedback};
-          \item Avaliação experimental dos algoritmos.
-      \end{itemize}
-  \end{enumerate}
-\end{frame}
-
 \section{Conceitos}
 
 \subsection{Information Retrieval e Data-matching}
@@ -243,12 +187,11 @@
   $
 \end{frame}
 
-\begin{frame}{TODO}
+\begin{frame}
   \begin{itemize}
     \item SILQ: sistema de IR baseado em \textit{data matching}
-    \item trigrams com threshold de 0.6
-    \item qual trehsold utilizar? qual função de similaridade utilizar?
-    \item o sistema apresenta os resultados corretos?
+    \item Utiliza \texttt{trigrams} para \textit{matching} entre eventos informados no Lattes e os registrados no Qualis
+    \item \textit{Threshold} de 0.6 (`nível de confiança normal')
   \end{itemize}
 \end{frame}
 
@@ -337,23 +280,61 @@
   Trabalho \#1 recebe o conceito A1
 \end{frame}
 
-\begin{frame}{Métricas e avaliação de sistemas de IR}
+\begin{frame}{Motivação}
   \begin{itemize}
-    \item Precisão e revocação
-    \item taxa de acerto / exatidão
-    \item conjunto de testes
-    \item média de rank recíproco
-    \item OFF: arquitetura?? (TODO)
+    \item Qual o \textit{threshold} ideal para o SILQ?
+    \item Qual a taxa de acerto do sistema? Ele está avaliando corretamente os currículos Lattes?
+    \item É possível aumentar a taxa de acerto utilizando \textit{feedback} de usuários?
+    \item Atualização tecnológica e da base de dados
+  \end{itemize}
+\end{frame}
+
+\subsection{Métricas e avaliação de sistemas IR}
+
+\begin{frame}{Métricas e avaliação de sistemas de IR (TODO)}
+  \begin{itemize}
+    \item Taxa de acerto / Exatidão
+    \item Falar de Precisão e Revocação?
+    \item Falar de Precision at k e R-Precision ?
+    \item Média de rank Recíproco
+    \item Conjunto de Testes
   \end{itemize}
 \end{frame}
 
 \begin{frame}{\textit{Feedback} de relevância}
-  O que é, onde vivem
+  TODO: breve de explicação de feedback de relevância
+\end{frame}
+
+\section{Objetivos}
+\subsection*{Objetivos}
+
+\begin{frame}{Objetivos}
+  \begin{block}{Objetivo geral}
+    Analisar o impacto que o uso de feedback de relevância tem na precisão dos resultados de avaliações realizadas pelo SILQ, efetuado sobre uma nova arquitetura da ferramenta que inclui a criação de API de integração com outros sistemas e a atualização da base de dados conforme as novas classificações Qualis.
+  \end{block}
+\end{frame}
+
+\begin{frame}{Objetivos específicos}
+  \begin{enumerate}[<+->]
+    \item Reestruturação da arquitetura e banco de dados do SILQ a fim de suportar classificações de eventos e periódicos disponibilizados em um ritmo anual;
+
+    \item Atualização do banco de dados do sistema com as últimas classificações disponibilizadas pelo Qualis (anos 2013 e 2014);
+
+    \item Criação de uma API pública de disponibilização dos serviços do SILQ, via camada de aplicação REST para integração com outros sistemas;
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}{Objetivos específicos}
+  \begin{enumerate}[<+->]
+    \setcounter{enumi}{3}
+
+    \item Alterações na interface do sistema incluindo migração de \textit{framework} de interface, inclusão de controles de \textit{feedback}, novos gráficos de acompanhamento de grupos de pesquisa e melhorias gerais de usabilidade;
+
+    \item Propor novos algoritmos de avaliação baseados em similaridade textual e \textit{feedback} de relevância e verificar se a taxa de acerto do sistema foi melhorada com tal ação.
+  \end{enumerate}
 \end{frame}
 
 \section{Desenvolvimento}
-
-% Slide: trabalhos futuros citados pelo SILQ 1?
 
 \subsection{Alterações tecnológicas}
 
@@ -403,11 +384,23 @@
 \end{frame}
 
 \begin{frame}{Algoritmo \texttt{fb(t)}}
-  HAL! go ritmo
+  TODO: Explicação do algoritmo + exemplo
 \end{frame}
 
 \begin{frame}{Algoritmo \texttt{query\_aliasing}}
-  HAL! go ritmo
+  TODO: Explicação do algoritmo + exemplo
+\end{frame}
+
+\begin{frame}{Avaliação experimental}
+  \begin{itemize}
+    \item Conjunto de testes
+    \begin{itemize}
+      \item 33 currículos de pesquisadores do PPGCC
+      \item 300 trabalhos aleatoriamente selecionados e avaliados manualmente
+    \end{itemize}
+
+    \item Comparação entre o resultado retornado pelo sistema e o resultado selecionado
+  \end{itemize}
 \end{frame}
 
 \begin{frame}{Avaliação de \textit{threshold} ideal}
