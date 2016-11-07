@@ -127,18 +127,6 @@
 
 \subsection{Histórico e Justificativa}
 
-\begin{frame}{Histórico e Justificativa}
-  \begin{itemize}[<+->]
-    \item AGUIAR, Felipe Nedel de; COSTA, Maria Eloísa. \textbf{SILQ - Sistema de Integração Lattes Qualis}. Trabalho de Conclusão de Curso. Florianópolis: Universidade Federal de Santa Catarina, Biblioteca Universitária, 2015.
-    \item Qualificação automática de produções científicas através de busca por similaridade textual nos dados Qualis;
-    \item \url{http://silq.inf.ufsc.br}
-  \end{itemize}
-\end{frame}
-
-\begin{frame}
-  Fotinhas da primeira versão do SILQ
-\end{frame}
-
 \begin{frame}{Lattes}
   \begin{figure}
     \includegraphics[scale=0.3]{figuras/lattes.jpg}
@@ -148,6 +136,20 @@
 \begin{frame}{Qualis}
   \begin{figure}
     \includegraphics[scale=0.4]{figuras/qualis_exemplo.png}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{Histórico e Justificativa}
+  \begin{itemize}
+    \item AGUIAR, Felipe Nedel de; COSTA, Maria Eloísa. \textbf{SILQ - Sistema de Integração Lattes Qualis}. Trabalho de Conclusão de Curso. Florianópolis: Universidade Federal de Santa Catarina, Biblioteca Universitária, 2015.
+    \item Qualificação automática de produções científicas através de busca por similaridade textual nos dados Qualis;
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \begin{figure}
+    \includegraphics[width=\textwidth]{figuras/silq1-3.png}
+    \caption{Primeira versão do SILQ (\url{http://silq.inf.ufsc.br})}
   \end{figure}
 \end{frame}
 
@@ -345,6 +347,10 @@
   \end{itemize}
 \end{frame}
 
+\begin{frame}{\textit{Feedback} de relevância}
+  O que é, onde vivem
+\end{frame}
+
 \section{Desenvolvimento}
 
 % Slide: trabalhos futuros citados pelo SILQ 1?
@@ -352,15 +358,39 @@
 \subsection{Alterações tecnológicas}
 
 \begin{frame}{Extração e inserção dos novos dados Qualis}
-  TODO
+  \begin{itemize}
+    \item Até final de 2015:
+    \begin{itemize}
+      \item Qualis trienal
+      \item 2010-2012
+      \item PDFs e planilhas XLS
+    \end{itemize}
 
-  Citar que o banco foi alterado
+    \item Início de 2016
+      \begin{itemize}
+        \item Qualis anual
+        \item 2010, 2011, 2012, 2013, 2014
+        \item Planilhas CSV
+      \end{itemize}
+
+    \item Limpeza manual (erros de codificação, ISSNs omitidos, etc.)
+    \item 339.204 registros
+  \end{itemize}
 \end{frame}
 
-\begin{frame}{Migração tecnológica ????}
-  Criação do Web Service
-  Alterações no Front End
-  Garantia da qualidade: testes de software
+\begin{frame}{Atualização tecnológica}
+  \begin{itemize}
+    \item Criação da camada REST de integração
+    \item Migração de \textit{framework}: \textit{Play} $\rightarrow$ \textit{Spring}
+    \item Reescrita do \textit{front-end} com \textit{AngularJS}
+    \begin{itemize}
+      \item Novos gráficos de avaliação para grupos de pesquisa
+      \item Melhorias no módulo de usuários
+      \item Redesign da página de resultados de avaliação
+      \item Inclusão dos controles de \textit{feedback}
+    \end{itemize}
+    \item Garantida da qualidade com testes automatizados
+  \end{itemize}
 \end{frame}
 
 \subsection{Uso de feedback de relevância}
