@@ -52,6 +52,8 @@
 %\usecolortheme{default}
 \usecolortheme{rose}
 
+\newcommand{\quotes}[1]{``#1''}
+
 % Hide navigation controls
 \beamertemplatenavigationsymbolsempty
 
@@ -153,9 +155,7 @@
   \end{figure}
 \end{frame}
 
-\section{Conceitos}
-
-\subsection{Information Retrieval e Data-matching}
+\subsection{Como funciona o SILQ 1}
 
 \begin{frame}{IR e Data Matching}
   \begin{itemize}
@@ -187,12 +187,18 @@
   $
 \end{frame}
 
-\begin{frame}
-  \begin{itemize}
-    \item SILQ: sistema de IR baseado em \textit{data matching}
-    \item Utiliza \texttt{trigrams} para \textit{matching} entre eventos informados no Lattes e os registrados no Qualis
-    \item \textit{Threshold} de 0.6 (`nível de confiança normal')
-  \end{itemize}
+\begin{frame}{\textit{n-grams} / \textit{trigrams}}
+  Revista: $ A = \{\_\_R,\_Re,Rev,evi,vis,ist,sta,ta\_\}$ \\
+  Revisor: $ B = \{\_\_R,\_Re,Rev,evi,vis,iso,sor,or\_\}$ \\
+
+  \hfill \\
+  5 elementos em comum: $|A \cap B|$\\
+  11 elementos distintos: $|A \cup B|$\\
+
+  \hfill \\
+  $
+  \texttt{trigrams(Revista, Revisão)} = {|A \cap B| \over |A \cup B|} = {5 \over 11} = 0.45 = 45\%
+  $
 \end{frame}
 
 \begin{frame}{Como o SILQ avalia um currículo Lattes}
@@ -208,7 +214,7 @@
   ...
 \end{frame}
 
-\begin{frame}{Como o SILQ avalia um currículo Lattes}
+\begin{frame}
   \underline{Artigo \#1}\\
   \textbf{Título}: Approximate data instance matching: a survey\\
   \textbf{Ano}: 2011\\
@@ -217,26 +223,23 @@
   \textbf{ISSN}: 0219-1377\\
 
   \hfill \\
-  query: (ISSN, ano, área)\\
-  $q_A = (\texttt{0219-1377}, \texttt{2011}, \texttt{Ciência da Computação})$
+  query: (ISSN, área)\\
+  $q_A = (\texttt{0219-1377}, \texttt{Ciência da Computação})$
 \end{frame}
 
 \begin{frame}
-  $q_A = (\texttt{0219-1377}, \texttt{2011}, \texttt{Ciência da Computação})$
+  $q_A = (\texttt{0219-1377}, \texttt{Ciência da Computação})$
 
   \pause
-  \footnotesize
+  \small
   \begin{table}
-    \begin{tabular}{ c | c | c | c }
-      \textbf{Conceito} & \textbf{Ano} & \textbf{ISSN} & \textbf{Título}\\
+    \begin{tabular}{ c | c | p{7cm} }
+      \textbf{Conceito} & \textbf{ISSN} & \textbf{Título}\\
       \hline \hline
 
-      A2 & \textbf{2011} & 0219-1377 & Knowledge and Information Systems (Print)\\
-      A2 & 2012 & 0219-1377 & Knowledge and Information Systems (Print)\\
-      B1 & 2014 & 0219-1377 & Knowledge and Information Systems (Print)\\
-      A2 & 2010 & 0219-1377 & Knowledge and Information Systems (Print)\\
+      A2 & 0219-1377 & Knowledge and Information Systems (Print)\\
     \end{tabular}
-    \caption{Resultados retornados pelo SILQ para a query $q_A$}
+    \caption{Resultado retornado pelo SILQ para a query $q_A$}
   \end{table}
 
   \pause
@@ -254,12 +257,12 @@
 
   \pause
   \hfill \\
-  query: (título do evento, ano, área)\\
-  $q_T$ = (\texttt{Conference on Information and Knowledge Management (CIKM)}, \texttt{2007}, \texttt{Ciência da Computação})
+  query: (título do evento, área)\\
+  $q_T$ = (\texttt{Conference on Information and Knowledge Management (CIKM)}, \texttt{Ciência da Computação})
 \end{frame}
 
 \begin{frame}
-  $q_T$ = (\texttt{Conference on Information and Knowledge Management (CIKM)}, \texttt{2007}, \texttt{Ciência da Computação})
+  $q_T$ = (\texttt{Conference on Information and Knowledge Management (CIKM)}, \texttt{Ciência da Computação})
 
   \pause
   \footnotesize
@@ -280,33 +283,31 @@
   Trabalho \#1 recebe o conceito A1
 \end{frame}
 
-\begin{frame}{Motivação}
+\begin{frame}
   \begin{itemize}
-    \item Qual o \textit{threshold} ideal para o SILQ?
-    \item Qual a taxa de acerto do sistema? Ele está avaliando corretamente os currículos Lattes?
-    \item É possível aumentar a taxa de acerto utilizando \textit{feedback} de usuários?
-    \item Atualização tecnológica e da base de dados
+    \item SILQ: sistema de IR baseado em \textit{data matching}
+    \item Utiliza \texttt{trigrams} para \textit{matching} entre eventos informados no Lattes e os registrados no Qualis
+    \item \textit{Threshold} de 0.6 (`nível de confiança normal')
   \end{itemize}
-\end{frame}
-
-\subsection{Métricas e avaliação de sistemas IR}
-
-\begin{frame}{Métricas e avaliação de sistemas de IR (TODO)}
-  \begin{itemize}
-    \item Taxa de acerto / Exatidão
-    \item Falar de Precisão e Revocação?
-    \item Falar de Precision at k e R-Precision ?
-    \item Média de rank Recíproco
-    \item Conjunto de Testes
-  \end{itemize}
-\end{frame}
-
-\begin{frame}{\textit{Feedback} de relevância}
-  TODO: breve de explicação de feedback de relevância
 \end{frame}
 
 \section{Objetivos}
 \subsection*{Objetivos}
+
+\begin{frame}{Motivação}
+  \begin{itemize}
+    \item Atualização tecnológica e da base de dados
+    \begin{itemize}
+      \item Qualis trienal $\rightarrow$ anual
+      \item Atualização da base de dados Qualis no SILQ
+      \item Considerar ano na \textit{query}
+    \end{itemize}
+
+    \item Qual o \textit{threshold} ideal para o SILQ?
+    \item Qual a taxa de acerto do sistema? Ele está avaliando corretamente os currículos Lattes?
+    \item É possível aumentar a taxa de acerto utilizando \textit{feedback} de usuários?
+  \end{itemize}
+\end{frame}
 
 \begin{frame}{Objetivos}
   \begin{block}{Objetivo geral}
@@ -332,6 +333,35 @@
 
     \item Propor novos algoritmos de avaliação baseados em similaridade textual e \textit{feedback} de relevância e verificar se a taxa de acerto do sistema foi melhorada com tal ação.
   \end{enumerate}
+\end{frame}
+
+\section{Conceitos}
+
+\subsection{Feedback de relevância}
+
+\begin{frame}{\textit{Feedback} de relevância}
+  \begin{itemize}
+    \item Característica de sistemas IR
+    \item Utilização de dados do usuário para melhorar seu desempenho
+    \item Explícito / Implícito
+  \end{itemize}
+\end{frame}
+
+\subsection{Métricas e avaliação de sistemas IR}
+
+\begin{frame}{Métricas e avaliação de sistemas de IR (TODO)}
+  \begin{itemize}
+    \item Como saber se o sistema retorna os resultados corretos?
+    \item Avaliação baseado em métricas
+    \item Taxa de acerto (\textit{accuracy} / exatidão*)
+    \item Média de Rank Recíproco
+  \end{itemize}
+
+  $$
+  MRR = {1 \over |Q|} \sum_{i=1}^{|Q|} {1 \over rank(i)}
+  $$
+
+  TODO: slide com exemplo disso porque né
 \end{frame}
 
 \section{Desenvolvimento}
@@ -374,6 +404,10 @@
   \end{itemize}
 \end{frame}
 
+\begin{frame}
+  TODO: Figurinha?
+\end{frame}
+
 \subsection{Uso de feedback de relevância}
 
 \begin{frame}{Obtenção de feedback}
@@ -383,12 +417,191 @@
   \end{figure}
 \end{frame}
 
+\begin{frame}{Modelagem lógica}
+  TODO: Figurinha da modelagem lógica?
+\end{frame}
+
+\begin{frame}{Algoritmos}
+  \begin{itemize}
+    \item De que forma utilizar o \textit{feedback} obtido?
+    \item Criação de algoritmos baseados no \textit{trigrams} do SILQ 1
+    \begin{itemize}
+      \item \texttt{fb(t)}
+      \item \texttt{query\_aliasing}
+    \end{itemize}
+    \item Avaliação experimental
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Algoritmo \texttt{fb(1)}}
+  $q_1$ = (\quotes{Software Engineering Knowledge Engineering}, 2009, CCO)\\
+
+  \pause
+  \small
+  \begin{table}[!h]
+    \begin{tabular}{ c | p{7cm} | c }
+      \textbf{\#} & \textbf{Evento} & \textbf{Similaridade} \\ \hline
+      \hline
+
+      1 & Software Engineering and Data Engineering (SEDE) & 0.53 \\ \hline
+      2 & International Conference on Software Engineering and Knowledge Engineering (SEKE) & 0.49 \\ \hline
+      ... & ... & ...
+    \end{tabular}
+  \end{table}
+
+  \pause
+  \textbf{feedback 1:} (ID Qualis, \textit{query})\\
+  $f_1$ = (\#2, \quotes{Software Engineering Knowledge Engineering})
+\end{frame}
+
+\begin{frame}{Algoritmo \texttt{fb(1)}}
+  \framebox[\textwidth][l]{
+    \small
+    $f_1$ = (\#2, \quotes{Software Engineering Knowledge Engineering})
+  }
+
+  \hfill \\
+  $q_2$ = (\quotes{Software Engineering Knowledge Engineering}, 2010, CCO)\\
+
+  \pause
+  \small
+  \begin{table}[!h]
+    \begin{tabular}{ c | p{7cm} | c }
+      \textbf{\#} & \textbf{Evento} & \textbf{Similaridade} \\ \hline
+      \hline
+
+      2 & International Conference on Software Engineering and Knowledge Engineering (SEKE) & 0.49 \\ \hline
+      1 & Software Engineering and Data Engineering (SEDE) & 0.53 \\ \hline
+      ... & ... & ...
+    \end{tabular}
+  \end{table}
+
+  $f_1$ utilizado, \textit{match} realizado com evento \#2
+\end{frame}
+
+\begin{frame}{Algoritmo \texttt{fb(1)}}
+  \begin{enumerate}
+    \item Cria o \textit{rank} inicial de resultados utilizando a função \texttt{trigrams} (idêntico ao SILQ 1)
+    \item Pesquisa por \textit{feedback} anterior \underline{idêntico} à \textit{query} submetida
+    \item Caso exista, adiciona o Qualis atribuído ao \textit{feedback} na primeira posição do \textit{rank}
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}{Algoritmo \texttt{fb(1)}}
+  \framebox[\textwidth][l]{
+    \small
+    $f_1$ = (\#2, \quotes{Software Engineering Knowledge Engineering})
+  }
+
+  \hfill \\
+  $q_3$ = (\quotes{Software Engineering \textbf{and} Knowledge Engineering}, 2011, CCO)\\
+
+  \pause
+  \begin{itemize}
+    \item Feedback 1 não é considerado
+    \item \texttt{fb(1)} considera somente \textit{queries} \underline{idênticas}
+    \item \texttt{fb(t)}: Considerar também \textit{feedbacks} com \textit{queries} \underline{similares}!
+    \begin{itemize}
+      \item $t$: \textit{threshold} de similaridade de \textit{feedback}
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
 \begin{frame}{Algoritmo \texttt{fb(t)}}
-  TODO: Explicação do algoritmo + exemplo
+  \framebox[\textwidth][l]{
+    \small
+    $f_1$ = (\#2, \quotes{Software Engineering Knowledge Engineering})
+  }
+
+  \hfill \\
+  $q_3$ = (\quotes{Software Engineering \textbf{and} Knowledge Engineering}, 2011, CCO)\\
+
+  Similaridade: 0.88 (\textit{trigrams})\\
+  \pause
+  Considerando \textit{fb(0.75)}:\\
+
+  \small
+  \begin{table}[!h]
+    \begin{tabular}{ c | p{7cm} | c }
+      \textbf{\#} & \textbf{Evento} & \textbf{Similaridade} \\ \hline
+      \hline
+
+      2 & International Conference on Software Engineering and Knowledge Engineering (SEKE) & 0.49 \\ \hline
+      1 & Software Engineering and Data Engineering (SEDE) & 0.53 \\ \hline
+      ... & ... & ...
+    \end{tabular}
+  \end{table}
+\end{frame}
+
+\begin{frame}{Algoritmo \texttt{fb(t)}}
+  \begin{enumerate}
+    \item Cria o \textit{rank} inicial de resultados utilizando a função \texttt{trigrams} (idêntico ao SILQ 1)
+    \item Pesquisa pelo \textit{feedback} anterior mais \underline{similar} à \textit{query} submetida e cuja similaridade seja $t$ ou superior
+    \item Caso exista, adiciona o Qualis atribuído ao \textit{feedback} na primeira posição do \textit{rank}
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}{Algoritmo \texttt{fb(t)}}
+  \begin{itemize}
+    \item Qual o valor de $t$ ideal?
+    \item Desconsidera os valores de similaridade do \textit{rank} inicial
+    \item \textit{Rank} não é mais ordenado por similaridade
+  \end{itemize}
 \end{frame}
 
 \begin{frame}{Algoritmo \texttt{query\_aliasing}}
-  TODO: Explicação do algoritmo + exemplo
+  \framebox[\textwidth][l]{
+    \small
+    $f_1$ = (\#2, \quotes{Software Engineering Knowledge Engineering})
+  }
+
+  \hfill \\
+  $q_4$ = (\quotes{Software Engineering \textbf{and} Knowledge Engineering}, 2011, CCO)\\
+
+  Similaridade: 0.88 (\textit{trigrams})\\
+
+  \pause
+  \small
+  \begin{table}[!h]
+    \begin{tabular}{ c | p{7cm} | c }
+      \textbf{\#} & \textbf{Evento} & \textbf{Rank} \\ \hline
+      \hline
+
+      2 & International Conference on Software Engineering and Knowledge Engineering (SEKE) & \textbf{0.88} \\ \hline
+      1 & Software Engineering and Data Engineering (SEDE) & 0.53 \\ \hline
+      ... & ... & ...
+    \end{tabular}
+  \end{table}
+\end{frame}
+
+\begin{frame}{Algoritmo \texttt{query\_aliasing}}
+  \begin{enumerate}
+    \item Cria o \textit{rank} inicial de resultados utilizando a função \texttt{trigrams} (idêntico ao SILQ 1)
+    \item Pesquisa pelo \textit{feedback} anterior mais \underline{similar} à \textit{query} submetida
+    \item Caso exista, adiciona o Qualis atribuído ao \textit{feedback} na lista de resultados com valor de \textit{rank} igual ao valor de similaridade entre a nova \textit{query} e a \textit{query} do \textit{feedback}
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}{Algoritmo \texttt{query\_aliasing}}
+  \framebox[\textwidth][l]{
+    \small
+    $f_1$ = (\#2, \quotes{Software Engineering Knowledge Engineering})
+  }
+
+  \hfill \\
+  \textit{Queries} idênticas\\
+  \quotes{Software Engineering Knowledge Engineering}\\
+  Rank: 1.0\\
+
+  \hfill \\
+  \textit{Queries} similares\\
+  \quotes{Software Engineering \textbf{and} Knowledge Engineering}\\
+  Rank: 0.88\\
+
+  \hfill \\
+  \textit{Queries} dissimilares\\
+  \quotes{IEEE Midwest Symposium on Circuits and Systems}\\
+  Rank: 0.01\\
 \end{frame}
 
 \begin{frame}{Avaliação experimental}
