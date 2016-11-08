@@ -52,6 +52,10 @@
 %\usecolortheme{default}
 \usecolortheme{rose}
 
+% Include pagination (might not work for other themes)
+\expandafter\def\expandafter\insertshorttitle\expandafter{%
+   \insertshorttitle\hfill\insertframenumber\,/\,\inserttotalframenumber}
+
 \newcommand{\quotes}[1]{``#1''}
 
 % Hide navigation controls
@@ -337,12 +341,7 @@
     \item Como saber se o sistema retorna os resultados corretos?
     \item Avaliação baseado em métricas
     \item Taxa de acerto (\textit{accuracy} / exatidão*)
-    \item Média de Rank Recíproco (MRR)
   \end{itemize}
-
-  $$
-  MRR = {1 \over |Q|} \sum_{i=1}^{|Q|} {1 \over rank(i)}
-  $$
 \end{frame}
 
 \begin{frame}{Conjunto de testes}
@@ -580,28 +579,6 @@
   \end{enumerate}
 \end{frame}
 
-\begin{frame}{Algoritmo \texttt{query\_aliasing}}
-  \framebox[\textwidth][l]{
-    \small
-    $f_1$ = (\#2, \quotes{Software Engineering Knowledge Engineering})
-  }
-
-  \hfill \\
-  \textit{Queries} idênticas\\
-  \quotes{Software Engineering Knowledge Engineering}\\
-  Rank: 1.0\\
-
-  \hfill \\
-  \textit{Queries} similares\\
-  \quotes{Software Engineering \textbf{and} Knowledge Engineering}\\
-  Rank: 0.88\\
-
-  \hfill \\
-  \textit{Queries} dissimilares\\
-  \quotes{IEEE Midwest Symposium on Circuits and Systems}\\
-  Rank: 0.01\\
-\end{frame}
-
 \begin{frame}{Avaliação experimental}
   \begin{itemize}
     \item Conjunto de testes
@@ -658,7 +635,7 @@
     \item Métricas de exatidão do sistema
     \item Descoberto \textit{threshold} ideal: 0.55
     \item Inserção dos controles de \textit{feedback} de relevância
-    \item Taxa de acerto média do sistema melhorada de 87\% para 93.3\% com o uso de \textit{feedback} de usuários
+    \item Taxa de acerto média do sistema melhorada de 87\% para 93.3\% com o uso de \textit{feedback} de usuários e \texttt{query\_aliasing}
     \item SILQ 2: \url{http://silq.inf.ufsc.br}
   \end{itemize}
 \end{frame}
