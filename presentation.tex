@@ -174,22 +174,8 @@
 \end{frame}
 
 \begin{frame}{\textit{n-grams} / \textit{trigrams}}
-  Revista: $ A = \{\_\_R,\_Re,Rev,evi,vis,ist,sta,ta\_\}$ \\
-  Revisor: $ B = \{\_\_R,\_Re,Rev,evi,vis,iso,sor,or\_\}$ \\
-
-  \hfill \\
-  5 elementos em comum: $|A \cap B|$\\
-  11 elementos distintos: $|A \cup B|$\\
-
-  \hfill \\
-  $
-  \texttt{trigrams(Revista, Revisão)} = {|A \cap B| \over |A \cup B|} = {5 \over 11} = 0.45 = 45\%
-  $
-\end{frame}
-
-\begin{frame}{\textit{n-grams} / \textit{trigrams}}
-  Revista: $ A = \{\_\_R,\_Re,Rev,evi,vis,ist,sta,ta\_\}$ \\
-  Revisor: $ B = \{\_\_R,\_Re,Rev,evi,vis,iso,sor,or\_\}$ \\
+  \quotes{Revista}: $ A = \{\_\_R,\_Re,Rev,evi,vis,ist,sta,ta\_\}$ \\
+  \quotes{Revisor}: $ B = \{\_\_R,\_Re,Rev,evi,vis,iso,sor,or\_\}$ \\
 
   \hfill \\
   5 elementos em comum: $|A \cap B|$\\
@@ -336,32 +322,35 @@
 \end{frame}
 
 \section{Conceitos}
-
-\subsection{Feedback de relevância}
+\subsection*{Conceitos}
 
 \begin{frame}{\textit{Feedback} de relevância}
   \begin{itemize}
     \item Característica de sistemas IR
-    \item Utilização de dados do usuário para melhorar seu desempenho
+    \item Utilização de dados do usuário para melhorar sua precisão
     \item Explícito / Implícito
   \end{itemize}
 \end{frame}
 
-\subsection{Métricas e avaliação de sistemas IR}
-
-\begin{frame}{Métricas e avaliação de sistemas de IR (TODO)}
+\begin{frame}{Métricas e avaliação de sistemas de IR}
   \begin{itemize}
     \item Como saber se o sistema retorna os resultados corretos?
     \item Avaliação baseado em métricas
     \item Taxa de acerto (\textit{accuracy} / exatidão*)
-    \item Média de Rank Recíproco
+    \item Média de Rank Recíproco (MRR)
   \end{itemize}
 
   $$
   MRR = {1 \over |Q|} \sum_{i=1}^{|Q|} {1 \over rank(i)}
   $$
+\end{frame}
 
-  TODO: slide com exemplo disso porque né
+\begin{frame}{Conjunto de testes}
+  \begin{itemize}
+    \item Conjunto de \textit{queries} contendo os resultados esperados
+    \item Avaliados por especialista
+    \item Não conhecidas pelo sistema
+  \end{itemize}
 \end{frame}
 
 \section{Desenvolvimento}
@@ -370,7 +359,7 @@
 
 \begin{frame}{Extração e inserção dos novos dados Qualis}
   \begin{itemize}
-    \item Até final de 2015:
+    \item Até final de 2015
     \begin{itemize}
       \item Qualis trienal
       \item 2010-2012
@@ -392,12 +381,15 @@
 \begin{frame}{Atualização tecnológica}
   \begin{itemize}
     \item Criação da camada REST de integração
+    \begin{itemize}
+      \item API pública de acesso aos dados Qualis e serviços do SILQ
+    \end{itemize}
     \item Migração de \textit{framework}: \textit{Play} $\rightarrow$ \textit{Spring}
     \item Reescrita do \textit{front-end} com \textit{AngularJS}
     \begin{itemize}
       \item Novos gráficos de avaliação para grupos de pesquisa
       \item Melhorias no módulo de usuários
-      \item Redesign da página de resultados de avaliação
+      \item Remodelagem da página de resultados de avaliação
       \item Inclusão dos controles de \textit{feedback}
     \end{itemize}
     \item Garantida da qualidade com testes automatizados
@@ -405,7 +397,17 @@
 \end{frame}
 
 \begin{frame}
-  TODO: Figurinha?
+  \begin{figure}
+    \includegraphics[width=\textwidth]{figuras/arquitetura-silq.png}
+    \caption{Nova arquitetura do SILQ}
+  \end{figure}
+\end{frame}
+
+\begin{frame}
+  \begin{figure}
+    \includegraphics[width=\textwidth]{figuras/avaliacao-silq2.png}
+    \caption{Nova página de avaliação do SILQ}
+  \end{figure}
 \end{frame}
 
 \subsection{Uso de feedback de relevância}
@@ -415,10 +417,6 @@
     \includegraphics[width=\textwidth]{figuras/feedbacks.png}
     \caption{Controles de feedback da página de resultados de avaliação do SILQ}
   \end{figure}
-\end{frame}
-
-\begin{frame}{Modelagem lógica}
-  TODO: Figurinha da modelagem lógica?
 \end{frame}
 
 \begin{frame}{Algoritmos}
@@ -661,6 +659,7 @@
     \item Descoberto \textit{threshold} ideal: 0.55
     \item Inserção dos controles de \textit{feedback} de relevância
     \item Taxa de acerto média do sistema melhorada de 87\% para 93.3\% com o uso de \textit{feedback} de usuários
+    \item SILQ 2: \url{http://silq.inf.ufsc.br}
   \end{itemize}
 \end{frame}
 
