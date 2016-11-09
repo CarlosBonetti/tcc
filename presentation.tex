@@ -133,21 +133,24 @@
 
 \subsection{Histórico e Justificativa}
 
-\begin{frame}{Lattes}
-  \begin{figure}
-    \includegraphics[scale=0.3]{figuras/lattes.jpg}
-  \end{figure}
-\end{frame}
+%\begin{frame}{Lattes}
+%  \begin{figure}
+%    \includegraphics[scale=0.3]{figuras/lattes.jpg}
+%  \end{figure}
+%\end{frame}
 
-\begin{frame}{Qualis}
-  \begin{figure}
-    \includegraphics[scale=0.4]{figuras/qualis_exemplo.png}
-  \end{figure}
-\end{frame}
+%\begin{frame}{Qualis}
+%  \begin{figure}
+%    \includegraphics[scale=0.4]{figuras/qualis_exemplo.png}
+%  \end{figure}
+%\end{frame}
 
 \begin{frame}{Histórico e Justificativa}
   \begin{itemize}
-    \item AGUIAR, Felipe Nedel de; COSTA, Maria Eloísa. \textbf{SILQ - Sistema de Integração Lattes Qualis}. Trabalho de Conclusão de Curso. Florianópolis: Universidade Federal de Santa Catarina, Biblioteca Universitária, 2015.
+    \item AGUIAR, Felipe Nedel de; COSTA, Maria Eloísa. \textbf{SILQ - Sistema de Integração Lattes Qualis}. Trabalho de Conclusão de Curso. Florianópolis: UFSC, 2015.
+    \item Lattes / Qualis
+    \item Estratos de qualidade
+    \item Avaliação de Programas
     \item Qualificação automática de produções científicas através de busca por similaridade textual nos dados Qualis;
   \end{itemize}
 \end{frame}
@@ -173,17 +176,14 @@
     \begin{itemize}
       \item similaridade / dissimilaridade
       \item \textit{threshold}
+      \item \textit{n-grams} / \textit{trigrams}
     \end{itemize}
   \end{itemize}
-\end{frame}
 
-\begin{frame}{\textit{n-grams} / \textit{trigrams}}
+  \pause
+  \small
   \quotes{Revista}: $ A = \{\_\_R,\_Re,Rev,evi,vis,ist,sta,ta\_\}$ \\
   \quotes{Revisor}: $ B = \{\_\_R,\_Re,Rev,evi,vis,iso,sor,or\_\}$ \\
-
-  \hfill \\
-  5 elementos em comum: $|A \cap B|$\\
-  11 elementos distintos: $|A \cup B|$\\
 
   \hfill \\
   $
@@ -220,7 +220,6 @@
     \caption{Resultados retornados pelo SILQ para a query $q_T$}
   \end{table}
 
-  \pause
   \normalsize
   \textbf{Resultado}\\
   Trabalho \#1 recebe o conceito A1
@@ -419,14 +418,6 @@
   \end{table}
 
   $f_1$ utilizado, \textit{match} realizado com evento \#2
-\end{frame}
-
-\begin{frame}{Algoritmo \texttt{fb(1)}}
-  \begin{enumerate}
-    \item Cria o \textit{rank} inicial de resultados utilizando a função \texttt{trigrams} (idêntico ao SILQ 1)
-    \item Pesquisa por \textit{feedback} anterior \underline{idêntico} à \textit{query} submetida
-    \item Caso exista, adiciona o Qualis atribuído ao \textit{feedback} na primeira posição do \textit{rank}
-  \end{enumerate}
 \end{frame}
 
 \begin{frame}{Algoritmo \texttt{fb(1)}}
