@@ -4,17 +4,17 @@
 
 Como já mencionado, o presente trabalho é uma continuação dos esforços iniciados por \cite{Silq1} e que deu origem ao Sistema de Integração Lattes-Qualis (SILQ). Neste capítulo será apresentado o histórico do trabalho original, os motivos e justificativas que levaram ao desenvolvimento de um novo trabalho para sua continuação, comparações do que foi alterado nesta nova versão do sistema e por que estas alterações foram necessárias.
 
-Para mais fácil compreensão e contextualização, durante o texto serão utilizados os termos ``trabalho original", ``SILQ-1" ou ainda ``primeira versão do sistema" para referir-se ao trabalho de \cite{Silq1}. Os termos ``SILQ-2" e ``nova versão do sistema", em contrapartida, referem-se a este trabalho.
+Para mais fácil compreensão e contextualização, durante o texto serão utilizados os termos \quotes{trabalho original}, \quotes{SILQ-1} ou ainda \quotes{primeira versão do sistema} para referir-se ao trabalho de \cite{Silq1}. Os termos \quotes{SILQ-2} e \quotes{nova versão do sistema}, em contrapartida, referem-se a este trabalho.
 
 \section{Histórico e Visão Geral do SILQ-1}
 
 Este trabalho é uma continuação de \cite{Silq1}, um Trabalho de Conclusão de Curso de alunos do curso de Ciência da Computação da UFSC, orientados pela Professora Carina F. Dorneles. O objetivo deste trabalho de 2015 era a criação de um sistema que deveria ser capaz de qualificar produções científicas, nas categorias artigos e trabalhos apresentados em eventos, por busca por similaridade de dados com os dados extraídos do WebQualis \cite[p. 26-27]{Silq1}. Este objetivo foi alcançado com a criação da primeira versão do Sistema de Integração Lattes-Qualis (SILQ), lançado no segundo semestre de 2015 e disponível no sítio \url{http://silq.inf.ufsc.br/}.
 
-Apesar de estável e com sua função principal sendo desempenhada de forma satisfatória, o SILQ-1 deixou algumas lacunas e melhorias a serem desenvolvidas por trabalhos futuros. Segundo os próprios autores, ``[...] o SILQ foi concebido para ser uma ferramenta de domínio público e vários projetos devem nascer a partir dele. A continuidade do projeto só tem a acrescentar ao mundo acadêmico [...]" \cite[p. 79]{Silq1}, o que motivou a criação do trabalho para a continuação da proposta original. O ponto de partida para a nova versão do SILQ, portanto, foi a seção ``Trabalhos futuros" do trabalho original.
+Apesar de estável e com sua função principal sendo desempenhada de forma satisfatória, o SILQ-1 deixou algumas lacunas e melhorias a serem desenvolvidas por trabalhos futuros. Segundo os próprios autores, \quotes{[...] o SILQ foi concebido para ser uma ferramenta de domínio público e vários projetos devem nascer a partir dele. A continuidade do projeto só tem a acrescentar ao mundo acadêmico [...]} \cite[p. 79]{Silq1}, o que motivou a criação do trabalho para a continuação da proposta original. O ponto de partida para a nova versão do SILQ, portanto, foi a seção \quotes{Trabalhos futuros} do trabalho original.
 
-\subsection{``Trabalhos futuros" citados pelo SILQ-1} \label{sec:trabalhos-futuros-silq1}
+\subsection{\quotes{Trabalhos futuros} citados pelo SILQ-1} \label{sec:trabalhos-futuros-silq1}
 
-Na seção de ``Conclusões e Trabalhos Futuros" do trabalho original, \cite{Silq1} citam 8 itens de melhoria que poderiam ser revisitados por trabalhos futuros. Cada um destes itens está exposto abaixo junto uma explicação de quais foram as atitudes tomadas por este trabalho para resolvê-las.
+Na seção de \quotes{Conclusões e Trabalhos Futuros} do trabalho original, \cite{Silq1} citam 8 itens de melhoria que poderiam ser revisitados por trabalhos futuros. Cada um destes itens está exposto abaixo junto uma explicação de quais foram as atitudes tomadas por este trabalho para resolvê-las.
 
 \begin{enumerate}
 
@@ -94,11 +94,11 @@ Este item trata de um detalhe de gerenciamento de grupos e de sua avaliação, que
 
 O \textit{matching} da produção científica de um currículo Lattes com o Qualis é realizado pelo SILQ com base na similaridade textual entre o título do evento de cada trabalho presente no currículo e o título do evento Qualis\footnote{O \textit{matching} por similaridade é utilizado somente para eventos. Para periódicos, o \textit{matching} é realizado através de comparação entre o ISSN informado no Lattes e nos registros Qualis.}. O título do veículo onde o trabalho foi publicado, juntamente com seu ano e área de avaliação cadastrados no Lattes são dados como \textit{query} para o sistema. O sistema busca sobre todo o conjunto de dados Qualis presentes na base de dados aquele com maior similaridade textual em relação à \textit{query}. Se esta similaridade for maior do que um \textit{threshold} pré-estabelecido, então o resultado é considerado um \textit{match} válido e o estrato atribuído pelo Qualis a este evento é também atribuído ao trabalho do pesquisador.
 
-Pode-se tomar o exemplo real de um trabalho qualquer extraído de um currículo Lattes cujo evento tenha sido especificado como \textit{``2016 IEEE 7th Latin American Symposium on Circuits \& Systems (LASCAS)"}. A Tabela \ref{tab:exemplo-classificacao} mostra os resultados retornados pelo SILQ junto com seus respectivos valores de similaridade textual.
+Pode-se tomar o exemplo real de um trabalho qualquer extraído de um currículo Lattes cujo evento tenha sido especificado como \textit{\quotes{2016 IEEE 7th Latin American Symposium on Circuits \& Systems (LASCAS)}}. A Tabela \ref{tab:exemplo-classificacao} mostra os resultados retornados pelo SILQ junto com seus respectivos valores de similaridade textual.
 
 \begin{table}[!h]
 \begin{center}
-\caption{Resultados retornados pelo SILQ para a \textit{query} \textit{``2016 IEEE 7th Latin American Symposium on Circuits \& Systems (LASCAS)"}}\label{tab:exemplo-classificacao}
+\caption{Resultados retornados pelo SILQ para a \textit{query} \textit{\quotes{2016 IEEE 7th Latin American Symposium on Circuits \& Systems (LASCAS)}}}\label{tab:exemplo-classificacao}
 \begin{tabular}{ p{6cm} | c | c }
 \hline
 \textbf{Evento} & \textbf{Estrato} & \textbf{Similaridade} \\ \hline
@@ -113,7 +113,7 @@ Symposium on Asynchronous Circuits and Systems (ASYNC) & A2 & 0.40 \\ \hline
 
 O primeiro resultado retornado é o escolhido, por possuir a maior similaridade em relação à \textit{query}. Neste caso, o trabalho é avaliado com o conceito B5, já que este é conceito Qualis atribuído ao evento.
 
-O algoritmo de avaliação da primeira versão do SILQ retorna os resultados da Tabela \ref{tab:exemplo-classificacao} ao ser configurado para utilizar um ``nível de confiança" de 40\%. Esse nível de confiança é o \textit{threshold} utilizado pelo algoritmo de classificação. Qualquer resultado cujo nível de similaridade em relação à \textit{query} seja inferior ao nível de confiança utilizado não é retornado.
+O algoritmo de avaliação da primeira versão do SILQ retorna os resultados da Tabela \ref{tab:exemplo-classificacao} ao ser configurado para utilizar um \quotes{nível de confiança} de 40\%. Esse nível de confiança é o \textit{threshold} utilizado pelo algoritmo de classificação. Qualquer resultado cujo nível de similaridade em relação à \textit{query} seja inferior ao nível de confiança utilizado não é retornado.
 
 \begin{figure}[!h]
    \centering
@@ -138,9 +138,9 @@ As cinco novas planilhas passaram por um processo de \textit{data cleaning} manu
 
 \begin{enumerate}
 
-\item Substituição de entidades HTML especiais por seu caractere correspondente. Ex.: ``\texttt{\&amp;}" por ``\texttt{\&}";
+\item Substituição de entidades HTML especiais por seu caractere correspondente. Ex.: \quotes{\texttt{\&amp;}} por \quotes{\texttt{\&}};
 
-\item Normalização do campo ISSN para o formato ``9999-9999": alguns registros não possuíam o dígito separador ou omitiam os zeros à esquerda;
+\item Normalização do campo ISSN para o formato \quotes{9999-9999}: alguns registros não possuíam o dígito separador ou omitiam os zeros à esquerda;
 
 \item Correção de ISSNs errôneos: alguns registros possuíam o campo ISSN com dígitos faltando. Ex.: 0034-167 (Revista Brasileira de Enfermagem), cujo número correto seria 0034-\textbf{7}167. Estes casos foram tratados um a um e os números corretos identificados através de pesquisas na web.
 
@@ -175,9 +175,9 @@ A primeira versão do SILQ foi desenvolvida com base no \textit{Play\footnote{\ur
 
 Para esta nova versão do SILQ, porém, um dos objetivos seria a criação de uma API de integração programática, tornando o SILQ não só um sistema para uso de usuários finais, mas também para integração com outras ferramentas, como um \textit{web service}. Para tanto, uma alteração significativa na arquitetura da aplicação foi feita, separando o sistema em um \textit{server-side} rodando Spring\footnote{\url{http://projects.spring.io/spring-framework/}} e servindo seu conteúdo através de uma API REST; e um \textit{client-side} remodelado utilizando AngularJS\footnote{\url{https://angularjs.org/}} e consumindo o serviço através de requisições HTTP.
 
-Em um primeiro momento, o ``núcleo" do SILQ, que inclui os algoritmos de avaliação e processamento dos currículos, não foi alterado, apenas a forma com que este serviço é disponibilizado e consumido. Desta forma, a linguagem utilizada no sistema, o Java, foi mantida. A escolha da alteração do framework back-end, de \textit{Play!} para \textit{Spring}, se deu ao fato da mudança no paradigma arquitetural da aplicação, com a introdução da camada REST. O Spring se trata de um framework Java \textit{open-source} largamente utilizado pela comunidade que oferece suporte a vários aspectos de uma aplicação web, incluindo a construção de interfaces RESTful.
+Em um primeiro momento, o \quotes{núcleo} do SILQ, que inclui os algoritmos de avaliação e processamento dos currículos, não foi alterado, apenas a forma com que este serviço é disponibilizado e consumido. Desta forma, a linguagem utilizada no sistema, o Java, foi mantida. A escolha da alteração do framework back-end, de \textit{Play!} para \textit{Spring}, se deu ao fato da mudança no paradigma arquitetural da aplicação, com a introdução da camada REST. O Spring se trata de um framework Java \textit{open-source} largamente utilizado pela comunidade que oferece suporte a vários aspectos de uma aplicação web, incluindo a construção de interfaces RESTful.
 
-A Figura \ref{fig:arquitetura} mostra um esquema da nova arquitetura do SILQ. A caixa ``SILQ Core" representa a camada de serviço da aplicação, responsável pelo acesso ao banco de dados, avaliação de currículos e gerenciamento dos dados Qualis, cuja implementação foi realizada no trabalho passado (apesar de também sofrer algumas mudanças tecnológicas no trabalho atual).
+A Figura \ref{fig:arquitetura} mostra um esquema da nova arquitetura do SILQ. A caixa \quotes{SILQ Core} representa a camada de serviço da aplicação, responsável pelo acesso ao banco de dados, avaliação de currículos e gerenciamento dos dados Qualis, cuja implementação foi realizada no trabalho passado (apesar de também sofrer algumas mudanças tecnológicas no trabalho atual).
 
 \begin{figure}[!h]
    \centering
@@ -234,4 +234,4 @@ Para a garantia da qualidade desta nova versão do SILQ, foram introduzidas duas 
 
 No SILQ, os testes unitários e de integração foram escritos em Java utilizando o framework de testes \textit{jUnit}\footnote{\url{http://junit.org/}}. Eles testam cada função da camada de serviço da aplicação, por exemplo simulando o upload de um currículo qualquer e verificando se os dados extraídos e retornados são de fato aqueles contidos no currículo. Foram criados testes, inclusive, para as funcionalidades já existentes desde o SILQ-1, mas que ainda não eram cobertos com casos de teste automatizados, para assim aumentar a confiabilidade do sistema e garantir que mudanças futuras não ocasionem \textit{bugs} nestes módulos antigos.
 
-Este nível de teste, porém, não valida a interface de usuário e sua integração com a camada de serviço. Todo o client-side da aplicação ainda estaria ``descoberto" de casos de testes. Para sanar este problema, foram incluídos no SILQ casos de teste de sistema escritos em Javascript e utilizando o framework de testes \textit{Protractor}\footnote{\url{http://www.protractortest.org/}}, criado especificamente para testes \textit{end-to-end} de aplicações feitas com AngularJS. O Protractor simula as ações de um usuário real realizando cliques em botões, preenchendo formulários e navegando através de links da aplicação. Desta forma, são garantidos algum nível de corretude da interface do sistema e da integração entre o \textit{client} e \textit{server-side}.
+Este nível de teste, porém, não valida a interface de usuário e sua integração com a camada de serviço. Todo o client-side da aplicação ainda estaria \quotes{descoberto} de casos de testes. Para sanar este problema, foram incluídos no SILQ casos de teste de sistema escritos em Javascript e utilizando o framework de testes \textit{Protractor}\footnote{\url{http://www.protractortest.org/}}, criado especificamente para testes \textit{end-to-end} de aplicações feitas com AngularJS. O Protractor simula as ações de um usuário real realizando cliques em botões, preenchendo formulários e navegando através de links da aplicação. Desta forma, são garantidos algum nível de corretude da interface do sistema e da integração entre o \textit{client} e \textit{server-side}.

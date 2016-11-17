@@ -8,7 +8,7 @@ Os objetivos iniciais de refatoração arquitetural com inclusão de melhorias de i
 
 A hipótese de pesquisa levantada se mostrou verdadeira. De fato foi possível aumentar a precisão do sistema utilizando \textit{feedback} de relevância dos usuários. Isso se mostrou verdade por meio dos experimentos realizados e relatados neste trabalho, e com o teste dos algoritmos propostos.
 
-A avaliação de \textit{threshold} mostrou que o valor ideal para o SILQ é de aproximadamente $0.55$, muito próximo do ``nível de confiança normal" estabelecido no trabalho anterior de \cite{Silq1}, e que a taxa de acerto para este caso é de 88\%.
+A avaliação de \textit{threshold} mostrou que o valor ideal para o SILQ é de aproximadamente $0.55$, muito próximo do \quotes{nível de confiança normal} estabelecido no trabalho anterior de \cite{Silq1}, e que a taxa de acerto para este caso é de 88\%.
 
 Os algoritmos \texttt{fb(t)} e \texttt{query\_aliasing}, baseados em \textit{feedback} de relevância e similaridade textual, foram propostos e avaliados experimentalmente. Ambos resultaram em melhoria na taxa de acerto do sistema. O algoritmo \texttt{query\_aliasing} foi preferido por resultar em uma melhor precisão e ser de mais fácil implementação, e está atualmente em uso na versão 2.3 do sistema. Através da alteração do \textit{threshold} ideal e da inclusão do algoritmo baseado em \textit{feedback} de relevância, a taxa de acerto média do sistema aumentou de 87\% para 93.3\%.
 
