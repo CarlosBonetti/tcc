@@ -176,7 +176,7 @@ Outra característica observada é a tendência do valor de MRR acompanhar o da exa
 
 \subsection{Avaliação dos algoritmos} \label{sec:avaliacao-algoritmos}
 
-Os algoritmos descritos na Seção \ref{sec:algoritmo} foram avaliados utilizando o mesmo processo descrito na Seção anterior. O algoritmo \textit{trgm} trata-se do algoritmo \textit{trigrams} inicial utilizado pelo SILQ 1 e cuja análise de \textit{threshold} ideal foi realizada na Seção anterior. O algoritmo \texttt{fb(t)} foi testado variando $t$ nos valores que obtiveram melhores resultados. Todas as análise foram realizadas com valor de \textit{treshold} igual a $0.55$. A Tabela \ref{tab:comparacao-algoritmos} apresenta os resultados de cada teste.
+Os algoritmos descritos na Seção \ref{sec:algoritmo} foram avaliados utilizando o mesmo processo descrito na Seção anterior. O algoritmo \textit{trigrams} trata-se do método inicial utilizado pelo SILQ 1 e cuja análise de \textit{threshold} ideal foi realizada na Seção anterior. O algoritmo \texttt{fb(t)} foi testado variando $t$ nos valores que obtiveram melhores resultados. Todas as análise foram realizadas com valor de \textit{treshold} igual a $0.55$. A Tabela \ref{tab:comparacao-algoritmos} apresenta os resultados de cada teste.
 
 \begin{table}[!h]
 \begin{center}
@@ -187,13 +187,13 @@ Os algoritmos descritos na Seção \ref{sec:algoritmo} foram avaliados utilizando 
 \textbf{Algoritmo} & \textbf{Exatidão} \\
 \hline
 
-\textit{trgm} & 88.667\% \\
-\textit{trgm + fb(1.00)} & 89.667\% \\
-\textit{trgm + fb(0.90)} & 90.667\% \\
-\textit{trgm + fb(0.80)} & 92.667\% \\
-\textit{trgm + fb(0.70)} & 92.667\% \\
-\textit{trgm + fb(0.60)} & 91.000\% \\
-\textit{trgm + query\_aliasing} & \textbf{93.333}\% \\
+\textit{trigrams} & 88.667\% \\
+\textit{fb(1.00)} & 89.667\% \\
+\textit{fb(0.90)} & 90.667\% \\
+\textit{fb(0.80)} & 92.667\% \\
+\textit{fb(0.70)} & 92.667\% \\
+\textit{fb(0.60)} & 91.000\% \\
+\textit{query\_aliasing} & \textbf{93.333}\% \\
 
 \end{tabular}
 \end{center}
