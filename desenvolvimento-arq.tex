@@ -8,13 +8,13 @@ Para mais fácil compreensão e contextualização, durante o texto serão utilizados
 
 \section{Histórico e Visão Geral do SILQ 1}
 
-Este trabalho é uma continuação de \cite{Silq1}, um Trabalho de Conclusão de Curso de alunos do curso de Ciência da Computação da UFSC, orientados pela Professora Carina F. Dorneles. O objetivo deste trabalho de 2015 era a criação de um sistema que deveria ser capaz de qualificar produções científicas, nas categorias artigos e trabalhos apresentados em eventos, por busca por similaridade de dados com os dados extraídos do WebQualis \cite[p. 26-27]{Silq1}. Este objetivo foi alcançado com a criação da primeira versão do Sistema de Integração Lattes-Qualis (SILQ), lançado no segundo semestre de 2015 e disponível no sítio \url{http://silq.inf.ufsc.br/}.
+Este trabalho é uma continuação de \cite{Silq1}, um Trabalho de Conclusão de Curso de alunos do curso de Ciência da Computação da UFSC, orientados pela Professora Carina F. Dorneles. O objetivo desse trabalho de 2015 era a criação de um sistema que deveria ser capaz de qualificar produções científicas, nas categorias artigos e trabalhos apresentados em eventos, por busca por similaridade de dados com os dados extraídos do WebQualis \cite[p. 26-27]{Silq1}. Este objetivo foi alcançado com a criação da primeira versão do Sistema de Integração Lattes-Qualis (SILQ), lançado no segundo semestre de 2015 e disponível no sítio \url{http://silq.inf.ufsc.br/}.
 
 Apesar de estável e com sua função principal sendo desempenhada de forma satisfatória, o SILQ 1 deixou algumas lacunas e melhorias a serem desenvolvidas por trabalhos futuros. Segundo os próprios autores, \quotes{[...] o SILQ foi concebido para ser uma ferramenta de domínio público e vários projetos devem nascer a partir dele. A continuidade do projeto só tem a acrescentar ao mundo acadêmico [...]} \cite[p. 79]{Silq1}, o que motivou a criação do trabalho para a continuação da proposta original. O ponto de partida para a nova versão do SILQ, portanto, foi a Seção \quotes{Trabalhos futuros} do trabalho original.
 
 \subsection{\quotes{Trabalhos futuros} citados pelo SILQ 1} \label{sec:trabalhos-futuros-silq1}
 
-Na Seção de \quotes{Conclusões e Trabalhos Futuros} do trabalho original, \cite{Silq1} citam 8 itens de melhoria que poderiam ser revisitados por trabalhos futuros. Cada um destes itens está exposto abaixo junto uma explicação de quais foram as atitudes tomadas por este trabalho para resolvê-las.
+Na Seção de \quotes{Conclusões e Trabalhos Futuros} do trabalho original, \cite{Silq1} citam 8 itens de melhoria que poderiam ser revisitados por trabalhos futuros. Cada um destes itens está exposto abaixo junto uma explicação de quais foram as atitudes tomadas por este trabalho para resolvê-los.
 
 \begin{enumerate}
 
@@ -54,7 +54,7 @@ A avaliação do algoritmo do SILQ 1, junto com a comparação do novo algoritmo des
 levantamento das outras informações contidas no currículo, como o desempenho do pesquisador antes de ser incluído em um grupo de pós-graduação ou a quantidade e a qualidade de outras atividade acadêmicas; \cite[p. 79]{Silq1}
 \end{citacao}
 
-Este item envolve o processamento de outras informações contidas no currículo Lattes de um pesquisador a fim de credenciá-lo em um Programa de Pós-Graduação, mas, em um primeiro momento, foge do escopo original do SILQ que é a integração entre o Lattes e o Qualis, utilizando as publicações e informações de onde foram publicadas/apresentadas os trabalhos e artigos do pesquisador e utilizá-las para sua avaliação automática. Por este motivo, este item não foi abordado neste trabalho.
+Este item envolve o processamento de outras informações contidas no currículo Lattes de um pesquisador a fim de credenciá-lo em um Programa de Pós-Graduação, utilizando as publicações e informações de onde foram publicados/apresentados os trabalhos e artigos do pesquisador e utilizá-los para sua avaliação automática. Este item não foi abordado neste trabalho.
 
 \item \textbf{Relação entre orientações e produções associadas}
 
@@ -70,7 +70,10 @@ Não foi abordado neste trabalho, pelos mesmos motivos do item anterior e por est
 expansão do módulo da busca por informações de eventos. A complexidade do tema impediu o desenvolvimento completo desse módulo na ferramenta SILQ. Procedimentos automáticos de busca utilizando-se web crawlers e o tratamento correto dessas informações fornecem muitos temas para desenvolvimento de módulos novos; \cite[p. 80]{Silq1}
 \end{citacao}
 
-A inserção de dados do Qualis Conferência\footnote{Dados e conceitos relacionados a eventos científicos disponibilizados pela CAPES para algumas áreas específicas} no sistema se dá de forma manual, à medida em que novas informações são disponibilizadas pela CAPES. O objetivo deste item seria a criação de um \textit{web crawler} para captura automática de dados de eventos científicos na web. Devido à complexidade deste tema e por se tratar de um assunto independente, não relacionado com o foco deste trabalho, este item não foi abordado.
+A inserção de dados do Qualis Conferência\footnote{Dados e conceitos relacionados a eventos científicos disponibilizados pela CAPES para algumas áreas específicas} no sistema se dá de forma manual, à medida em que novas informações são disponibilizadas pela CAPES. O objetivo deste item seria a criação de um \textit{web crawler} para captura automática de dados de eventos científicos na web. Devido à complexidade deste tema e por se tratar de um assunto não relacionado com o foco deste trabalho, este item não foi abordado.
+
+% Para evitar que o título fique "solto" na última linha da página
+\pagebreak
 
 \item \textbf{Feedback do usuário}
 
@@ -78,12 +81,12 @@ A inserção de dados do Qualis Conferência\footnote{Dados e conceitos relacionado
 permitir que o usuário auxilie a ferramenta na qualificação, ou seja, no caso dele observar algum matching errado, ele próprio pode sugerir o matching correto; \cite[p. 80]{Silq1}
 \end{citacao}
 
-Esta é a principal contribuição deste trabalho e que deu origem à hipótese de pesquisa. É possível aumentar a precisão da ferramenta de qualificação, de uma maneira geral, utilizando sugestões de usuários? Para responder a esta pergunta foi  necessário estipular métricas para calcular o grau de precisão atual da ferramenta e então comparar o algoritmo antigo com um novo que levasse em consideração estas sugestões. Dois novos algoritmos foram propostos e relatadas na Seção \ref{sec:algoritmo}. As avaliações experimentais de ambos são descritos na Seção \ref{sec:validation}.
+Esta é a principal contribuição deste trabalho e que deu origem à hipótese de pesquisa. É possível aumentar a precisão da ferramenta de qualificação, de uma maneira geral, utilizando sugestões de usuários? Para responder a esta pergunta foi  necessário estipular métricas para calcular o grau de precisão atual da ferramenta e então comparar o algoritmo antigo com um novo que levasse em consideração estas sugestões. Dois novos algoritmos foram propostos e relatados na Seção \ref{sec:algoritmo}. As avaliações experimentais de ambos são descritos na Seção \ref{sec:validation}.
 
 \item \textbf{Período de participação em grupo de pesquisa}
 
 \begin{citacao}
-indicar o período em que o professor está vinculado à um programa de pós-graduação, permitindo que as avaliações dos currículos também possam ser realizadas considerando-se apenas os períodos nos quais o pesquisador estava vinculado à esse programa. \cite[p. 80]{Silq1}
+indicar o período em que o professor está vinculado a um programa de pós-graduação, permitindo que as avaliações dos currículos também possam ser realizadas considerando-se apenas os períodos nos quais o pesquisador estava vinculado a esse programa. \cite[p. 80]{Silq1}
 \end{citacao}
 
 Este item trata de um detalhe de gerenciamento de grupos e de sua avaliação, que considera publicações de um pesquisador mesmo quando este foi membro do grupo em um período que não cobre totalmente o período de avaliação estipulado. Para correção deste comportamento, basta dar ao administrador do grupo a opção de informar o período de ingresso ou de participação de um pesquisador no grupo de pesquisa e atualizar o algoritmo de avaliação para considerar somente publicações neste período. No entanto, esta atualização não foi realizada neste trabalho.
@@ -122,7 +125,7 @@ O algoritmo de avaliação da primeira versão do SILQ retorna os resultados da Tab
    \label{fig:config-avaliacao}
 \end{figure}
 
-O nível de confiança pode ser ajustado através das opções de avaliação, apresentadas quando o usuário requisita uma avaliação de currículo Lattes (Figura \ref{fig:config-avaliacao}). Diminuir o nível de confiança (e em consequência o \textit{threshold} do algoritmo de classificação) implica em obter mais resultados e classificar mais trabalhos, porém diminuir a precisão do algoritmo, já que resultados não relevantes serão retornados para as \textit{queries} que não obteram bons resultados (resultados com nível de similaridade alto). A Seção \ref{sec:validation} apresenta testes de validação do algoritmo que indicam o nível de precisão obtidos para cada valor de \textit{threshold} utilizado, além de sugerir um nível de confiança ideal a ser utilizado para maximizar o número de trabalhos corretamente avaliados pelo sistema.
+O nível de confiança pode ser ajustado através das opções de avaliação, apresentadas quando o usuário requisita uma avaliação de currículo Lattes (Figura \ref{fig:config-avaliacao}). Diminuir o nível de confiança (e em consequência o \textit{threshold} do algoritmo de classificação) implica em obter mais resultados e classificar mais trabalhos, porém diminuir a precisão do algoritmo, já que resultados não relevantes serão retornados para as \textit{queries} que não obtiveram bons resultados (resultados com nível de similaridade alto). A Seção \ref{sec:validation} apresenta testes de validação do algoritmo que indicam o nível de precisão obtidos para cada valor de \textit{threshold} utilizado, além de sugerir um nível de confiança ideal a ser utilizado para maximizar o número de trabalhos corretamente avaliados pelo sistema.
 
 \section{SILQ 2}
 
@@ -132,7 +135,7 @@ Os dados Qualis de eventos e periódicos foram extraídos pelo trabalho original a
 
 No primeiro semestre do ano de 2016, porém, a CAPES disponibilizou novos dados Qualis referentes ao ano de 2013 e 2014, alterando sua periodicidade de avaliação de trimestral para anual. Estes novos dados foram divulgados em formado CSV, junto com os antigos dados do triênio 2010-2012, mas desta vez separados por ano. Estes dados foram obtidos pela plataforma Sucupira (antigo WebQualis): \url{http://qualis.capes.gov.br/webqualis/}.
 
-Como o conjunto de dados do SILQ 1 contava apenas com dados trimestrais, as tuplas originais não possuíam informação de ano (só podia-se deduzir que os dados faziam parte do triênio, mas não de qual ano). Desta forma, todos as planilhas divulgadas passaram por um novo processo de extração, incluindo os dados já inseridos no SILQ 1, mas agora considerando a nova informação de ano.
+Como o conjunto de dados do SILQ 1 contava apenas com dados trimestrais, as tuplas originais não possuíam informação de ano (só podia-se deduzir que os dados faziam parte do triênio, mas não de qual ano). Desta forma, todas as planilhas divulgadas passaram por um novo processo de extração, incluindo os dados já inseridos no SILQ 1, mas agora considerando a nova informação de ano.
 
 As cinco novas planilhas passaram por um processo de \textit{data cleaning} manual:
 
