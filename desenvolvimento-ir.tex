@@ -59,7 +59,7 @@ O algoritmo \texttt{fb(t)} (para $0.0 \le t \le 1.0$) é uma generalização de \te
 
 O algoritmo \texttt{fb(t)}, entretanto, leva a outros questionamentos, já que utiliza a mesma técnica de \textit{data-matching} que foi proposta a melhorar. Qual o valor de $t$ (\textit{treshold de feedback}) ideal? Qual o algoritmo de similaridade textual ideal para este caso? A Seção \ref{sec:avaliacao-algoritmos} apresenta testes de validação do algoritmo \texttt{fb(t)} para diferentes valores de $t$.
 
-O Algoritmo \ref{alg:fbt} é a representação em pseudocódigo de \texttt{fb(t)}. O parâmetro $q$ representa a \textit{query}, $t$ é o valor de \textit{threshold de feedback}, $D$ é o conjunto de todos os documentos a serem pesquisados e $F$ o conjunto de \textit{feedbacks} fornecidos contendo as duplas ($q_f, d$), \textit{query} do \textit{feedback} e documento dado como \textit{feedback}, respectivamente, tal que $d \in D$. A saída $m$ é o registro com maior probabilidade de ser um \textit{match} correto para a \textit{query}. A variável $R$ é uma lista 0-indexada contendo os resultados da consulta, ordenada por ordem decrescente da probabilidade do resultado ser um \textit{match} correto para a \textit{query}. A função \texttt{trigram\_sim} calcula a similaridade textual entre duas \textit{strings} utilizando o método \textit{trigrams} e retornando um valor no intervalo $[0, 1]$. A função \texttt{trigram\_rank} é o algoritmo de avaliação da primeira versão do SILQ, que cria o rank $R$ de similaridade a partir da comparação entre $q$ e cada um dos documentos de $D$.
+O Algoritmo \ref{alg:fbt} é a representação em pseudocódigo de \texttt{fb(t)}. O parâmetro $q$ representa a \textit{query}, $t$ é o valor de \textit{threshold de feedback}, $D$ é o conjunto de todos os documentos a serem pesquisados e $F$ o conjunto de \textit{feedbacks} fornecidos contendo as duplas ($q_f, d$), \textit{query} do \textit{feedback} e documento dado como \textit{feedback}, respectivamente, tal que $d \in D$. A variável $m$ é o registro provindo de \textit{feedback} com maior probabilidade de ser um \textit{match} correto para a \textit{query}, caso exista. A saída $R$ é uma lista 0-indexada contendo os resultados da consulta, ordenada por ordem decrescente da probabilidade do resultado ser um \textit{match} correto para a \textit{query}. A função \texttt{trigram\_sim} calcula a similaridade textual entre duas \textit{strings} utilizando o método \textit{trigrams} e retornando um valor no intervalo $[0, 1]$. A função \texttt{trigram\_rank} é o algoritmo de avaliação da primeira versão do SILQ, que cria o rank $R$ de similaridade a partir da comparação entre $q$ e cada um dos documentos de $D$. A função \texttt{insert\_rank\_top} insere um registro no topo do \textit{rank}, removendo itens duplicados previamente inseridos.
 
 \begin{algorithm}
 \caption{\texttt{fb(t)}}
@@ -68,11 +68,9 @@ O Algoritmo \ref{alg:fbt} é a representação em pseudocódigo de \texttt{fb(t)}. O
 \SetKwInOut{Input}{Input}\SetKwInOut{Output}{Output}
 \SetAlgoLined
 \Input{$q, t, D, F$}
-\Output{$m$}
+\Output{$R$}
 
 $R \gets \texttt{trigram\_rank(q, D)}$
-
-$m \gets R[0]$
 
 $s_m \gets -1$
 
@@ -82,10 +80,15 @@ $s_m \gets -1$
 	\If{$s \ge t$ \texttt{and} $s \ge s_m$}{
 		$m \gets d$
 
-      $s_m \gets s$
+    $s_m \gets s$
 	}
 }
-\KwRet{$m$} \label{li:sum-zero-begin}
+
+\If{$m$}{
+  $\texttt{insert\_rank\_top(R, m)}$
+}
+
+\KwRet{$R$}
 \end{algorithm}
 
 \subsection{Algoritmo \texttt{query\_aliasing}}
@@ -114,7 +117,7 @@ Desta forma, ao processar uma \textit{query} $q$ qualquer, o sistema processa um
 
 É como se, ao dar um \textit{feedback} de relevância qualquer, o usuário criasse um \textit{alias} (um apelido) ao resultado que está sugerindo. Assim, o sistema deve avaliar novas \textit{queries} não só comparando-as com o nome real dos documentos, mas também com os apelidos dados a eles pelo usuário. Por este motivo o algoritmo foi chamado de \texttt{query\_aliasing}. A avaliação deste algoritmo foi realizada e comparada com os demais na Seção \ref{sec:avaliacao-algoritmos}.
 
-O Algoritmo \ref{alg:qa} é a representação em pseudocódigo do método proposto. O significado semântico das variáveis é equivalente ao do Algoritmo \ref{alg:fbt}. A saída deste algoritmo, porém, é o próprio \textit{rank} $R$, possivelmente contendo novos resultados devido à comparação com os \textit{feedbacks} de $F$. O método \texttt{insert\_ordered} da linha \ref{lin:insert} insere o registro $d$ na lista ordenada $R$ com um valor de \textit{rank} $s$, preservando a ordenação da lista, de forma que o elemento em $R[0]$ seja aquele com maior valor de \textit{rank} e, assim, o registro com maior probabilidade de ser um \textit{match} correto para a \textit{query}.
+O Algoritmo \ref{alg:qa} é a representação em pseudocódigo do método proposto. O significado semântico das variáveis é equivalente ao do Algoritmo \ref{alg:fbt}. A saída deste algoritmo é o próprio \textit{rank} $R$, possivelmente contendo novos resultados devido à comparação com os \textit{feedbacks} de $F$. O método \texttt{insert\_rank} da linha \ref{lin:insert} insere o registro $d$ na lista ordenada $R$ com um valor de \textit{rank} $s$, preservando a ordenação da lista, de forma que o elemento em $R[0]$ seja aquele com maior valor de \textit{rank} e, assim, o registro com maior probabilidade de ser um \textit{match} correto para a \textit{query}. A função também elimina itens duplicados, preservando aquele com maior valor de \textit{rank}.
 
 \begin{algorithm}
 \caption{\texttt{query\_aliasing}}
@@ -130,7 +133,7 @@ $R \gets \texttt{trigram\_rank(q, D)}$
 \For{$ (q_f, d) \in F$}{
    $s \gets \texttt{trigram\_sim($q, q_f$)}$
 
-   $\texttt{insert\_ordered(R, s, d)}$ \label{lin:insert}
+   $\texttt{insert\_rank(R, s, d)}$ \label{lin:insert}
 }
 \KwRet{$R$} \label{li:sum-zero-begin}
 \end{algorithm}
