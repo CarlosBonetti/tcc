@@ -6,7 +6,7 @@ Como já mencionado, um dos itens de melhoria indicados por \cite{Silq1} após a r
 
 A ideia por trás desta técnica é permitir que o usuário julgue resultados iniciais retornados pelo sistema, classificando-os como relevantes ou não para a \textit{query} vigente. O sistema então é capaz de utilizar esta informação para melhorar seu algoritmo de classificação e retornar melhores resultados para novas \textit{queries}.
 
-O capítulo atual apresenta como esta técnica foi aplicada no SILQ, qual modelo lógico foi utilizado para o armazenamento dos \textit{feedbacks} e qual técnica utilizada para sua obtenção. Por fim, são apresentadas medições realizadas no sistema que validam se a técnica foi relevante para o aumento de performance.
+O capítulo atual apresenta como esta técnica foi aplicada no SILQ, qual modelo lógico foi utilizado para o armazenamento dos \textit{feedbacks} e qual técnica utilizada para sua obtenção. Por fim, são apresentadas medições realizadas no sistema que validam se a técnica foi relevante para o aumento da taxa de acerto do sistema.
 
 \section{Obtenção de feedback} \label{sec:feedback}
 
@@ -27,7 +27,7 @@ Os \textit{feedbacks} de relevância dados pelos usuários são salvos na base de d
 
 \section{Algoritmos de avaliação com feedback} \label{sec:algoritmo}
 
-Uma vez registrados os \textit{feedbacks} dos usuários, passa-se a questionar de que forma utilizá-los para aumentar a taxa de acerto do sistema para futuras consultas. A Seção atual apresenta dois algoritmos que foram testados neste trabalho e como foram implementados, enquanto a próxima Seção apresenta os resultados e comparações de exatidão dos mesmos.
+Uma vez registrados os \textit{feedbacks} dos usuários, passa-se a questionar de que forma utilizá-los para aumentar a taxa de acerto do sistema para futuras consultas. A Seção atual apresenta dois novos algoritmos que foram propostos e avaliados neste trabalho, e como foram implementados, enquanto a próxima Seção apresenta os resultados e comparações de exatidão dos mesmos.
 
 \subsection{Algoritmo \texttt{fb(t)}}
 
