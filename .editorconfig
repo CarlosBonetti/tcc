@@ -16,3 +16,6 @@ charset = utf-8
 
 [utf8/*]
 charset = utf-8
+
+[artigo/*]
+charset = utf-8
