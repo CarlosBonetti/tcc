@@ -60,57 +60,21 @@ Apesar da Plataforma Lattes possuir um módulo de inclusão de publicações e p
 
 O Sistema de Integração Lattes Qualis (SILQ) surgiu no ano de 2015, desenvolvido como Trabalho de Conclusão de Curso dos alunos Felipe Nedel Mendes de Aguiar e Maria Eloísa Costa do curso de Ciência da Computação da Universidade Federal de Santa Catarina (UFSC), orientados pela Prof. Carina F. Dorneles, da mesma instituição. O objetivo do sistema é a classificação automática da produção científica do currículo Lattes do pesquisador, através do \textit{matching} por similaridade de dados extraídos do Qualis, usando uma interface web amigável \cite{Silq1}.
 
-A primeira versão do sistema foi finalizada em 2015 e desde então encontra-se disponível de forma pública e gratuita através do endereço \url{http://silq.inf.ufsc.br/}. No entanto, esta primeira versão apresenta alguns pontos que merecem melhorias.
+A primeira versão do sistema foi finalizada em 2015 e desde então encontra-se disponível de forma pública e gratuita através do endereço \url{http://silq.inf.ufsc.br/}.
 
-O SILQ possui em seu banco de dados de eventos e periódicos extraídos do Qualis apenas dados referentes ao triênio 2010-2012, já que, até metade de 2015, o Qualis realizava classificações de forma trienal. Em 2016, no entanto, após a finalização do projeto SILQ, o Qualis alterou seu modo de operação para classificações anuais, já disponibilizando dados referentes aos anos 2013 e 2014, que ainda não estavam incluídos nesta primeira versão da base de dados SILQ. O primeiro ponto de melhoria é fazer com que o SILQ permita a atualização automática da qualificação a cada novo ano de lançamento do Qualis. Como o formato no qual a CAPES disponibiliza o Qualis não é interoperável, o SILQ deve oferecer esta funcionalidade.
-
-O segundo ponto a ser trabalhado é a falta de alguns recursos que poderiam facilitar o processo de avaliação e acompanhamento de currículos, como gráficos de classificações dentro Programas de Pós-Graduação. Uma característica importante também seria a capacidade de integração com outros sistemas, facilitando o reuso do serviço disponibilizado pelo SILQ em trabalhos futuros.
-
-O terceiro ponto de melhoria seria a avaliação experimental do algoritmo de classificação do SILQ para o estabelecimento de uma medida do grau de precisão da ferramenta. A partir disto, outras técnicas podem ser propostas e comparadas com as anteriores a fim de provar se elas resultaram em ganho de precisão.
+Um ponto de melhoria no sistema seria a avaliação experimental do algoritmo de classificação do SILQ para o estabelecimento de uma medida do grau de precisão da ferramenta. A partir disto, outras técnicas podem ser propostas e comparadas com as anteriores a fim de provar se elas resultaram em ganho de precisão.
 
 Como o \textit{matching} entre os dados do Qualis e do Lattes de pesquisadores é feito através de funções de similaridade, o resultado pode ser um falso positivo. Portanto, um ponto importante a ser trabalhado é permitir ao usuário informar ao sistema sugestões de resultados. Esta técnica, conhecida por \textit{feedback} de relevância, exige alterar o algoritmo de classificação a fim de treiná-lo com as informações providas pelo usuário e melhorar os resultados de pesquisas similares subsequentemente realizadas. Também se faz necessária a mensuração da taxa de acerto do sistema após a inclusão desta técnica e avaliar se ela beneficia a precisão do algoritmo de classificação.
 
-A proposta deste trabalho, portanto, é a criação de uma segunda versão do SILQ, desenvolvida a partir do código existente da primeira, a fim de realizar as mudanças sugeridas acima, junto com a atualização da base de dados e arquitetura do sistema para a inclusão das novas qualificações Qualis em um ritmo anual.
-
 A hipótese de pesquisa a ser avaliada a partir desta ideia, portanto, é avaliar se o \textit{feedback} de usuários pode melhorar a taxa de acerto do SILQ, ou seja, aumentar o número de trabalhos corretamente avaliados pelo sistema.
-
-\subsection{Objetivos}
 
 O objetivo geral deste trabalho é analisar o impacto que o uso de \textit{feedback} de relevância tem na precisão dos resultados de avaliações realizadas pelo SILQ, efetuado sobre uma nova arquitetura da ferramenta que inclui a criação de API de integração com outros sistemas e a atualização da base de dados conforme as novas classificações Qualis.
 
-Os objetivos específicos são os seguintes:
-
-\begin{itemize}
-    \item Reestruturação da arquitetura e banco de dados do SILQ a fim de suportar classificações de eventos e periódicos disponibilizados em um ritmo anual;
-
-    \item Atualização do banco de dados do sistema com as últimas classificações disponibilizadas pelo Qualis (anos 2013 e 2014);
-
-    \item Criação de uma API pública de disponibilização dos serviços do SILQ, via camada de aplicação REST para integração com outros sistemas;
-
-    \item Alterações na interface do sistema incluindo migração de \textit{framework} de interface, inclusão de controles de \textit{feedback}, novos gráficos de acompanhamento de grupos de pesquisa e melhorias gerais de usabilidade;
-
-    \item Propor novos algoritmos de avaliação baseados em similaridade textual e \textit{feedback} de relevância e verificar se a taxa de acerto do sistema foi melhorada com tal ação.
-\end{itemize}
-
-\subsection{Procedimentos Metodológicos}
-
-A primeira etapa do trabalho envolveu a migração tecnológica da camada de interface e desacoplamento entre \textit{server} e \textit{client side}, originando um serviço \textit{RESTful} de integração. Para isto, foram utilizadas práticas ágeis de desenvolvimento de software incluindo desenvolvimento orientado a testes e eventuais modelagens lógicas de arquitetura de sistemas usando práticas da Engenharia de Software.
-
-Concomitantemente, ocorreu a alteração da base de dados para suporte aos novos registros disponibilizados pelo Qualis. Certos aspectos do banco foram alterados para suportar tais registros novos. Os dados também passaram por um processo de \textit{data-cleaning} manual antes de serem inseridos no banco, conforme detalhado na Seção \ref{sec:extracao-qualis-novo}.
-
-A segunda etapa do trabalho envolveu o processo de construção do módulo de captação de \textit{feedback} de relevância, envolvendo a modelagem lógica, criação da camada de serviço, API e alterações na página de resultados de avaliação do sistema com a inclusão dos controles que permitem aos usuários \quotes{julgar} os resultados retornados. Após esta etapa o algoritmo de classificação baseado em similaridade textual do SILQ foi estendido para levar em conta os \textit{feedbacks} dos usuários. Deste processo surgiram dois algoritmos que passaram por uma avaliação experimental, realizada usando um conjunto de testes contendo trabalhos extraídos de currículos Lattes de pesquisadores e manualmente avaliados por um especialista, conforme relatado na Seção \ref{sec:validation}.
-
-\section{SILQ 2: Alterações estruturais}\label{cap:dev1}
-
-Como já mencionado, o presente trabalho é uma continuação dos esforços iniciados por \cite{Silq1} e que deu origem ao Sistema de Integração Lattes-Qualis (SILQ). Neste capítulo será apresentado o histórico do trabalho original, os motivos e justificativas que levaram ao desenvolvimento de um novo trabalho para sua continuação, comparações do que foi alterado nesta nova versão do sistema e por que estas alterações foram necessárias.
-
-Para mais fácil compreensão e contextualização, durante o texto serão utilizados os termos \quotes{trabalho original}, \quotes{SILQ 1} ou ainda \quotes{primeira versão do sistema} para referir-se ao trabalho de \cite{Silq1}. Os termos \quotes{SILQ 2} e \quotes{nova versão do sistema}, em contrapartida, referem-se a este trabalho.
-
-\subsection{Histórico e Visão Geral do SILQ 1}
+\section{Histórico e Visão Geral do SILQ 1}\label{cap:dev1}
 
 Este trabalho é uma continuação de \cite{Silq1}, um Trabalho de Conclusão de Curso de alunos do curso de Ciência da Computação da UFSC, orientados pela Professora Carina F. Dorneles. O objetivo desse trabalho de 2015 era a criação de um sistema que deveria ser capaz de qualificar produções científicas, nas categorias artigos e trabalhos apresentados em eventos, por busca por similaridade de dados com os dados extraídos do WebQualis \cite[p. 26-27]{Silq1}. Este objetivo foi alcançado com a criação da primeira versão do Sistema de Integração Lattes-Qualis (SILQ), lançado no segundo semestre de 2015 e disponível no sítio \url{http://silq.inf.ufsc.br/}.
 
-Apesar de estável e com sua função principal sendo desempenhada de forma satisfatória, o SILQ 1 deixou algumas lacunas e melhorias a serem desenvolvidas por trabalhos futuros. Segundo os próprios autores, \quotes{[...] o SILQ foi concebido para ser uma ferramenta de domínio público e vários projetos devem nascer a partir dele. A continuidade do projeto só tem a acrescentar ao mundo acadêmico [...]} \cite[p. 79]{Silq1}, o que motivou a criação do trabalho para a continuação da proposta original. O ponto de partida para a nova versão do SILQ, portanto, foi a Seção \quotes{Trabalhos futuros} do trabalho original.
+Apesar de estável e com sua função principal sendo desempenhada de forma satisfatória, o SILQ 1 deixou algumas lacunas e melhorias a serem desenvolvidas por trabalhos futuros. Segundo os próprios autores, \quotes{[...] o SILQ foi concebido para ser uma ferramenta de domínio público e vários projetos devem nascer a partir dele. A continuidade do projeto só tem a acrescentar ao mundo acadêmico [...]} \cite[p. 79]{Silq1}, o que motivou a criação do trabalho para a continuação da proposta original.
 
 \subsection{Como o SILQ realiza o \textit{matching} Qualis-Lattes} \label{sec:algoritmo-silq1}
 
@@ -146,125 +110,11 @@ O algoritmo de avaliação da primeira versão do SILQ retorna os resultados da 
 
 O nível de confiança pode ser ajustado através das opções de avaliação, apresentadas quando o usuário requisita uma avaliação de currículo Lattes (Figura \ref{fig:config-avaliacao}). Diminuir o nível de confiança (e em consequência o \textit{threshold} do algoritmo de classificação) implica em obter mais resultados e classificar mais trabalhos, porém diminuir a precisão do algoritmo, já que resultados não relevantes serão retornados para as \textit{queries} que não obtiveram bons resultados (resultados com nível de similaridade alto). A Seção \ref{sec:validation} apresenta testes de validação do algoritmo que indicam o nível de precisão obtidos para cada valor de \textit{threshold} utilizado, além de sugerir um nível de confiança ideal a ser utilizado para maximizar o número de trabalhos corretamente avaliados pelo sistema.
 
-\section{SILQ 2}
-
-\subsection{Extração e inserção dos novos dados Qualis} \label{sec:extracao-qualis-novo}
-
-Os dados Qualis de eventos e periódicos foram extraídos pelo trabalho original a partir de documentos em PDF e planilhas. Como relatado em \cite[p. 50-52]{Silq1}, os dados foram extraídos dos PDFs utilizando bibliotecas para manipulação desse formato e passaram por um processo de limpeza. A partir deste processo, aproximadamente 107 mil tuplas foram criadas representando os periódicos do triênio 2010-2012.
-
-No primeiro semestre do ano de 2016, porém, a CAPES disponibilizou novos dados Qualis referentes ao ano de 2013 e 2014, alterando sua periodicidade de avaliação de trimestral para anual. Estes novos dados foram divulgados em formado CSV, junto com os antigos dados do triênio 2010-2012, mas desta vez separados por ano. Estes dados foram obtidos pela plataforma Sucupira (antigo WebQualis): \url{http://qualis.capes.gov.br/webqualis/}.
-
-Como o conjunto de dados do SILQ 1 contava apenas com dados trimestrais, as tuplas originais não possuíam informação de ano (só podia-se deduzir que os dados faziam parte do triênio, mas não de qual ano). Desta forma, todas as planilhas divulgadas passaram por um novo processo de extração, incluindo os dados já inseridos no SILQ 1, mas agora considerando a nova informação de ano.
-
-As cinco novas planilhas passaram por um processo de \textit{data cleaning} manual:
-
-\begin{enumerate}
-
-\item Substituição de entidades HTML especiais por seu caractere correspondente. Ex.: \quotes{\texttt{\&amp;}} por \quotes{\texttt{\&}};
-
-\item Normalização do campo ISSN para o formato \quotes{9999-9999}: alguns registros não possuíam o dígito separador ou omitiam os zeros à esquerda;
-
-\item Correção de ISSNs errôneos: alguns registros possuíam o campo ISSN com dígitos faltando. Ex.: 0034-167 (Revista Brasileira de Enfermagem), cujo número correto seria 0034-\textbf{7}167. Estes casos foram tratados um a um e os números corretos identificados através de pesquisas na web.
-
-\end{enumerate}
-
-As planilhas CSV foram então dadas como \textit{input} à base de dados resultando na criação de $339.204$ tuplas, referentes a cada um dos anos do período divulgado 2012-2015. A Tabela \ref{tab:n-registros-extraidos} mostra o número de periódicos extraídos para cada ano de avaliação do Qualis.
-
-\begin{table}[!h]
-\begin{center}
-\caption{Número de periódicos extraídos dos dados Qualis}\label{tab:n-registros-extraidos}
-\begin{tabular}{ c | c }
-\hline
-\textbf{Ano} & \textbf{Nº de periódicos extraídos} \\ \hline
-2010 & 75.786 \\ \hline
-2011 & 66.171 \\ \hline
-2012 & 108.272 \\ \hline
-2013 & 44.437 \\ \hline
-2014 & 44.538 \\ \hline
-\textbf{Total} & \textbf{339.204} \\ \hline
-\end{tabular}
-\end{center}
-\end{table}
-
-Após esta etapa, verificou-se que todos os registros da base de dados antiga do SILQ 1 estavam contidos nesta nova versão. Desta forma, os dados do SILQ 1 foram mantidos, porém agora incluindo o ano de avaliação, além do nome do periódico, ISSN, estrato Qualis atribuído pela CAPES e área de avaliação.
-
-A inclusão dos novos registros aumentou o número de publicações passíveis de serem avaliadas pelo sistema. Os dados Qualis de 2015 e 2016 ainda não foram divulgados no momento de escrita deste trabalho, mas podem ser incluídos na base de dados, assim que forem disponibilizados pela CAPES, passando por um processo semelhante ao descrito nesta Seção.
-
-\subsection{Criação do \textit{Web Service}} \label{sec:arquitetura-silq-2}
-
-A primeira versão do SILQ foi desenvolvida com base no \textit{Play\footnote{\url{https://www.playframework.com/}
-} Framework}, um \textit{web application framework} escrito em Java e Scala que simplifica o processo de construção de uma aplicação web. Este mesmo framework provê APIs e bibliotecas para o desenvolvimento tanto do \textit{back-end} quando do \textit{front-end} de uma aplicação web.
-
-Para esta nova versão do SILQ, porém, um dos objetivos seria a criação de uma API de integração programática, tornando o SILQ não só um sistema para uso de usuários finais, mas também para integração com outras ferramentas, como um \textit{web service}. Para tanto, uma alteração significativa na arquitetura da aplicação foi feita, separando o sistema em um \textit{server-side} rodando Spring\footnote{\url{http://projects.spring.io/spring-framework/}} e servindo seu conteúdo através de uma API REST; e um \textit{client-side} remodelado utilizando AngularJS\footnote{\url{https://angularjs.org/}} e consumindo o serviço através de requisições HTTP.
-
-Em um primeiro momento, o \quotes{núcleo} do SILQ, que inclui os algoritmos de avaliação e processamento dos currículos, não foi alterado, apenas a forma com que este serviço é disponibilizado e consumido. Desta forma, a linguagem utilizada no sistema, o Java, foi mantida. A escolha da alteração do framework back-end, de \textit{Play!} para \textit{Spring}, se deu ao fato da mudança no paradigma arquitetural da aplicação, com a introdução da camada REST. O Spring se trata de um framework Java \textit{open-source} largamente utilizado pela comunidade que oferece suporte a vários aspectos de uma aplicação web, incluindo a construção de interfaces RESTful.
-
-A Figura \ref{fig:arquitetura} mostra um esquema da nova arquitetura do SILQ. A caixa \quotes{SILQ Core} representa a camada de serviço da aplicação, responsável pelo acesso ao banco de dados, avaliação de currículos e gerenciamento dos dados Qualis, cuja implementação foi realizada no trabalho passado (apesar de também sofrer algumas mudanças tecnológicas no trabalho atual).
-
-\begin{figure}[!h]
-   \centering
-   \caption{Nova arquitetura do SILQ}
-   \label{fig:arquitetura}
-   \includegraphics[width=\textwidth]{../figuras/arquitetura-silq.png}
-\end{figure}
-
-\subsection{Alterações no \textit{front-end}}
-
-Na primeira versão do SILQ, as páginas HTML do sistema eram dinamicamente renderizadas no server-side pelo \textit{Play!} Framework e servidas conforme as requisições dos clientes. Desta forma, além de executar toda a lógica de aplicação, o servidor também fica responsável pela lógica de apresentação do conteúdo.
-
-Em arquiteturas REST, a lógica de apresentação de dados (ou visão), fica completamente separada do servidor, executando no \textit{web browser} do cliente. O servidor só recebe requisições HTTP, as processa e retorna uma resposta em formato JSON. Esta resposta é recebida pelo cliente que então apresenta o conteúdo através da interface gráfica HTML renderizada pelo browser. Desta forma, a carga no servidor é diminuída, já que ele não está mais incumbido da tarefa de renderização das páginas HTML que serão servidas.
-
-Utilizando esta ideia, no SILQ 2, a camada de visão foi totalmente reescrita em \textit{Javascript}, utilizando o framework \textit{AngularJS}. Trata-se de um framework \textit{open-source} desenvolvido pela Google que auxilia na criação de interfaces web dinâmicas e integração com \textit{webservices} via REST.
-
-Desta forma, quando um cliente realiza a primeira requisição à URL do SILQ, o servidor serve uma página HTML (geralmente denominada de \textit{index}) junto com os \textit{assets} necessários para a construção de conteúdo dinâmico e estilização da página (imagens, arquivos CSS e Javascript). As requisições subsequentes, entretanto, utilizam somente requisições assíncronas ao servidor, utilizando Javascript: uma requisição conhecida por \textit{Ajax} (Asynchronous JavaScript and XML). Estas requisições utilizam a camada REST do servidor que retornará respostas em JSON e cujo conteúdo será processado no cliente e montará as páginas de forma dinâmica. Desta forma, parte da lógica da aplicação como um todo é transferida para o cliente, reduzindo a carga no servidor.
-
-\begin{figure}[!h]
-   \centering
-   \caption{Página de resultados de avaliação do SILQ 1}
-   \includegraphics[width=\textwidth]{../figuras/avaliacao-silq1.png}
-   \label{fig:avaliacao-silq1}
-\end{figure}
-
-\begin{figure}[!h]
-   \centering
-   \caption{Página de resultados de avaliação do SILQ 2}
-   \includegraphics[width=\textwidth]{../figuras/avaliacao-silq2.png}
-   \label{fig:avaliacao-silq2}
-\end{figure}
-
-
-Outra mudança significativa realizada no \textit{front-end} da aplicação foi a atualização do \textit{framework} CSS utilizado, inserida no processo de reescrita das páginas HTML. A primeira versão do sistema utilizava a versão 2 do \textit{framework open-source} Bootstrap\footnote{\url{http://getbootstrap.com/}}, que foi atualizada para a versão 3 no SILQ 2. De forma paralela foram realizadas algumas mudanças na interface do sistema, principalmente na página de resultados de avaliação que passou a incluir controles permitindo ao usuário informar \textit{feedback} de relevância sobre os resultados retornados. A Figura \ref{fig:avaliacao-silq1} mostra um exemplo da página de resultados de uma avaliação realizada pelo SILQ 1. A página foi remodelada para permitir a inclusão de controles de \textit{feedback} e para apresentar múltiplos resultados candidatos para um mesmo artigo ou trabalho, conforme mostra a Figura \ref{fig:avaliacao-silq2}.
-
-\subsection{Alterações no modelo lógico}
-
-O banco de dados relacional implementado em \textit{PostgreSQL} também sofreu algumas modificações em relação ao trabalho anterior. A Figura \ref{fig:modelo-logico} mostra o esquema lógico do banco de dados da versão atual do SILQ.
-
-Algumas mudanças pequenas de nomenclatura foram realizadas. Uma mudança significativa, porém, foi a unificação de duas tabelas, \textit{tb\_dado\_geral} e \textit{tb\_profissional}, para uma única tabela, \textit{tb\_curriculum\_lattes}. A função destas duas tabelas antigas era guardar os currículos enviados de usuários e de pesquisadores de grupos, respectivamente. Nesta nova versão do SILQ, porém, em ambos os casos os currículos Lattes enviados pelo sistema são salvos na mesma tabela de currículos (\textit{tb\_curriculum\_lattes}), inclusive tendo seus registros reutilizados em caso de, por exemplo, dois usuários enviarem o mesmo currículo. Neste caso, o sistema armazena somente uma vez o currículo e cria duas referências diferentes a ele, poupando-o do trabalho de duplicar os dados do currículo Lattes, cuja representação em XML contém em média algumas dezenas de \textit{kilobytes}.
-
-Outra alteração foi a adição da tabela \textit{tb\_feedback} para registro dos \textit{feedbacks} de relevância informados pelos usuários, conforme relata a Seção \ref{sec:feedback}.
-
-\begin{figure}[!h]
-   \centering
-   \caption{Novo esquema do modelo lógico do SILQ}
-   \label{fig:modelo-logico}
-   \includegraphics[width=\textwidth]{../figuras/modelo-logico.png}
-\end{figure}
-
-\subsection{Garantia da qualidade}
-
-Para a garantia da qualidade desta nova versão do SILQ, foram introduzidas duas camadas de testes automatizados: a primeira, envolvendo \textit{testes unitários} e \textit{testes de integração} escritos em Java e com o objetivo de garantir a corretude do server-side da aplicação; e a segunda, \textit{testes de sistema} escritos em Javascript e simulando casos de uso reais, garantindo a corretude do client-side e de sua integração com o servidor.
-
-No SILQ, os testes unitários e de integração foram escritos em Java utilizando o framework de testes \textit{jUnit}\footnote{\url{http://junit.org/}}. Eles testam cada função da camada de serviço da aplicação, por exemplo simulando o upload de um currículo qualquer e verificando se os dados extraídos e retornados são de fato aqueles contidos no currículo. Foram criados testes, inclusive, para as funcionalidades já existentes desde o SILQ 1, mas que ainda não eram cobertos com casos de teste automatizados, para assim aumentar a confiabilidade do sistema e garantir que mudanças futuras não ocasionem \textit{bugs} nestes módulos antigos.
-
-Este nível de teste, porém, não valida a interface de usuário e sua integração com a camada de serviço. Todo o client-side da aplicação ainda estaria \quotes{descoberto} de casos de testes. Para sanar este problema, foram incluídos no SILQ casos de teste de sistema escritos em Javascript e utilizando o framework de testes \textit{Protractor}\footnote{\url{http://www.protractortest.org/}}, criado especificamente para testes \textit{end-to-end} de aplicações feitas com AngularJS. O Protractor simula as ações de um usuário real realizando cliques em botões, preenchendo formulários e navegando através de links da aplicação. Desta forma, são garantidos algum nível de corretude da interface do sistema e da integração entre o \textit{client} e \textit{server-side}.
-
 \section{Uso de \textit{Feedback} de relevância} \label{cap:avaliacao}
 
-Como já mencionado, um dos itens de melhoria indicados por \cite{Silq1} após a realização da primeira versão do sistema seria \quotes{permitir que o usuário auxilie a ferramenta na qualificação}. Em sistemas de IR, esta característica é denominada \textit{Feedback de Relevância}.
+Um dos itens de melhoria indicados por \cite{Silq1} após a realização da primeira versão do sistema seria \quotes{permitir que o usuário auxilie a ferramenta na qualificação}. Em sistemas de IR, esta característica é denominada \textit{Feedback de Relevância}.
 
 A ideia por trás desta técnica é permitir que o usuário julgue resultados iniciais retornados pelo sistema, classificando-os como relevantes ou não para a \textit{query} vigente. O sistema então é capaz de utilizar esta informação para melhorar seu algoritmo de classificação e retornar melhores resultados para novas \textit{queries}.
-
-O capítulo atual apresenta como esta técnica foi aplicada no SILQ, qual modelo lógico foi utilizado para o armazenamento dos \textit{feedbacks} e qual técnica utilizada para sua obtenção. Por fim, são apresentadas medições realizadas no sistema que validam se a técnica foi relevante para o aumento da taxa de acerto do sistema.
 
 \subsection{Obtenção de feedback} \label{sec:feedback}
 
@@ -281,7 +131,7 @@ A Figura \ref{fig:feedbacks} mostra o exemplo de três trabalhos extraídos de u
    \label{fig:feedbacks}
 \end{figure}
 
-Os \textit{feedbacks} de relevância dados pelos usuários são salvos na base de dados SILQ na tabela \textit{tb\_feedback} (Figura \ref{fig:modelo-logico}) para uso posterior pelo algoritmo de classificação, conforme descrito na Seção \ref{sec:algoritmo}. Já que um trabalho qualquer pode ter no máximo um registro Qualis associado, é salvo somente um \textit{feedback} por \textit{query} por usuário. Desta forma, uma chave única é utilizada na tabela de \textit{feedbacks}, dada pela dupla (título do trabalho, usuário).
+Os \textit{feedbacks} de relevância dados pelos usuários são salvos na base de dados SILQ para uso posterior pelo algoritmo de classificação, conforme descrito na Seção \ref{sec:algoritmo}. Já que um trabalho qualquer pode ter no máximo um registro Qualis associado, é salvo somente um \textit{feedback} por \textit{query} por usuário. Desta forma, uma chave única é utilizada na tabela de \textit{feedbacks}, dada pela dupla (título do trabalho, usuário).
 
 \subsection{Algoritmos de avaliação com feedback} \label{sec:algoritmo}
 
@@ -409,7 +259,7 @@ Nas avaliações descritas a seguir, foram dadas como \textit{query} ao sistema 
 
 \subsubsection{Métricas utilizadas}
 
-Uma vez definido o conjunto de teste, é preciso definir as métricas utilizadas na avaliação. Através da comparação das métricas é possível concluir se houve melhora em certos aspectos do sistema. No caso do SILQ, deseja-se melhorar a taxa de acerto, ou seja, maximizar o número de trabalhos corretamente avaliados. As métricas clássicas de avaliação de sistemas IR discutidas na Seção \ref{sec:avaliacao-ir} foram consideradas.
+Uma vez definido o conjunto de teste, é preciso definir as métricas utilizadas na avaliação. Através da comparação das métricas é possível concluir se houve melhora em certos aspectos do sistema. No caso do SILQ, deseja-se melhorar a taxa de acerto, ou seja, maximizar o número de trabalhos corretamente avaliados. Métricas clássicas de avaliação de sistemas IR foram consideradas.
 
 As métricas de precisão e revocação foram descartadas por não se encaixarem com a forma de avaliação do sistema, baseada em \textit{rank}. Conforme já discutido, estas métricas não são indicadas para sistemas deste tipo. Medidas mais indicadas nesse caso são \textit{Precision at k} (\textit{P@k}) e \textit{R-Precision}. O algoritmo de avaliação do SILQ, porém, considera apenas o primeiro registro Qualis retornado para realizar \textit{match} com o trabalho sendo avaliado (apenas o mais similar). Neste caso, a avaliação usando estas duas métricas devem considerar apenas o primeiro resultado, ou seja, \textit{P@1} e \textit{R-Precision} com $|R| = 1$ (sendo $R$ o número de registros relevantes para a \textit{query}). Em ambos os casos, para cada \textit{match} retornado pelo sistema, temos medidas com valor igual a 0, caso o sistema não tenha avaliado corretamente o trabalho, e 1 caso tenha avaliado corretamente. Têm-se, portanto, um simples valor \textit{booleano} indicando se houve acerto ou não, para cada \textit{query} submetida. Considerando todo o conjunto de testes, pode-se somar o número de acertos e dividir pelo tamanho do conjunto, resultado um valor que indica a \textit{taxa de acerto} do sistema. Este valor também é conhecido como \textit{exatidão}\footnote{O termo utilizado na literatura é \textit{accuracy}, cuja tradução usual é \textit{precisão}. Optou-se pelo uso do termo \textit{exatidão}, no entanto, para evitar confusões com a métrica de precisão.} e foi a medida base escolhida para a  avaliação experimental do sistema.
 
@@ -421,7 +271,7 @@ Por estas razões, as medidas de exatidão (ou taxa de acerto) e MRR foram escol
 
  Um dos questionamentos levantados no início deste trabalho e que geralmente ocorre ao projetar sistemas de \textit{data matching} baseados em similaridade, é o de qual \textit{threshold} utilizar. Na primeira versão do sistema foi introduzido um controle de \quotes{nível de confiança} que permitia ao usuário controlar o \textit{threshold} utilizado pelo algoritmo, conforme detalhado na Seção \ref{sec:algoritmo-silq1}. O nível de confiança padrão, porém, foi fixado em 60\% (equivalente ao \textit{threshold} de valor $0.6$). Este valor foi provavelmente escolhido de forma empírica pois observou-se que maximizava o número de resultados corretos, porém não foram realizados experimentos comprovando esta teoria.
 
- Desta forma, para encontrar o valor de \textit{threshold} ideal foi utilizado o conjunto de testes para avaliar o algoritmo inicial do SILQ 1, em um primeiro momento. O método utilizado foi o de avaliar via sistema cada uma das publicações do conjunto de testes e comparar com o resultado real, e repetir o processo variando o \textit{threshold} a fim de observar as médias de exatidão e de rank recíproco (MRR). Os resultados foram agrupados no gráfico da Figura \ref{fig:avaliacao-threshold}. A linha em azul claro representa a exatidão, ou seja, a taxa de trabalhos corretamente avaliados pelo sistema. A linha em cinza representa a média de rank recíproco (MRR), calculada conforme discutido na Seção \ref{sec:mrr}.
+ Desta forma, para encontrar o valor de \textit{threshold} ideal foi utilizado o conjunto de testes para avaliar o algoritmo inicial do SILQ 1, em um primeiro momento. O método utilizado foi o de avaliar via sistema cada uma das publicações do conjunto de testes e comparar com o resultado real, e repetir o processo variando o \textit{threshold} a fim de observar as médias de exatidão e de rank recíproco (MRR). Os resultados foram agrupados no gráfico da Figura \ref{fig:avaliacao-threshold}. A linha em azul claro representa a exatidão, ou seja, a taxa de trabalhos corretamente avaliados pelo sistema. A linha em cinza representa a média de rank recíproco (MRR).
 
  \begin{figure}[!h]
     \centering
